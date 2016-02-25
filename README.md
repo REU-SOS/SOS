@@ -5,6 +5,8 @@ Activities and Information for Science of Software REU
 
 | Class    | Topics                                              |  Resources | Activities          |
 |----------|-----------------------------------------------------|------------| ------------------- |
+| June 1   | Welcome                                             | &nbsp;     | [Git Game](http://pcottle.github.io/learnGitBranching/)      |  
+| May 30   | Project Bootup; Git Workshop                        | &nbsp;     |                     |  
 | June 1   | Workshop: MySql: Data Wrangling                     | &nbsp;     | Data Challenge      |  
 | June 3   | Reading Group: Scientific Understanding of Behavior | [Reading Research Papers](http://nkraft.cs.ua.edu/docs/reading.pdf)     |  &nbsp;             |
 | June 8   | Workshop: Data Mining 101                           | [Pruning data](https://github.com/REU-SOS/SOS/blob/master/datamining.pdf)     | Project Pitch       | 
