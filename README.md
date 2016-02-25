@@ -15,7 +15,7 @@ Activities and Information for Science of Software REU
 | June 24  | Reading Group:                                      | &nbsp;     |  &nbsp;             |
 | June 29  | Workshop: Machine Learning 101                      | &nbsp;     |  &nbsp;             | 
 | July 1   | Reading Group:                                      | &nbsp;     |  &nbsp;             |
-| July 6   | Workshop:                                           | &nbsp;     |  &nbsp;             | 
+| July 6   | Workshop: Data Engineering: Spark Clusters          | &nbsp;     |  &nbsp;             | 
 | July 8   | Reading Group: Research Paper Writing               | &nbsp;     |  &nbsp;             |
 | July 13  | Workshop: Fun with BioSensors                       | &nbsp;     |  &nbsp;             | 
 | July 15  | Reading Group:                                      | &nbsp;     |  &nbsp;             |
