@@ -1,5 +1,6 @@
-# SOS
-Activities and Information for Science of Software REU
+![SOS](https://raw.githubusercontent.com/REU-SOS/SOS/master/REU.png)
+
+Activities and Information for Science of Software REU @ NCSU.
 
 ## Schedule
 
