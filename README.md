@@ -21,6 +21,7 @@ Activities and Information for Science of Software REU
 | July 15  | Reading Group:                                      | &nbsp;     |  &nbsp;             |
 | July 20  | Workshop: D3: Information Visualization             | &nbsp;     |  &nbsp;             |
 | July 22  | Panel: Grad Student Life                            | &nbsp;     |  &nbsp;             |
-| July 27  | Workshop: D3: Information Visualization             | &nbsp;     |  &nbsp;             |
+| July 27  | Workshop:                                           | &nbsp;     |  &nbsp;             |
 | July 29  | Talks: Practice Talks                               | &nbsp;     |  &nbsp;             |
 | Aug   2  | REU Symposium                                       | &nbsp;     |  &nbsp;             |
+
