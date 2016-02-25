@@ -25,3 +25,6 @@ Activities and Information for Science of Software REU
 | July 29  | Talks: Practice Talks                               | &nbsp;     |  &nbsp;             |
 | Aug   2  | REU Symposium                                       | &nbsp;     |  &nbsp;             |
 
+## Resources
+
+* [Statistics in Plain English](http://www.amazon.com/Statistics-Plain-English-Third-Edition/dp/041587291X)
