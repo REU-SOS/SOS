@@ -11,7 +11,7 @@ Activities and Information for Science of Software REU
 | June 10  | Reading Group: Literature Reviews                   | &nbsp;     |  &nbsp;             |
 | June 15  | Workshop: Human Studies (Mini Experiment)           | &nbsp;     |  &nbsp;             | 
 | June 17  | Reading Group:                                      | &nbsp;     |  &nbsp;             |
-| June 22  | Workshop: R: Statistics 101                         | &nbsp;     |  &nbsp;             | 
+| June 22  | Workshop: R: Statistics 101                         | [Paper](http://www.ncbi.nlm.nih.gov/pmc/articles/PMC3096219/)/[Slides](https://onedrive.live.com/view.aspx?cid=dd9f9eb62184ad3b&page=view&resid=DD9F9EB62184AD3B!360705&parId=DD9F9EB62184AD3B!94687&app=PowerPoint)     |  &nbsp;             | 
 | June 24  | Reading Group:                                      | &nbsp;     |  &nbsp;             |
 | June 29  | Workshop: Machine Learning 101                      | &nbsp;     |  &nbsp;             | 
 | July 1   | Reading Group:                                      | &nbsp;     |  &nbsp;             |
