@@ -22,12 +22,12 @@ Activities and Information for Science of Software REU @ NCSU.
 | July 8   | Reading Group: Research Paper Writing               | &nbsp;     |  &nbsp;             |
 | July 13  | Workshop: Latex                      | &nbsp;     |  &nbsp;             | 
 | July 15  | Reading Group:                                      | &nbsp;     |  &nbsp;             |
-| July 18  | Abstact Deadline for Symposium (NOON)               | &nbsp;     |  &nbsp;             |
+| July 18  | **Abstact Deadline for Symposium (NOON)**               | &nbsp;     |  &nbsp;             |
 | July 20  | Workshop: Fun with BioSensors             | &nbsp;     |  &nbsp;             |
 | July 22  | Panel: Grad Student Life                            | &nbsp;     |  &nbsp;             |
 | July 27  | Workshop: D3: Information Visualization                                          | &nbsp;     |  &nbsp;             |
 | July 29  | Talks: Practice Talks                               | &nbsp;     |  &nbsp;             |
-| Aug   2  | REU Symposium                                       | &nbsp;     |  &nbsp;             |
+| Aug   2  | **REU Symposium**                                       | &nbsp;     |  &nbsp;             |
 
 ## Resources
 
