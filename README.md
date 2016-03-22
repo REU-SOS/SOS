@@ -8,7 +8,7 @@ Activities and Information for Science of Software REU @ NCSU.
 |----------|-----------------------------------------------------|------------| ------------------- |
 | May 26   | Welcome                                             | &nbsp;     | [Git Game](http://pcottle.github.io/learnGitBranching/)      |  
 | May 30   | Project Bootup; Git Workshop                        | &nbsp;     |                     |  
-| June 1   | Workshop: MySql: Data Wrangling                     | &nbsp;     | Data Challenge      |  
+| June 1   | Welcome Reception (Talley) 3-4:30pm; Workshop: MySql: Data Wrangling                     | &nbsp;     | Data Challenge      |  
 | June 3   | Reading Group: Scientific Understanding of Behavior | [Reading Research Papers](http://nkraft.cs.ua.edu/docs/reading.pdf)     |  &nbsp;             |
 | June 8   | Workshop: Data Mining 101                           | [Pruning data](https://github.com/REU-SOS/SOS/blob/master/datamining.pdf)     | Project Pitch       | 
 | June 10  | Reading Group: Literature Reviews                   | &nbsp;     |  &nbsp;             |
