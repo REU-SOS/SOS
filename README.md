@@ -2,6 +2,18 @@
 
 Activities and Information for Science of Software REU @ NCSU.
 
+## First 2 weeks
+
+| Monday, 5/30       | Tuesday, 5/31         | Wednesday, 6/1       | Thursday, 6/2      | Friday, 6/3                  |
+| ------------------ | --------------------- | -------------------- | ------------------ | ---------------------------- |
+| Kickoff; Intros    | MySql: Data Wrangling | R: Statistics 101    |                    |                              |
+| Git Workshop (1-3pm)|                      | Safety Orientation (1:30-3pm)|            | Data Challenge Presentations |
+| Data Challenge     |                       | Reception, 3-4:30pm  |                    |                              |
+| **Monday, 6/6**    | **Tuesday, 6/7**      |**Wednesday, 6/8**    |**Thursday, 6/9**   |**Friday, 6/10**              |
+|                    |                       | Workshop: Human Studies (Mini Experiment)| | Reading Group               |
+|                    |                       |                      |                    |                              |
+
+
 ## Schedule
 
 | Class    | Topics                                              |  Resources | Activities          |
