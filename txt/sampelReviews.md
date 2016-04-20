@@ -1,6 +1,6 @@
 # Sample reviews for a Research Report
 
-The reviews for this paper, submitted to the Information Softwre Technology journal,
+The reviews for [this paper](https://github.com/REU-SOS/SOS/blob/master/pdf/tunelearner_submitted.pdf), submitted to the Information Software Technology journal,
 are unusually brief. Why? 
 
 Was it because the the semantic content was amazing brilliant, insightful, etc etc? Maybe, but unlikely.
