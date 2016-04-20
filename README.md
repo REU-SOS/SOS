@@ -7,7 +7,7 @@ Activities and Information for Science of Software REU @ NCSU.
 | Time    | Monday, 5/30        | Tuesday, 5/31              | Wednesday, 6/1       | Thursday, 6/2      | Friday, 6/3                  |
 |-------  | ------------------  | -------------------------- | -------------------- | ------------------ | ---------------------------- |
 |Morning  | Kickoff; Intros     | Data Collection: Scrapping | MySql: Data Wrangling     |   R: Statistics 101                 |  [Anatomy of a research report](https://github.com/REU-SOS/SOS/blob/master/txt/sampelReviews.md) (TM)                           |
-|Mid      | Git Workshop (1-3pm)|  Open  SE research questions  (TM)                  | Safety Orientation (1:30-3pm)|            | Data Challenge Presentations |
+|Mid      | Git Workshop (1-3pm)|  Open  SE research questions  (TM)                  | Safety Orientation (1:30-3pm)|    Data mining in JAVA (WEKA) (TM)      | Data Challenge Presentations |
 |Afternoon| Data Challenge      |   Roll your own data miner [pdf](https://github.com/REU-SOS/SOS/blob/master/pdf/genic.pdf) [code](https://github.com/REU-SOS/SOS/tree/master/src/genic) (TM)                    | Reception, 3-4:30pm  |                    |                              |                     |                      |                    |                              |
 
 
@@ -19,7 +19,7 @@ Activities and Information for Science of Software REU @ NCSU.
 | May 30   | Project Bootup; Git Workshop                        | &nbsp;     |                     |  
 | June 1   | Welcome Reception (Talley) 3-4:30pm; <br/>Workshop: MySql: Data Wrangling                     | &nbsp;     | Data Challenge      |  
 | June 3   | Reading Group: Scientific Understanding of Behavior | [Reading Research Papers](http://nkraft.cs.ua.edu/docs/reading.pdf)     |  &nbsp;             |
-| June 8   | Workshop: Data Mining 101                           | [Pruning data](https://github.com/REU-SOS/SOS/blob/master/pdf/datamining.pdf)     | Project Pitch       | @timm |
+| June 8   | Workshop: Data Mining 101                           | [Pruning data](https://github.com/REU-SOS/SOS/blob/master/pdf/datamining.pdf)     | Project Pitch       | TM |
 | June 10  | Reading Group: Literature Reviews                   | &nbsp;     |  &nbsp;             |
 | June 15  | Workshop: Human Studies (Mini Experiment)           | &nbsp;     |  &nbsp;             | 
 | June 17  | Reading Group:                                      | &nbsp;     |  &nbsp;             |
