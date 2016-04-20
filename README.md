@@ -13,8 +13,8 @@ Activities and Information for Science of Software REU @ NCSU.
 
 ## Schedule
 
-| Class    | Topics                                              |  Resources | Activities          |
-|----------|-----------------------------------------------------|------------| ------------------- |
+| Class    | Topics                                              |  Resources | Activities          | Speaker |
+|----------|-----------------------------------------------------|------------| ------------------- |-----|
 | May 26   | Welcome                                             | &nbsp;     | [Git Game](http://pcottle.github.io/learnGitBranching/)      |  
 | May 30   | Project Bootup; Git Workshop                        | &nbsp;     |                     |  
 | June 1   | Welcome Reception (Talley) 3-4:30pm; <br/>Workshop: MySql: Data Wrangling                     | &nbsp;     | Data Challenge      |  
