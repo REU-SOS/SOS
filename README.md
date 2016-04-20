@@ -8,7 +8,7 @@ Activities and Information for Science of Software REU @ NCSU.
 |-------  | ------------------  | -------------------------- | -------------------- | ------------------ | ---------------------------- |
 |Morning  | Kickoff; Intros     | Data Collection: Scrapping | MySql: Data Wrangling     |   R: Statistics 101                 |  [Anatomy of a research report](https://github.com/REU-SOS/SOS/blob/master/txt/sampelReviews.md) (TM)                           |
 |Mid      | Git Workshop (1-3pm)|  Open  SE research questions  (TM)                  | Safety Orientation (1:30-3pm)|            | Data Challenge Presentations |
-|Afternoon| Data Challenge      |                       | Reception, 3-4:30pm  |                    |                              |                     |                      |                    |                              |
+|Afternoon| Data Challenge      |   Roll your own data miner [pdf](https://github.com/REU-SOS/SOS/blob/master/pdf/genic.pdf) [code](https://github.com/REU-SOS/SOS/tree/master/src/genic) (TM)                    | Reception, 3-4:30pm  |                    |                              |                     |                      |                    |                              |
 
 
 ## Schedule
