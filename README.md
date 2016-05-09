@@ -7,8 +7,8 @@ Activities and Information for Science of Software REU @ NCSU.
 | Time    | Monday, 5/30        | Tuesday, 5/31              | Wednesday, 6/1       | Thursday, 6/2      | Friday, 6/3                  |
 |-------  | ------------------  | -------------------------- | -------------------- | ------------------ | ---------------------------- |
 |Morning  | Kickoff; Intros     | Data Collection: Scrapping | MySql: Data Wrangling     |   R: Statistics 101                 |  [Anatomy of a research report](https://github.com/REU-SOS/SOS/blob/master/txt/sampelReviews.md) (TM)                           |
-|Mid      | Git Workshop (1-3pm)|  Open  SE research questions  (TM)                  | Safety Orientation (1:30-3pm)|  Data mining in JAVA, reproduction packages [primer](http://www.cs.waikato.ac.nz/~remco/weka_bn/node13.html), [eg](https://github.com/REU-SOS/SOS/blob/master/src/log.sh) (TM)      | Data Challenge Presentations |
-|Afternoon| Data Challenge      |   Roll your own data miner: [pdf](https://github.com/REU-SOS/SOS/blob/master/pdf/genic.pdf), [code](https://github.com/REU-SOS/SOS/tree/master/src/genic) (TM)                    | Reception, 3-4:30pm  |                    |                              |                     |                      |                    |                              |
+|Mid      | [Engineering Basics](https://github.com/REU-SOS/EngineeringBasics) (1-3pm)|  Open  SE research questions  (TM)                  | Safety Orientation (1:30-3pm)|  Data mining in JAVA, reproduction packages [primer](http://www.cs.waikato.ac.nz/~remco/weka_bn/node13.html), [eg](https://github.com/REU-SOS/SOS/blob/master/src/log.sh) (TM)      | Data Challenge Presentations |
+|Afternoon| [Data Challenge](https://github.com/REU-SOS/DataChallenge)      |   Roll your own data miner: [pdf](https://github.com/REU-SOS/SOS/blob/master/pdf/genic.pdf), [code](https://github.com/REU-SOS/SOS/tree/master/src/genic) (TM)                    | Reception, 3-4:30pm  |                    |                              |                     |                      |                    |                              |
 
 
 ## Schedule
