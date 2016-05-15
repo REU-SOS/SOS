@@ -1,5 +1,13 @@
 Mined from many different log files. Written, not run. Send bug reports to tim@menzies.us
 
+## debgging
+
+Usuaully, run with the following line uncommented.
+
+```
+#set -e
+```
+
 ## set up
 
 ```sh
@@ -46,6 +54,28 @@ prep()  { cat - | killControlM | downCase |
 ## learning
 
 Reads cooked data from `$Cooked`,
+
+## reporting
+
+Converts csv code in `fred.dat` to `fred.pdf`
+
+```bash
+plot() {
+  gnuplot <<EOF
+    set nokey
+    set terminal postscript eps "Helvetica" 20 # eps means "dont fill page"
+    set size 0.5,0.5            # small graph, half page wid"
+    set title "TF*IDF [$i]"
+    set logscale y
+    set output "$Safe/$i.eps"
+    set xtics rotate
+    plot "$i.dat" using 1:3
+EOF
+  ps2pdf $Safe/$i.eps  # generated pdd
+}
+
+plot fred
+```
 
 ## clean up
 
