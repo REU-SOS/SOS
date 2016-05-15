@@ -1,4 +1,4 @@
-
+Mined from many different log files. Written, not run. Send bug reports to tim@menzies.us
 
 ## set up
 
