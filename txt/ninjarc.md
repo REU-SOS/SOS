@@ -57,7 +57,7 @@ Reads cooked data from `$Cooked`,
 
 ## reporting
 
-Converts csv code in `fred.dat` to `fred.pdf`
+Converts tab-seperated data in  `fred.dat` to `fred.pdf`
 
 ```bash
 plot() {
@@ -69,13 +69,25 @@ plot() {
     set logscale y
     set output "$Safe/$i.eps"
     set xtics rotate
-    plot "$i.dat" using 1:3
+    plot "$i.dat" using 1:3 # just us columns one and 3
 EOF
-  ps2pdf $Safe/$i.eps  # generated pdd
+  ps2pdf $Safe/$i.eps  # generated pdf
 }
 
 plot fred
 ```
+
+For more on gnuplot, see 
+
++ http://www.gnuplot.info/
++ http://folk.uio.no/hpl/scripting/doc/gnuplot/Kawano/index-e.html
+
+For alternatives to gnuplot, consider:
+
++ Matplotlib
++ Javascript: http://www.sitepoint.com/15-best-javascript-charting-libraries/. D3.js is very popular right now.
+
+
 
 ## clean up
 
