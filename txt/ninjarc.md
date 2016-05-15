@@ -13,7 +13,7 @@ set -e # if anything terminates with an error, halt right awy
 
 ```sh
 Me=someUniqueName
-Tmp="/tmp/$USER/$$"
+Tmp="/tmp/$USER/$$" # some places, /tmp is size restricted. Here, you want some place BIG
 Safe="$HOME/tmp/safe/$Me"
 
 ## Raw = source of raw data; Cooked= pre-processed stuff
@@ -34,10 +34,10 @@ dirs() {
 One-time pre-processing. Results stored in `$Cooked`.
 
 ```
-killControlM() { cat - | tr -d '\015'; } 
-downCase()     { cat - | tr A-Z a-z; }
-stemming()     { perl $Here/stemming.pl $1 ; }
-stops()        { cat - | gawk ' 
+killControlM() { tr -d '\015'; } 
+downCase()     { tr A-Z a-z; }
+stemming()     { perl $Here/stemming.pl  ; }
+stops()        {  gawk ' 
        NR==1 {while (getline < Stops)  Stop[$0] = 1;
 					        	while (getline < Keeps)  Keep[$0] = 1; 
 					      	 }
@@ -47,9 +47,11 @@ stops()        { cat - | gawk '
 				      	  }' Stops="$Here/stop_words.txt" \
 					           Keeps="$Here/keep_words.txt" 
 					        }
-prep()  { cat - | killControlM | downCase | 
+prep()  { killControlM | downCase | 
                   stemming | stops; }
 
+f=demo.txt
+prep < $f
 ```
 
 ## learning
@@ -90,6 +92,7 @@ For more on gnuplot, see
 For alternatives to gnuplot, consider:
 
 + Matplotlib
++ "R"
 + Javascript: http://www.sitepoint.com/15-best-javascript-charting-libraries/. D3.js is very popular right now.
 
 
