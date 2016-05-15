@@ -1,5 +1,22 @@
 Mined from many different log files. Written, not run. Send bug reports to tim@menzies.us
 
+```
+pipe into a while and if
+
+— tow different pies
+
+make: don’t redo
+
+
+nohup
+
+screen now mosh
+
+
+i github per analysis
+1 c9.io per github
+```
+
 ## debgging
 
 Usuaully, run with the following line uncommented.
