@@ -77,10 +77,14 @@ EOF
 plot fred
 ```
 
+
+
 For more on gnuplot, see 
 
 + http://www.gnuplot.info/
 + http://folk.uio.no/hpl/scripting/doc/gnuplot/Kawano/index-e.html
+
+![http://gnuplot.sourceforge.net/demo_4.6/using.2.png](http://gnuplot.sourceforge.net/demo_4.6/using.2.png)
 
 For alternatives to gnuplot, consider:
 
