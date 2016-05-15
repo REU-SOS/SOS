@@ -120,7 +120,7 @@ trap cleanUp 1 2 3 4 15
 
 For a list of all traps,  on your system...
 ````
-kill -9
+kill -l
 ```
 For more details, see  http://www.tutorialspoint.com/unix/unix-signals-traps.htm.
 
