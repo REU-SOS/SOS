@@ -25,8 +25,21 @@ dirs() {
 One-time pre-processing. Results stored in `$Cooked`.
 
 ```
-downCase() { cat - | tr A-Z a-z; }
-stemming()  { perl $Here/stemming.pl $1 ; }
+killControlM() { cat - | tr -d '\015'; } 
+downCase()     { cat - | tr A-Z a-z; }
+stemming()     { perl $Here/stemming.pl $1 ; }
+stops()        { cat - | gawk ' 
+       NR==1 {while (getline < Stops)  Stop[$0] = 1;
+					        	while (getline < Keeps)  Keep[$0] = 1; 
+					      	 }
+					        { for(I=1;I<=NF;I++) 
+					              if (Stop[$I] && ! Keep[$I]) $I=" "
+                      print $0
+				      	  }' Stops="$Here/stop_words.txt" \
+					           Keeps="$Here/keep_words.txt" 
+					        }
+prep()  { cat - | killControlM | downCase | 
+                  stemming | stops; }
 
 ```
 
