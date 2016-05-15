@@ -5,7 +5,8 @@ Mined from many different log files. Written, not run. Send bug reports to tim@m
 Usuaully, run with the following line uncommented.
 
 ```
-#set -e
+#set -x
+set -e # if anything terminates with an error, halt right awy
 ```
 
 ## set up
