@@ -2,7 +2,7 @@
 
 ## set up
 
-```
+```bash
 Me=someUniqueName
 Tmp="/tmp/$USER/$$"
 Safe="$HOME/tmp/safe/$Me"
