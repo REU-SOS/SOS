@@ -1,0 +1,1 @@
+Here=$(pwd) bash --init-file ninja.rc -i

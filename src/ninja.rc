@@ -1,0 +1,240 @@
+# -*- sh -*-
+#set -x
+
+
+ninja() { cat <<'EOF'
+      ___                                                             
+     /___\_/                                                          
+     |\_/|<\                         Command line ninja!!!!
+     (`o`) `   __(\_            |\_                                   
+     \ ~ /_.-`` _|__)  ( ( ( ( /()/                                   
+    _/`-`  _.-``               `\|   Attack!!!
+ .-`      (    .-.                                                    
+(   .-     \  /   `-._                                                
+ \  (\_    /\/        `-.__-()                                        
+  `-|__)__/ /  /``-.   /_____8                                        
+        \__/  /     `-`                                               
+       />|   /                                                        
+      /| J   L                                                        
+      `` |   |                                                        
+         L___J                                                        
+          ( |
+         .oO()                                                        
+EOF
+}
+######################################################
+Ed="/Applications/Emacs.app/Contents/MacOS/Emacs"
+Edot="/tmp/edot$$"
+Me=demo1
+
+Tmp="/tmp/$USER/$$" # some places, /tmp is size restricted. Here, you want some place BIG
+Safe="$HOME/tmp/safe/$Me"
+
+## Raw = source of raw data; Cooked= pre-processed stuff
+Raw=$Here
+Cooked="$Safe"
+
+## java libraries
+Jar="$Here/weka.jar"
+Weka="java -Xmx1024M -cp $Jar "
+
+dirs() {
+    mkdir -p $Safe $Tmp $Raw, $cooked
+}
+
+cat << 'EOF' > $Edot
+(progn
+
+  (setq inhibit-startup-message  t)
+  (setq-default fill-column     52)
+  (setq column-number-mode       t)
+  (setq make-backup-files      nil) 
+  (transient-mark-mode           t)
+  (global-font-lock-mode         t)
+  (global-hl-line-mode           0)  
+  (xterm-mouse-mode              t)
+  (setq scroll-step              1)
+  (show-paren-mode               t))
+
+(setq frame-title-format
+  '(:eval
+    (if buffer-file-name
+        (replace-regexp-in-string
+         "\\" "/"
+         (replace-regexp-in-string
+          (regexp-quote (getenv "HOME")) "~"
+          (convert-standard-filename buffer-file-name)))
+      (buffer-name))))
+
+(setq package-archives 
+   '(("gnu" . "http://elpa.gnu.org/packages/")
+     ("marmalade" . "https://marmalade-repo.org/packages/")
+     ("melpa" . "http://melpa.org/packages/")))
+
+(when (>= emacs-major-version 24)
+  (require 'package)
+  (add-to-list
+   'package-archives
+   '("melpa" . "http://melpa.org/packages/")
+   t)
+  (package-initialize))
+
+(add-hook 'python-mode-hook
+   (lambda ()
+      (setq indent-tabs-mode nil
+            tab-width 2
+            python-indent 2)))
+
+(require 'lua-block)
+(lua-block-mode t)
+(defun lua-block-goto-corresponding-point ()
+  "Jump to corresponding point."
+  (interactive)
+  (goto-char (lua-block-get-corresponding-point)))
+
+(add-hook 'lua-mode-hook 
+    (lambda ()
+       (local-set-key 
+         (kbd "C-c C-b")
+        'lua-block-goto-corresponding-point)))
+(setq lua-indent-level 2)
+
+(autoload 'markdown-mode "markdown-mode"
+   "Major mode for editing Markdown files" t)
+(add-to-list 'auto-mode-alist '("\\.text\\'" . markdown-mode))
+(add-to-list 'auto-mode-alist '("\\.markdown\\'" . markdown-mode))
+(add-to-list 'auto-mode-alist '("\\.md\\'" . markdown-mode))
+
+EOF
+########################################################
+killControlM() { tr -d '\015'; } 
+downCase()     { tr A-Z a-z; }
+stemming()     { perl $Here/stemming.pl  ; }
+stops()        {  gawk ' 
+       NR==1 {while (getline < Stops)  Stop[$0] = 1;
+                                while (getline < Keeps)  Keep[$0] = 1; 
+                             }
+                            { for(I=1;I<=NF;I++) 
+                                  if (Stop[$I] && ! Keep[$I]) $I=" "
+                      print $0
+                          }' Stops="$Here/stop_words.txt" \
+                               Keeps="$Here/keep_words.txt" 
+                            }
+prep()  { killControlM | downCase | 
+                  stemming | stops; }
+
+########################################################
+
+linearRegression(){
+	local learner=weka.classifiers.functions.LinearRegression 
+	$Weka $learner -S 0 -R $3 -p 0 -t $1 -T $2
+}
+bnet(){
+        local learner=weka.classifiers.bayes.BayesNet
+	$Weka $learner -p 0 -t $1 -T $2 -D \
+	    -Q weka.classifiers.bayes.net.search.local.K2 -- -P 2 -S BAYES \
+	    -E weka.classifiers.bayes.net.estimate.SimpleEstimator -- -A 0.5 
+}
+bnet10(){
+        local learner=weka.classifiers.bayes.BayesNet
+	$Weka $learner -i -t $1 -D \
+	    -Q weka.classifiers.bayes.net.search.local.K2 -- -P 2 -S BAYES \
+	    -E weka.classifiers.bayes.net.estimate.SimpleEstimator -- -A 0.5 
+}
+nb() {
+ 	local learner=weka.classifiers.bayes.NaiveBayes
+	$Weka $learner -p 0 -t $1 -T $2  
+}
+nb10() {
+	local learner=weka.classifiers.bayes.NaiveBayes
+	$Weka $learner -i -t $1   
+}
+j48() {
+	local learner=weka.classifiers.trees.J48
+	$Weka $learner -p 0 -C 0.25 -M 2 -t $1 -T $2
+}
+j4810() {
+	local learner=weka.classifiers.trees.J48
+	$Weka $learner	-C 0.25 -M 2 -i -t $1 
+}
+zeror() {
+        local learner=weka.classifiers.rules.ZeroR
+	$Weka $learner -p 0 -t $1 -T $2
+}
+zeror10() {
+        local learner=weka.classifiers.rules.ZeroR
+	$Weka $learner -i -t $1
+}
+oner() {
+        local learner=weka.classifiers.rules.OneR
+	$Weka $learner -p 0 -t $1 -T $2
+}
+oner10() {
+        local learner=weka.classifiers.rules.OneR
+	$Weka $learner -i -t $1
+}
+rbfnet(){
+        local learner=weka.classifiers.functions.RBFNetwork
+	$Weka $learner -p 0 -t $1 -T $2 -B 2 -S 1 -R 1.0E-8 -M -1 -W 0.1
+}
+rbfnet10(){
+        local learner=weka.classifiers.functions.RBFNetwork
+	$Weka $learner -i -t $1 -B 2 -S 1 -R 1.0E-8 -M -1 -W 0.1
+}
+ridor() {
+       local learner=weka.classifiers.rules.Ridor
+	$Weka $learner -F 3 -S 1 -N 2.0 -p 0 -t $1 -T $2 
+}
+ridor10(){
+       local learner=weka.classifiers.rules.Ridor
+       $Weka $learner -F 3 -S 1 -N 2.0 -i -t $1
+}
+adtree() {
+       local learner=weka.classifiers.trees.ADTree
+       $Weka $learner -B 10 -E -3 -p 0 -t $1 -T $2
+}
+adtree10() {
+       local learner=weka.classifiers.trees.ADTree
+       $Weka $learner -B 10 -E -3 -p 0 -i -t $1
+}
+########################################################
+wantgot() { gawk '/:/ {
+                      split($2,a,/:/); actual= a[2] 
+                      split($3,a,/:/); predicted= a[2]
+                      print actual, predicted }'
+}
+trainTest() {
+    local n=${1:-10}
+    echo $n
+    gawk 'BEGIN                 { srand('$RANDOM') }
+          /^.RELATION/,/^.DATA/ { header= header "\n" $0; next } 
+          $0                    {  Row[NR] = $0 }
+          END                   { 
+             for(i=1;i<=N;i++)  {
+               test = Dir "/test"  i ".arff"
+               train= Dir "/train" i ".arff"
+               print(header) >test
+               print(header) >train
+               for(r in Row) { 
+                 if (rand() < 1/N) 
+                   print(Row[r]) >> test
+                 else
+                   print(Row[r]) >> train }}}' N=$n Dir=$Tmp -
+    cd $Tmp
+    for((i=1;i<=$n;i++)) do
+       (echo "rx data"
+	${2:-j48} train${i}.arff test${i}.arff | wantgot) |
+	   python3 $Here/abcd.py
+    done 
+    cd $Here
+}
+
+########################################################
+
+reload() { . $Here/ninja.rc ; }
+e()      { $Ed -q -l "$Edot" $* & 
+         }
+
+ninja
+dirs
+PS1="NINJA> "
