@@ -1,6 +1,21 @@
 # -*- sh -*-
 #set -x
 
+#pipe into a while and if
+#— tow different pies
+#make: don’t redo
+#nohup
+
+# pattern
+#fetch : curl find mysql
+#select: grep sql awk etc
+#transform: sort, head, tail, sed, gawk
+#learn
+#report
+#visualize: gnuplot,gvpr
+
+trap zap 0 1 2 3 4 15
+zap() { echo "Zapping..." ; rm -rf $Tmp; }
 
 ninja() { cat <<'EOF'
       ___                                                             
@@ -23,6 +38,7 @@ ninja() { cat <<'EOF'
 EOF
 }
 ######################################################
+
 Ed="/Applications/Emacs.app/Contents/MacOS/Emacs"
 Edot="/tmp/edot$$"
 Me=demo1
@@ -37,6 +53,8 @@ Cooked="$Safe"
 ## java libraries
 Jar="$Here/weka.jar"
 Weka="java -Xmx1024M -cp $Jar "
+
+ok() { dirs; }
 
 dirs() {
     mkdir -p $Safe $Tmp $Raw, $cooked
@@ -64,7 +82,7 @@ cat << 'EOF' > $Edot
          (replace-regexp-in-string
           (regexp-quote (getenv "HOME")) "~"
           (convert-standard-filename buffer-file-name)))
-      (buffer-name))))
+       (buffer-name))))
 
 (setq package-archives 
    '(("gnu" . "http://elpa.gnu.org/packages/")
@@ -84,26 +102,6 @@ cat << 'EOF' > $Edot
       (setq indent-tabs-mode nil
             tab-width 2
             python-indent 2)))
-
-(require 'lua-block)
-(lua-block-mode t)
-(defun lua-block-goto-corresponding-point ()
-  "Jump to corresponding point."
-  (interactive)
-  (goto-char (lua-block-get-corresponding-point)))
-
-(add-hook 'lua-mode-hook 
-    (lambda ()
-       (local-set-key 
-         (kbd "C-c C-b")
-        'lua-block-goto-corresponding-point)))
-(setq lua-indent-level 2)
-
-(autoload 'markdown-mode "markdown-mode"
-   "Major mode for editing Markdown files" t)
-(add-to-list 'auto-mode-alist '("\\.text\\'" . markdown-mode))
-(add-to-list 'auto-mode-alist '("\\.markdown\\'" . markdown-mode))
-(add-to-list 'auto-mode-alist '("\\.md\\'" . markdown-mode))
 
 EOF
 ########################################################
@@ -198,34 +196,55 @@ adtree10() {
        $Weka $learner -B 10 -E -3 -p 0 -i -t $1
 }
 ########################################################
+
 wantgot() { gawk '/:/ {
-                      split($2,a,/:/); actual= a[2] 
-                      split($3,a,/:/); predicted= a[2]
+                      split($2,a,/:/); actual    = a[2] 
+                      split($3,a,/:/); predicted = a[2]
                       print actual, predicted }'
 }
 trainTest() {
-    local n=${1:-10}
-    echo $n
-    gawk 'BEGIN                 { srand('$RANDOM') }
+    local learner=$1
+    local train=$2
+    local test=$3
+    echo "$learner $data"
+    $learner $train $test | wantgot
+}
+crossval() {
+    local m=$1
+    local n=$2
+    local data=$3
+    local r=$4
+    shift 4
+    local learners=$*
+    cat $data    |
+    killControlM |
+    gawk 'BEGIN                 { srand('$r') }
           /^.RELATION/,/^.DATA/ { header= header "\n" $0; next } 
-          $0                    {  Row[NR] = $0 }
+          $0                    { Row[NR] = $0 }
           END                   { 
-             for(i=1;i<=N;i++)  {
-               test = Dir "/test"  i ".arff"
-               train= Dir "/train" i ".arff"
-               print(header) >test
-               print(header) >train
+           for(i=1; i<=m; i++)
+             for(j=1; j<=n; j++)  {
+               arff  = i "_" j ".arff"
+               test  = dir "/test"  arff
+               train = dir "/train" arff
+               print header  >test
+               print header  >train
                for(r in Row) { 
-                 if (rand() < 1/N) 
+                 if (rand() < 1/n) 
                    print(Row[r]) >> test
                  else
-                   print(Row[r]) >> train }}}' N=$n Dir=$Tmp -
+                   print(Row[r]) >> train }}}' n=$n m=$m dir=$Tmp 
+    echo $Tmp
     cd $Tmp
-    for((i=1;i<=$n;i++)) do
-       (echo "rx data"
-	${2:-j48} train${i}.arff test${i}.arff | wantgot) |
-	   python3 $Here/abcd.py
-    done 
+    for learner in $learners; do
+	for((i=1; i<=$m; i++)); do
+	    for((j=1; j<=$n; j++)); do
+              local arff="${i}_${j}.arff"		
+	      trainTest $learner train$arff test$arff |
+	      python3 $Here/abcd.py
+	   done
+	done
+    done
     cd $Here
 }
 
@@ -235,6 +254,29 @@ reload() { . $Here/ninja.rc ; }
 e()      { $Ed -q -l "$Edot" $* & 
          }
 
+########################################################
+eg1() { ok; crossval 2 2 data/soybean.arff   $RANDOM j48 nb; }
+eg2() { ok; crossval 5 5 data/jedit-4.1.arff $RANDOM j48 nb |
+	    gawk  '/true/ {print $2,$10,$11}'
+}
+########################################################
+# git tricks
+typo() {
+    gitting
+    git status
+    git commit -am "saving"
+    git push origin master
+}
+update() {
+    gitting
+    git pull origin master
+}
+
+gitting() {
+     git config --global credential.helper cache
+     git config credential.helper 'cache --timeout=3600'
+}
+########################################################
 ninja
-dirs
+ok
 PS1="NINJA> "
