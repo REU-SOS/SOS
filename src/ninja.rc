@@ -63,6 +63,8 @@ dirs() {
 cat << 'EOF' > $Edot
 (progn
 
+  (setq require-final-newline    t) 
+  (setq next-line-add-newlines nil) 
   (setq inhibit-startup-message  t)
   (setq-default fill-column     52)
   (setq column-number-mode       t)
@@ -74,28 +76,20 @@ cat << 'EOF' > $Edot
   (setq scroll-step              1)
   (show-paren-mode               t))
 
+(setq display-time-day-and-date t) (display-time) 
+(setq-default indent-tabs-mode nil) 
+
+(fset 'yes-or-no-p 'y-or-n-p) 
+
 (setq frame-title-format
   '(:eval
     (if buffer-file-name
         (replace-regexp-in-string
-         "\\" "/"
+         "\\\\" "/"
          (replace-regexp-in-string
           (regexp-quote (getenv "HOME")) "~"
           (convert-standard-filename buffer-file-name)))
-       (buffer-name))))
-
-(setq package-archives 
-   '(("gnu" . "http://elpa.gnu.org/packages/")
-     ("marmalade" . "https://marmalade-repo.org/packages/")
-     ("melpa" . "http://melpa.org/packages/")))
-
-(when (>= emacs-major-version 24)
-  (require 'package)
-  (add-to-list
-   'package-archives
-   '("melpa" . "http://melpa.org/packages/")
-   t)
-  (package-initialize))
+      (buffer-name))))
 
 (add-hook 'python-mode-hook
    (lambda ()
