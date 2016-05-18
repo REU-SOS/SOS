@@ -1,5 +1,5 @@
 from __future__ import division,print_function
-import sys
+import sys,random
 sys.dont_write_bytecode=True
 
 """
@@ -377,7 +377,7 @@ A naive version of this code is shown here in the _ab12slow_ function. While sim
 code, this _ab12slow_ function runs in polynomial time (since for each item in _lst1_,
 it runs over all of _lst2_):
 
-````python
+"""
 def _ab12():
   def a12slow(lst1,lst2):
     more = same = 0.0
@@ -397,15 +397,15 @@ def _ab12():
                        ("1more",more,less),("same",l1,l2)]:
     t1  = msecs(lambda : a12(l1,less))
     t2  = msecs(lambda : a12slow(l1,less))
-    print "\n",tag,"\n",t1,a12(one,two)
-    print t2, a12slow(one,two)
-````
+    print("\n",tag,"\n",t1,a12(one,two))
+    print(t2, a12slow(one,two))
 
+"""
 A faster way is to first sort the two lists in descending order. Then, if it is found that an item
 is bigger that one item, it is by definition bigger than the rest of the items in that list (so
 we can stop there): 
 
-````python
+"""
 def a12(lst1,lst2):
   """how often is lst1 often more than y in lst2?
   assumes lst1 nums are meant to be greater than lst2"""
@@ -432,7 +432,7 @@ def a12(lst1,lst2):
   t2   = o(l=lst2,m=0,eq=0,gt=0,n=n2)
   gt,eq= loop(t1, t1, t2)
   return gt/(n1*n2) + eq/2/(n1*n2)
-````
+"""
 
 Note that the test code \__ab12_ shows that our fast and slow method generate the same A12 score, but the
 fast way does so thousands of times faster. The following tests show runtimes for lists of 5000 numbers:
@@ -450,7 +450,8 @@ fast way does so thousands of times faster. The following tests show runtimes fo
 
 Didn't we do this before?
 
-````python
+"""
+
 class o():
   "Anonymous container"
   def __init__(i,**fields) : 
@@ -464,11 +465,11 @@ class o():
   def show(i):
     return [k for k in sorted(i.__dict__.keys()) 
             if not "_" in k]
-````
+"""
 
 Misc functions:
 
-````python
+"""
 rand = random.random
 any  = random.choice
 seed = random.seed
@@ -532,8 +533,9 @@ def _tileX() :
   import random
   random.seed(1)
   nums = [random.random()**2 for _ in range(100)]
-  print xtile(nums,lo=0,hi=1.0,width=25,show=" %5.2f")
-````
+  print(xtile(nums,lo=0,hi=1.0,width=25,show=" %5.2f"))
+
+"""````
 
 ### Standard Accumulator for Numbers
 
@@ -542,7 +544,7 @@ Note the _lt_ method: this accumulator can be sorted by median values.
 Warning: this accumulator keeps _all_ numbers. Might be better to use
 a bounded cache.
 
-````python
+"""
 class Num:
   "An Accumulator for numbers"
   def __init__(i,name,inits=[]): 
@@ -586,15 +588,14 @@ class Num:
     else:
       return i.all[int(n2)] - i.all[int(n1)]
 
-
-````
+"""
 
 ### The A12 Effect Size Test 
 
 As above
 
+"""
 
-````python
 def a12slow(lst1,lst2):
   "how often is x in lst1 more than y in lst2?"
   more = same = 0.0
@@ -639,12 +640,9 @@ def _a12():
     l2 = [rand() for _ in xrange(n)]
     t1 = msecs(f1)
     t2 = msecs(f2)
-    print n, g(f1()),g(f2()),int((t1/t2))
+    print(n, g(f1()),g(f2()),int((t1/t2)))
 
-
-````
-
-````
+"""
 n   a12(fast)       a12(slow)       tfast / tslow
 --- --------------- -------------- --------------
 100  0.53           0.53               4
@@ -672,13 +670,14 @@ To check if two populations _(y0,z0)_
 are different, many times sample with replacement
 from both to generate _(y1,z1), (y2,z2), (y3,z3)_.. etc.
 
-````python
+"""
 def sampleWithReplacement(lst):
   "returns a list same size as list"
   def any(n)  : return random.uniform(0,n)
   def one(lst): return lst[ int(any(len(lst))) ]
   return [one(lst) for _ in lst]
-````
+
+"""
 
 
 Then, for all those samples,
@@ -691,7 +690,7 @@ In such a _bootstrap_ hypothesis test, the *some property*
 is the difference between the two populations, muted by the
 joint standard deviation of the populations.
 
-````python
+"""
 def testStatistic(y,z): 
     """Checks if two means are different, tempered
      by the sample size of 'y' and 'z'"""
@@ -704,7 +703,7 @@ def testStatistic(y,z):
     if s1+s2:
       delta =  delta/((s1/y.n + s2/z.n)**0.5)
     return delta
-````
+"""
 
 The rest is just details:
 
@@ -714,7 +713,7 @@ The rest is just details:
 + The class _total_ is a just a quick and dirty accumulation class.
 + For more details see [the Efron text][efron01].  
 
-````python
+"""
 def bootstrap(y0,z0,conf=0.01,b=1000):
   """The bootstrap hypothesis test from
      p220 to 223 of Efron's book 'An
@@ -739,11 +738,11 @@ def bootstrap(y0,z0,conf=0.01,b=1000):
                      total(sampleWithReplacement(zhat))) > tobs:
       bigger += 1
   return bigger / b < conf
-````
+"""
 
 #### Examples
 
-````python
+"""
 def _bootstraped(): 
   def worker(n=1000,
              mu1=10,  sigma1=1,
@@ -754,29 +753,32 @@ def _bootstraped():
     return n,mu1,sigma1,mu2,sigma2,\
         'different' if bootstrap(x,y) else 'same'
   # very different means, same std
-  print worker(mu1=10, sigma1=10, 
-               mu2=100, sigma2=10)
+  print(worker(mu1=10, sigma1=10, 
+               mu2=100, sigma2=10))
   # similar means and std
-  print worker(mu1= 10.1, sigma1=1, 
-               mu2= 10.2, sigma2=1)
+  print(worker(mu1= 10.1, sigma1=1, 
+               mu2= 10.2, sigma2=1))
   # slightly different means, same std
-  print worker(mu1= 10.1, sigma1= 1, 
-               mu2= 10.8, sigma2= 1)
+  print(worker(mu1= 10.1, sigma1= 1, 
+               mu2= 10.8, sigma2= 1))
   # different in mu eater by large std
-  print worker(mu1= 10.1, sigma1= 10, 
-               mu2= 10.8, sigma2= 1)
-````
+  print(worker(mu1= 10.1, sigma1= 10, 
+               mu2= 10.8, sigma2= 1))
+
+"""
 
 Output:
 
-````
-_bootstraped()
+"""
+
+#_bootstraped()
 
 (1000, 10, 10, 100, 10, 'different')
 (1000, 10.1, 1, 10.2, 1, 'same')
 (1000, 10.1, 1, 10.8, 1, 'different')
 (1000, 10.1, 10, 10.8, 1, 'same')
-````
+
+"""
 
 Warning- the above took 8 seconds to generate since we used 1000 bootstraps.
 As to how many bootstraps are enough, that depends on the data. There are
@@ -787,12 +789,12 @@ To reduce that runtime, I avoid things like an all-pairs comparison of all treat
 (see below: Scott-knott).  Also, BEFORE I do the boostrap, I first run
 the effect size test (and only go to bootstrapping in effect size passes:
 
-````python
+"""
 def different(l1,l2):
   #return bootstrap(l1,l2) and a12(l2,l1)
   return a12(l2,l1) and bootstrap(l1,l2)
 
-````
+"""
 
 ## Saner Hypothesis Testing
 
@@ -818,7 +820,7 @@ are called on only a logarithmic number of times. So...
 
 For examples on using this code, see _rdivDemo_ (below).
 
-````python
+"""
 def scottknott(data,cohen=0.3,small=3, useA12=False,epsilon=0.01):
   """Recursively split data, maximizing delta of
   the expected value of the mean before and 
@@ -900,19 +902,20 @@ def leftRight(parts,epsilon=0.01):
       if parts[i]._median - parts[i-1]._median > epsilon:
         yield i,left,rights[i]
       left += one
-````
+"""
+
 
 ## Putting it All Together
 
 Driver for the demos:
 
-````python
+"""
 def rdivDemo(data):
   def z(x):
     return int(100 * (x - lo) / (hi - lo + 0.00001))
   data = map(lambda lst:Num(lst[0],lst[1:]),
              data)
-  print ""
+  print("")
   ranks=[]
   for x in scottknott(data,useA12=True):
     ranks += [(x.rank,x.median(),x)]
@@ -922,25 +925,20 @@ def rdivDemo(data):
   lo, hi = all[0], all[-1]
   line = "----------------------------------------------------"
   last = None
-  print  ('%4s , %12s ,    %s   , %4s ' % \
-               ('rank', 'name', 'med', 'iqr'))+ "\n"+ line
+  print(('%4s , %12s ,    %s   , %4s ' % \
+               ('rank', 'name', 'med', 'iqr'))+ "\n"+ line)
   for _,__,x in sorted(ranks):
     q1,q2,q3 = x.quartiles()
-    print  ('%4s , %12s ,    %4s  ,  %4s ' % \
+    print(('%4s , %12s ,    %4s  ,  %4s ' % \
                  (x.rank+1, x.name, q2, q3 - q1))  + \
-              xtile(x.all,lo=lo,hi=hi,width=30,show="%5.2f")
+              xtile(x.all,lo=lo,hi=hi,width=30,show="%5.2f"))
     last = x.rank 
-````
-
-
-
-````python
 
 def _rdivs():
   seed(1)
   rdiv0();  rdiv1(); rdiv2(); rdiv3(); 
-  rdiv5(); rdiv6(); rdiv7()
+  rdiv5(); rdiv6(); print("###"); rdiv7()
 
 _rdivs()
-````
+
 
