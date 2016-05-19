@@ -3,6 +3,14 @@ import sys,random
 sys.dont_write_bytecode=True
 
 """
+TODO
+try:                                
+        opts, args = getopt.getopt(argv, "hg:d", ["help", "grammar="]) 2
+    except getopt.GetoptError:           3
+        usage()                          4
+        sys.exit(2)                     
+
+
 # Analysis of Experimental Data
 
 This page is about the non-parametric statistical tests. It is also a chance for us to discuss a little
