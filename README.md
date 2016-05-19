@@ -2,6 +2,10 @@
 
 Activities and Information for Science of Software REU @ NCSU.
 
+## Campus Resources
+
+* [Campus Living](https://github.com/REU-SOS/SOS/blob/master/Resources/CampusLife.md)
+
 ## First Week
 
 | Time    | Monday, 5/30        | Tuesday, 5/31              | Wednesday, 6/1       | Thursday, 6/2      | Friday, 6/3                  |
