@@ -305,6 +305,8 @@ crossval() {
 
 ########################################################
 # git tricks
+
+
 gitpush() {
     gitting
     git status
@@ -317,6 +319,7 @@ gitpull() {
 }
 
 gitting() {
+    git config --global core.editor "`which nano`"
      git config --global credential.helper cache
      git config credential.helper 'cache --timeout=3600'
 }
