@@ -203,6 +203,7 @@ echo
 
 ok() { # 3b) need a place for all the stuff that makes system usable
     dirs;
+    zips
 }
 
 zips() { # make a convenient download 
