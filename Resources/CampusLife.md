@@ -1,15 +1,15 @@
 ## Dining
 
-* [Dining Halls](http://www.ncsudining.com/locations/dining-halls/)
-* [Restaurants & Cafes](http://www.ncsudining.com/locations/restaurants-cafes/)
-* [Convenience Stores](http://www.ncsudining.com/locations/convenience-stores/)
-* [Food Trucks](http://www.ncsudining.com/locations/food-trucks/)
+* [Dining Halls](http://dining.ncsu.edu/locations/dining-halls/)
+* [Restaurants & Cafes](http://dining.ncsu.edu/locations/restaurants-cafes/)
+* [Convenience Stores](http://dining.ncsu.edu/locations/convenience-stores/)
+* [Food Trucks](http://dining.ncsu.edu/locations/food-trucks/)
 * [Locations, Menus, & Hours](http://www.ncsudining.com/locations/)
-* [Health & Wellness](http://www.ncsudining.com/locations/)
-* [Events](http://www.ncsudining.com/university-dining-events/)
-* [Vegan/Vegetarian Dining](http://www.ncsudining.com/veganvegetarian-dining/)
-* [Food Allergy Guide](http://www.ncsudining.com/campus-dining/healthwellness/food-allergies/)
-* [Ask Our Dietitian](http://www.ncsudining.com/campus-dining/healthwellness/dietitian/)
+* [Health & Wellness](https://dasa.ncsu.edu/health-wellness/)
+* [Events](http://dining.ncsu.edu/university-dining-events/)
+* [Vegan/Vegetarian Dining](http://dining.ncsu.edu/veganvegetarian-dining/)
+* [Food Allergy Guide](http://dining.ncsu.edu/campus-dining/healthwellness/food-allergies/)
+* [Ask Our Dietitian](http://dining.ncsu.edu/campus-dining/healthwellness/dietitian/)
 
 
 ## Recreation
@@ -40,9 +40,9 @@ You will be housed in a suite with 4 bedrooms. Each of you will have your own be
 * Shower Curtains & Trash Cans
 
 Other resources:
-* [Mail & Packages](http://housing.ncsu.edu/mail-and-packages) (Use Wolf Village information)
-* [What to bring](http://housing.ncsu.edu/packing-list) (and what to leave at home)
-* [Community Standards & Guidelines](http://housing.ncsu.edu/resident-handbook)
+* [Mail & Packages](https://housing.dasa.ncsu.edu/resident-resources/mail-and-packages/) (Use Wolf Village information)
+* [What to bring](https://github.com/REU-SOS/SOS/blob/master/Resources/WVwolfpacklist2015.pdf) (and what to leave at home)
+* [Community Standards & Guidelines](https://housing.dasa.ncsu.edu/resident-resources/community-standards/)
 
 ## Campus Safety
 
