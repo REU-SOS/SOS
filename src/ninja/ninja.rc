@@ -30,10 +30,18 @@
 # DEALINGS IN THE SOFTWARE.
 ########################################################
 
+# INSTALL:
+
+# 1. Download https://goo.gl/rNmPcV (is a zip file)
+# 2. unzip that zip file
+# 3. cd ninja
+# 4. sh ninja
+
 # USAGE:
+
 # Here=$(pwd) bash --init-file ninja.rc -i
 
-#TIP: place the above line into a file "ninja" and call with
+# TIP: place the above line into a file "ninja" and call with
 #
 #    sh ninja
 
@@ -195,10 +203,9 @@ echo
 
 ok() { # 3b) need a place for all the stuff that makes system usable
     dirs;
-    zips;
 }
 
-zips() {
+zips() { # make a convenient download 
     (cd ..
      zip -r ninja.zip -u ninja \
 	 -x '*.zip' -x '*.DS_Store' -x '.gitignore' \
