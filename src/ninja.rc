@@ -1,5 +1,4 @@
 #!/usr/bin/env bash
-#set -x
 
 ########################################################
 # The MIT License (MIT)
@@ -31,40 +30,16 @@
 # DEALINGS IN THE SOFTWARE.
 ########################################################
 
-if [ "$Splashed" != 1 ] ; then
-    Splashed=1
-    tput setaf 3
-    cat <<-'EOF'
-          ___                                                             
-         /___\_/                                                          
-         |\_/|<\                         Command line ninjas!
-         (`o`) `   __(\_            |\_  Attack!                               
-         \ ~ /_.-`` _|__)  ( ( ( ( /()/                                   
-        _/`-`  _.-``               `\|   
-     .-`      (    .-.                                                    
-    (   .-     \  /   `-._                                                
-     \  (\_    /\/        `-.__-()                                        
-      `-|__)__/ /  /``-.   /_____8                                        
-            \__/  /     `-`                                               
-           />|   /                                                        
-          /| J   L                                                        
-          `` |   |                                                            
-             L___J                                                        
-              ( |
-             .oO()                                                        
-_______________________________________________________
-EOF
-   tput sgr0
-fi
-echo "ninja.rc v1.0 (c) 2016 Tim Menzies, MIT (v2) license"
-echo
+## 0 ###################################################
 
-trap zap 0 1 2 3 4 15
-zap() { echo "Zapping..." ; rm -rf $Tmp; }
+# TIP: start with examples of how to call this code
 
-########################################################
+# TIP: know your seed (so you can reproduce 'random' runs)
+
+Seed=1
+
 eg1() { ok; crossval 2 2 data/soybean.arff   $RANDOM j48 nb; }
-eg2() { egX data/jedit-4.1.arff 1 #$RANDOM;
+eg2() { egX data/jedit-4.1.arff $Seed
 	statsX 
       }
 
@@ -79,6 +54,8 @@ statsX() {
     echo "pd"; python stats.py < $Tmp/egX.pd
     echo "pf"; python stats.py < $Tmp/egX.pf	
 }
+
+# example output from "eg2" (rbfnet looks best for this data)
 
 # pd
 # rank ,         name ,    med   ,  iqr
@@ -96,61 +73,40 @@ statsX() {
 #    2 ,          j48 ,      10  ,    10 (   -----   *   |  ------      ), 3,  7, 10, 16, 21
 #    2 ,         bnet ,      13  ,     8 (        ---   *|   --         ), 7, 10, 13, 17, 19
 
-	
-########################################################
-fyi() { echo "$@" 1>&2; }
+## 1 ###################################################
+# TIP: uncomment the next line to get debug information
 
-alias ls='ls -G'                 ## short format
-alias ll='ls -la'                ## long format
-alias l.='ls -d .* --color=auto' ## Show hidden files
+#set -x
 
-## get rid of a common 'command not found' error
-alias cd..='cd ..'
- 
-## a quick way to get out of current directory ##
-alias ..='cd ..'
-alias ...='cd ../../../'
-alias ....='cd ../../../../'
-alias .....='cd ../../../../'
-alias .3='cd ../../../'
-alias .4='cd ../../../../'
-alias .5='cd ../../../../..'
+## 2 ####################################################
+# CONFIG Stuff
 
-######################################################
-#pipe into a while and if
-#— tow different pies
-#make: don’t redo
-#nohup
+# 2a) magic strings
 
-# pattern
-#fetch : curl find mysql
-#select: grep sql awk etc
-#transform: sort, head, tail, sed, gawk
-#learn
-#report
-#visualize: gnuplot,gvpr
-
-######################################################
-
-Ed="/Applications/Emacs.app/Contents/MacOS/Emacs"
-Edot="/tmp/edot$$"
 Me=demo1
 
-Tmp="/tmp/$USER/$$" # some places, /tmp is size restricted. Here, you want some place BIG
+# 2b) $Tmp for short-lived throwaways and $Safe for slow-to-reproduce files
+
+Tmp="/tmp/$USER/$$" # A place to store BIG files. Warning: /tmp has limits on some sites
 Safe="$HOME/tmp/safe/$Me"
 
-## Raw = source of raw data; Cooked= pre-processed stuff
+# 2c) $Raw = source of raw data; $Cooked= pre-processed stuff
+
 Raw=$Here
 Cooked="$Safe"
 
-## java libraries
+# 2d) java libraries
+
 Jar="$Here/weka.jar"
 Weka="java -Xmx1024M -cp $Jar "
 
-ok() { dirs; }
+# 2e) Write edtior config files somewhere then tweak call
+#     to editor to use thos files
 
-dirs() {
-    mkdir -p $Safe $Tmp $Raw $Cooked
+Ed="/Applications/Emacs.app/Contents/MacOS/Emacs"
+Edot="/tmp/edot$$"
+
+e() { $Ed -q -l "$Edot" $* &  # $Edot defined below 
 }
 
 cat << 'EOF' > $Edot
@@ -191,7 +147,108 @@ cat << 'EOF' > $Edot
             python-indent 2)))
 
 EOF
-########################################################
+
+## 3 ##################################################
+# SILLY: print a ninja, just once (on first load)
+
+if [ "$Splashed" != 1 ] ; then
+    Splashed=1
+    tput setaf 3 # changes color 
+    cat <<-'EOF'
+          ___                                                             
+         /___\_/                                                          
+         |\_/|<\                         Command line ninjas!
+         (`o`) `   __(\_            |\_  Attack!                               
+         \ ~ /_.-`` _|__)  ( ( ( ( /()/                                   
+        _/`-`  _.-``               `\|   
+     .-`      (    .-.                                                    
+    (   .-     \  /   `-._                                                
+     \  (\_    /\/        `-.__-()                                        
+      `-|__)__/ /  /``-.   /_____8                                        
+            \__/  /     `-`                                               
+           />|   /                                                        
+          /| J   L                                                        
+          `` |   |                                                            
+             L___J                                                        
+              ( |
+             .oO()                                                        
+_______________________________________________________
+EOF
+    tput sgr0 # color back to black
+    
+fi
+
+## 3 ##################################################
+# THINGS TO DO AT START, AT END
+
+# 3a) print name and license
+
+echo "ninja.rc v1.0 (c) 2016 Tim Menzies, MIT (v2) license"
+echo
+
+ok() { # 3b) need a place for all the stuff that makes system usable
+    dirs;
+}
+
+dirs() { # 3c) create all the required dirs
+    mkdir -p $Safe $Tmp $Raw $Cooked
+}
+
+# TIP: 3d) no matter now this program ends, clean on exit
+
+trap zap 0 1 2 3 4 15 # catches normal end, Control-C, Control-D etc
+zap() { echo "Zapping..." ; rm -rf $Tmp; }
+
+# TIP: 3e) Define a convenience function to reload environment
+
+reload() { . $Here/ninja.rc ; }
+	
+## 4 ######################################################
+# TIP: useful shell one-liners
+
+# change the prompt to include "NINJA" and the local dirs
+here() { cd $1; basename $PWD; }
+
+PROMPT_COMMAND='echo  -ne "NINJA:\033]0; $(here ..)/$(here .)\007"
+PS1=" $(here ..)/$(here .) \!> "'
+
+# print to screen
+fyi() { echo "$@" 1>&2; } 
+
+# other
+alias ls='ls -G'                 ## short format
+alias ll='ls -la'                ## long format
+alias l.='ls -d .* --color=auto' ## Show hidden files
+alias cd..='cd ..' ## get rid of a common 'command not found' error
+alias ..='cd ..' # quick change dir command
+alias ...='cd ../../../'
+alias ....='cd ../../../../'
+alias .....='cd ../../../../'
+alias .3='cd ../../../'
+alias .4='cd ../../../../'
+alias .5='cd ../../../../..'
+
+# git tricks
+gitpush() {
+    gitting
+    git status
+    git commit -am "saving"
+    git push origin master
+}
+gitpull() {
+    gitting
+    git pull origin master
+}
+
+gitting() {
+    git config --global core.editor "`which nano`"
+    git config --global credential.helper cache
+    git config credential.helper 'cache --timeout=3600'
+}
+
+## 5 #####################################################
+# TIP: Write little shell scripts for standard actions
+
 killControlM() { tr -d '\015'; } 
 downCase()     { tr A-Z a-z; }
 stemming()     { perl $Here/stemming.pl  ; }
@@ -208,7 +265,16 @@ stops()        {  gawk '
 prep()  { killControlM | downCase | 
                   stemming | stops; }
 
-########################################################
+## 6 ######################################################
+# TIP: write convenience functions for learners
+
+# In the following there are 2 kinds of functions: "xx" and "xx10".
+
+# The former needs a train and test set (passed in as $1, $2 and
+# used by the "-t $1 and -T $2" flags.
+
+# The latter functions ("xx10") accept one data file $1 which is
+# used in a 10-way cross-val by "-t $1".
 
 linearRegression(){
 	local learner=weka.classifiers.functions.LinearRegression 
@@ -282,13 +348,18 @@ adtree10() {
        local learner=weka.classifiers.trees.ADTree
        $Weka $learner -B 10 -E -3 -p 0 -i -t $1
 }
-########################################################
+## 7 ######################################################
+# Longer data mining functions
 
+# 7a) just print the actual and predicted values.
 wantgot() { gawk '/:/ {
                       split($2,a,/:/); actual    = a[2] 
                       split($3,a,/:/); predicted = a[2]
                       print actual, predicted }'
 }
+
+# 7b) print the learer and data set before generating the
+#     actual and predicted values
 trainTest() {
     local learner=$1
     local train=$2
@@ -297,8 +368,10 @@ trainTest() {
     $learner $train $test | wantgot
 }
 
+# 7c) Know your a,b,c,d s 
 abcd() { python3 $Here/abcd.py; }
 
+# 7d) Generate data sets for an m*n cross-val. Call learners on each.
 crossval() {
     local m=$1
     local n=$2
@@ -339,37 +412,21 @@ crossval() {
 }
 
 
-########################################################
-# git tricks
-gitpush() {
-    gitting
-    git status
-    git commit -am "saving"
-    git push origin master
-}
-gitpull() {
-    gitting
-    git pull origin master
-}
-
-gitting() {
-    git config --global core.editor "`which nano`"
-     git config --global credential.helper cache
-     git config credential.helper 'cache --timeout=3600'
-}
-########################################################
-
-reload() { . $Here/ninja.rc ; }
-e()      { $Ed -q -l "$Edot" $* & 
-         }
-
-########################################################
-
-here() { cd $1; basename $PWD; }
-
-PROMPT_COMMAND='echo  -ne "NINJA:\033]0; $(here ..)/$(here .)\007"
-PS1=" $(here ..)/$(here .) \!> "'
-
-#######################################################
-## start up comments
+## 8 #####################################################
+## any start up actions?
 ok
+
+######################################################
+# Todo
+# #pipe into a while and if
+#— tow different pies
+#make: don’t redo
+#nohup
+
+# pattern
+#fetch : curl find mysql
+#select: grep sql awk etc
+#transform: sort, head, tail, sed, gawk
+#learn
+#report
+#visualize: gnuplot,gvpr
