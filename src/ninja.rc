@@ -31,40 +31,75 @@
 # DEALINGS IN THE SOFTWARE.
 ########################################################
 
-tput setaf 3
-cat <<'EOF'
-############################################################
-      ___                                                             
-     /___\_/                                                          
-     |\_/|<\                         Command line ninja!!!!
-     (`o`) `   __(\_            |\_  Attack!!!                                 
-     \ ~ /_.-`` _|__)  ( ( ( ( /()/                                   
-    _/`-`  _.-``               `\|   
- .-`      (    .-.                                                    
-(   .-     \  /   `-._                                                
- \  (\_    /\/        `-.__-()                                        
-  `-|__)__/ /  /``-.   /_____8                                        
-        \__/  /     `-`                                               
-       />|   /                                                        
-      /| J   L                                                        
-      `` |   |                                                        
-         L___J                                                        
-          ( |
-         .oO()                                                        
-###########################################################
+if [ "$Splashed" != 1 ] ; then
+    Splashed=1
+    tput setaf 3
+    cat <<-'EOF'
+          ___                                                             
+         /___\_/                                                          
+         |\_/|<\                         Command line ninjas!
+         (`o`) `   __(\_            |\_  Attack!                               
+         \ ~ /_.-`` _|__)  ( ( ( ( /()/                                   
+        _/`-`  _.-``               `\|   
+     .-`      (    .-.                                                    
+    (   .-     \  /   `-._                                                
+     \  (\_    /\/        `-.__-()                                        
+      `-|__)__/ /  /``-.   /_____8                                        
+            \__/  /     `-`                                               
+           />|   /                                                        
+          /| J   L                                                        
+          `` |   |                                                            
+             L___J                                                        
+              ( |
+             .oO()                                                        
+_______________________________________________________
 EOF
-tput sgr0
+   tput sgr0
+fi
+echo "ninja.rc v1.0 (c) 2016 Tim Menzies, MIT (v2) license"
+echo
 
 trap zap 0 1 2 3 4 15
 zap() { echo "Zapping..." ; rm -rf $Tmp; }
 
 ########################################################
 eg1() { ok; crossval 2 2 data/soybean.arff   $RANDOM j48 nb; }
-eg2() { ok; crossval 5 5 data/jedit-4.1.arff $RANDOM j48 nb |
-	    gawk  '/true/ {print $2,$10,$11}'
+eg2() { egX data/jedit-4.1.arff 1 #$RANDOM;
+	statsX 
       }
 
+egX() { ok
+	local what=`basename $1 | sed 's/.arff//' `
+	crossval 5 5 $1 $2 rbfnet bnet j48 nb > $Tmp/egX
+	gawk  '/true/ {print $2,$10}' $Tmp/egX > $Tmp/egX.pd
+	gawk  '/true/ {print $2,$11}' $Tmp/egX > $Tmp/egX.pf	
+      }
+
+statsX() {
+    echo "pd"; python stats.py < $Tmp/egX.pd
+    echo "pf"; python stats.py < $Tmp/egX.pf	
+}
+
+# pd
+# rank ,         name ,    med   ,  iqr
+# ----------------------------------------------------
+#    1 ,           nb ,      45  ,    18 (   ------  *  -|---           ),27, 41, 45, 52, 64
+#    1 ,          j48 ,      47  ,    25 ( -------    *  |---           ),22, 38, 47, 56, 64
+#    2 ,       rbfnet ,      56  ,    10 (         ----  * -----        ),42, 50, 56, 59, 73
+#    2 ,         bnet ,      58  ,    17 (       ------  |*   ------    ),37, 50, 58, 67, 81
+
+# pf
+# rank ,         name ,    med   ,  iqr
+# ----------------------------------------------------
+#    1 ,           nb ,       8  ,     6 (    --   * ----|-             ), 4,  6,  8, 10, 15
+#    2 ,       rbfnet ,       9  ,     7 (    ----- *    |-----         ), 4,  8,  9, 14, 19
+#    2 ,          j48 ,      10  ,    10 (   -----   *   |  ------      ), 3,  7, 10, 16, 21
+#    2 ,         bnet ,      13  ,     8 (        ---   *|   --         ), 7, 10, 13, 17, 19
+
+	
 ########################################################
+fyi() { echo "$@" 1>&2; }
+
 alias ls='ls -G'                 ## short format
 alias ll='ls -la'                ## long format
 alias l.='ls -d .* --color=auto' ## Show hidden files
@@ -115,7 +150,7 @@ Weka="java -Xmx1024M -cp $Jar "
 ok() { dirs; }
 
 dirs() {
-    mkdir -p $Safe $Tmp $Raw, $cooked
+    mkdir -p $Safe $Tmp $Raw $Cooked
 }
 
 cat << 'EOF' > $Edot
@@ -293,6 +328,7 @@ crossval() {
     cd $Tmp
     for learner in $learners; do
 	for((i=1; i<=$m; i++)); do
+	    fyi "$learner $i"
 	    for((j=1; j<=$n; j++)); do
               local arff="${i}_${j}.arff"		
 	      trainTest $learner train$arff test$arff | abcd
@@ -305,8 +341,6 @@ crossval() {
 
 ########################################################
 # git tricks
-
-
 gitpush() {
     gitting
     git status

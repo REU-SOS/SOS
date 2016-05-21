@@ -1,6 +1,51 @@
 from __future__ import division,print_function
-import sys,random
+import sys,random, argparse
 sys.dont_write_bytecode=True
+
+class o():
+  "Anonymous container"
+  def __init__(i,**fields) : 
+    i.override(fields)
+  def override(i,d): i.__dict__.update(d); return i
+  def __repr__(i):
+    d = i.__dict__
+    name = i.__class__.__name__
+    return name+'{'+' '.join([':%s %s' % (k,d[k]) 
+                     for k in i.show()])+ '}'
+  def show(i):
+    return [k for k in sorted(i.__dict__.keys()) 
+            if not "_" in k]
+
+The=o(cohen=0.3, small=3, epsilon=0.01,
+      width=50,lo=0,hi=100,conf=0.01,b=1000,a12=0.56)
+
+parser = argparse.ArgumentParser(
+  description="Apply Scott-Knot test to data read from standard input")
+
+p=parser.add_argument
+
+p("--demo",default=False, action="store_true")
+p("--cohen",   type=float, 
+  default=0.3, metavar='N',
+  help="too small if delta less than N*std of the data)")
+p("--small",type=int, metavar="N",default=3,
+  help="too small if hold less than N items")
+p("--epsilon", type=float, default=0.01,metavar="N",
+  help="a range is too small of its hi - lo < N")
+p("--width",type=int,default=50,metavar="N",
+  help="width of quintile display")
+p("--conf", type=float, default=0.01,metavar="N",
+  help="bootstrap tests with confidence 1-n")
+p("--a12",type=float, default=0.56, metavar="N",
+  help="threshold for a12 test: disable,small,med,large=0,0.56,0.64,0.71") 
+
+args = parser.parse_args()
+The.cohen = args.cohen
+The.small = args.small
+The.epsilon = args.epsilon
+The.conf = args.conf
+The.width = args.width + 0
+The.a12  = args.a12 + 0
 
 """
 TODO
@@ -409,38 +454,8 @@ def _ab12():
     print(t2, a12slow(one,two))
 
 """
-A faster way is to first sort the two lists in descending order. Then, if it is found that an item
-is bigger that one item, it is by definition bigger than the rest of the items in that list (so
-we can stop there): 
 
-"""
-def a12(lst1,lst2):
-  """how often is lst1 often more than y in lst2?
-  assumes lst1 nums are meant to be greater than lst2"""
-  def loop(t,t1,t2): 
-    while t1.m < t1.n and t2.m < t2.n:
-      h1 = t1.l[t1.m]
-      h2 = t2.l[t2.m]
-      h3 = t2.l[t2.m+1] if t2.m+1 < t2.n else None 
-      if h1 > h2:
-        t1.m  += 1; t1.gt += t2.n - t2.m
-      elif h1 == h2:
-        if h3 and gt(h1,h3) < 0:
-            t1.gt += t2.n - t2.m  - 1
-        t1.m  += 1; t1.eq += 1; t2.eq += 1
-      else:
-        t2,t1  = t1,t2
-    return t.gt*1.0, t.eq*1.0
-  #--------------------------
-  lst1 = sorted(lst1,reverse=True)
-  lst2 = sorted(lst2,reverse=True)
-  n1   = len(lst1)
-  n2   = len(lst2)
-  t1   = o(l=lst1,m=0,eq=0,gt=0,n=n1)
-  t2   = o(l=lst2,m=0,eq=0,gt=0,n=n2)
-  gt,eq= loop(t1, t1, t2)
-  return gt/(n1*n2) + eq/2/(n1*n2)
-"""
+
 
 Note that the test code \__ab12_ shows that our fast and slow method generate the same A12 score, but the
 fast way does so thousands of times faster. The following tests show runtimes for lists of 5000 numbers:
@@ -460,19 +475,7 @@ Didn't we do this before?
 
 """
 
-class o():
-  "Anonymous container"
-  def __init__(i,**fields) : 
-    i.override(fields)
-  def override(i,d): i.__dict__.update(d); return i
-  def __repr__(i):
-    d = i.__dict__
-    name = i.__class__.__name__
-    return name+'{'+' '.join([':%s %s' % (k,pretty(d[k])) 
-                     for k in i.show()])+ '}'
-  def show(i):
-    return [k for k in sorted(i.__dict__.keys()) 
-            if not "_" in k]
+
 """
 
 Misc functions:
@@ -507,7 +510,7 @@ def pairs(lst):
     yield last,i
     last = i
 
-def xtile(lst,lo=0,hi=100,width=50,
+def xtile(lst,lo=The.lo,hi=The.hi,width=The.width,
              chops=[0.1 ,0.3,0.5,0.7,0.9],
              marks=["-" ," "," ","-"," "],
              bar="|",star="*",show=" %3.0f"):
@@ -573,7 +576,7 @@ class Num:
   def __add__(i,j):
     return Num(i.name + j.name,i.all + j.all)
   def quartiles(i):
-    def p(x) : return int(100*g(xs[x]))
+    def p(x) : return int(g(xs[x]))
     i.median()
     xs = i.all
     n  = int(len(xs)*0.25)
@@ -638,7 +641,7 @@ def a12(lst1,lst2):
   t1   = o(l=lst1,j=0,eq=0,gt=0,n=n1)
   t2   = o(l=lst2,j=0,eq=0,gt=0,n=n2)
   gt,eq= loop(t1, t1, t2)
-  return gt/(n1*n2) + eq/2/(n1*n2)
+  return gt/(n1*n2) + eq/2/(n1*n2)  >= The.a12
 
 def _a12():
   def f1(): return a12slow(l1,l2)
@@ -722,7 +725,7 @@ The rest is just details:
 + For more details see [the Efron text][efron01].  
 
 """
-def bootstrap(y0,z0,conf=0.01,b=1000):
+def bootstrap(y0,z0,conf=The.conf,b=The.b):
   """The bootstrap hypothesis test from
      p220 to 223 of Efron's book 'An
     introduction to the boostrap."""
@@ -829,16 +832,16 @@ are called on only a logarithmic number of times. So...
 For examples on using this code, see _rdivDemo_ (below).
 
 """
-def scottknott(data,cohen=0.3,small=3, useA12=False,epsilon=0.01):
+def scottknott(data,cohen=The.cohen,small=The.small,useA12=The.a12 > 0, epsilon=The.epsilon):
   """Recursively split data, maximizing delta of
   the expected value of the mean before and 
   after the splits. 
   Reject splits with under 3 items"""
   all  = reduce(lambda x,y:x+y,data)
   same = lambda l,r: abs(l.median() - r.median()) <= all.s()*cohen
-  if useA12: 
+  if useA12:
     same = lambda l, r:   not different(l.all,r.all) 
-  big  = lambda    n: n > small    
+  big  = lambda    n: n > small
   return rdiv(data,all,minMu,big,same,epsilon)
 
 def rdiv(data,  # a list of class Nums
@@ -891,7 +894,7 @@ def minMu(parts,all,big,epsilon):
         before,cut,left,right = now,i,l,r
   return cut,left,right
 
-def leftRight(parts,epsilon=0.01):
+def leftRight(parts,epsilon=The.epsilon):
   """Iterator. For all items in 'parts',
   return everything to the left and everything
   from here to the end. For reasons of
@@ -906,7 +909,7 @@ def leftRight(parts,epsilon=0.01):
     j -=1
   left = parts[0]
   for i,one in enumerate(parts):
-    if i> 0: 
+    if i> 0:
       if parts[i]._median - parts[i-1]._median > epsilon:
         yield i,left,rights[i]
       left += one
@@ -919,7 +922,7 @@ Driver for the demos:
 
 """
 def rdivDemo(data):
-  def z(x):
+  def zzz(x):
     return int(100 * (x - lo) / (hi - lo + 0.00001))
   data = map(lambda lst:Num(lst[0],lst[1:]),
              data)
@@ -947,6 +950,33 @@ def _rdivs():
   rdiv0();  rdiv1(); rdiv2(); rdiv3(); 
   rdiv5(); rdiv6(); print("###"); rdiv7()
 
-_rdivs()
+####################################
 
+def thing(x):
+    "Numbers become numbers; every other x is a symbol."
+    try: return int(x)
+    except ValueError:
+        try: return float(x)
+        except ValueError:
+            return x
+          
+def main():
+  log=None
+  all={}
+  now=[]
+  for line in sys.stdin:
+    for word in line.split():
+      word = thing(word)
+      if isinstance(word,str):
+        now = all[word] = all.get(word,[])
+      else:
+        now += [word]
+  rdivDemo( [ [k] + v for k,v in all.items() ] ) 
+
+  
+if args.demo:
+  _rdivs()
+else:
+  main()
+  
 
