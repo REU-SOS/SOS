@@ -195,8 +195,16 @@ echo
 
 ok() { # 3b) need a place for all the stuff that makes system usable
     dirs;
+    zips;
 }
 
+zips() {
+    (cd ..
+     zip -r ninja.zip -u ninja \
+	 -x '*.zip' -x '*.DS_Store' -x '.gitignore' \
+	 2> /dev/null
+    )
+}
 dirs() { # 3c) create all the required dirs
     mkdir -p $Safe $Tmp $Raw $Cooked
 }
