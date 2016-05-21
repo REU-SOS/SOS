@@ -39,9 +39,10 @@ You will be housed in a suite with 4 bedrooms. Each of you will have your own be
 * Ceiling fans
 * Shower Curtains & Trash Cans
 
-[Mail & Packages](http://housing.ncsu.edu/mail-and-packages) (Use Wolf Village information)
-[What to bring](http://housing.ncsu.edu/packing-list) (and what to leave at home)
-[Community Standards & Guidelines](http://housing.ncsu.edu/resident-handbook)
+Other resources:
+* [Mail & Packages](http://housing.ncsu.edu/mail-and-packages) (Use Wolf Village information)
+* [What to bring](http://housing.ncsu.edu/packing-list) (and what to leave at home)
+* [Community Standards & Guidelines](http://housing.ncsu.edu/resident-handbook)
 
 ## Campus Safety
 
