@@ -30,6 +30,13 @@
 # DEALINGS IN THE SOFTWARE.
 ########################################################
 
+# USAGE:
+# Here=$(pwd) bash --init-file ninja.rc -i
+
+#TIP: place the above line into a file "ninja" and call with
+#
+#    sh ninja
+
 ## 0 ###################################################
 
 # TIP: start with examples of how to call this code
