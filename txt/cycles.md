@@ -58,7 +58,9 @@ e.g. Azure functions, etc.
 
 ### Learn
 
-e.g. weka, R
+e.g. weka (see [command-line ninja](https://github.com/REU-SOS/SOS/tree/master/src/ninja)
+
+e.g. R
 
 e.g. scikit, cloud apis: watson, microsoft, etc.
 
@@ -74,9 +76,11 @@ e.g. latex
 
 e.g. markdown, github pages
 
+e.g. Pandoc
+
 ### Package
 
-e.g. Make, package management systems (e.g. luarocks)
+e.g. Make, package management systems (e.g. pip, luarocks, etc/)
 
 e.g. Docker, ansible, maven, npm, grunt
  
