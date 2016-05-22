@@ -1,5 +1,7 @@
 # Cycles Within Data Science Procceses
 
+_(Credits: some of the following come from [Diomidis Spinellis' most excellent slides](https://drive.google.com/file/d/0ByPAm2ABBQPHU1JLQlJ5eGZCTkE/view))_
+
 [Fayyad et al. (1996)](bib.md#fayyad96) offer the classic definition of data science, as applied to real-world activities:
 
 + KDD (knowledge discovery in databases) is the non- trivial process of identifying valid, novel, potentially useful, and ultimately understandable patterns in data.
@@ -39,6 +41,7 @@ The above diagram, written in 1996, is a little light on details. Twenty years l
 - The _tool chain cycle_:
      - Analysts extend and automate their tool chain.
 
+
 ## The Tool-Chain Cycle
 
 ### Fetch
@@ -47,6 +50,7 @@ e.g. curl find
 
 e.g. mysql
 e.g. Selenium/REST apis
+
 
 ### Select
 
@@ -93,3 +97,83 @@ e.g. Pandoc
 e.g. Make, package management systems (e.g. pip, luarocks, etc/)
 
 e.g. Docker, ansible, maven, npm, grunt
+
+## Unix Tools
+
+There are two main "families" of tools you should be familiar with:
+
+- Ye Olde Unix shell tools (cat, grep, sed, awk, make, etc) which, while not-so-young,
+  are still oh-so-useful.
+- More recent web-aware tools (Selenium, JSON, maven, etc).
+
+The UNIX shell tools push data from sources through filters along pipes:
+
+```
+command
+command < inputFile
+command > outputFile
+command1 | command2 # pipes
+command &           # run in background
+```
+
+The shell is a general programming langauge:
+
+```
+e=expansion
+$e
+$(command)
+'literal string'
+"string with \$ $e"
+```
+
+Command can run sequetially or conditionally:
+
+```
+command1 ; command2
+(command1 ; command2) # in a sub-shell
+command1 || command2  # do command2 only if command1 fails
+command1 && command2  # do command2 only if command1 succeeds
+```
+
+Usual conditionals and loops:
+
+```
+if command; then
+   commands
+fi
+
+while command; do
+  commands
+done
+
+while read var; do
+   commands
+done
+
+# looping over lists
+for var in a b c; do
+   commands # that can access $var
+done
+
+# looping over numerics
+for((x=1;x<=10;x++); do
+   commands # that can access $x
+done
+
+case word in
+pattern1) commands1;;
+pattern2) commands2;;
+esac
+```
+
+### Fetching with Shell
+
+`curl` and `wget`
+
+- `curl` handles more protocols
+- `wget` can recrusively fetch slides
+
+```
+while read ticker; do
+  .
+```
