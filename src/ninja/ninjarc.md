@@ -227,10 +227,9 @@ zips() { # make a convenient download
 }
 ninjarc() { # pretties
     if  [ "ninja.rc" -nt "ninjarc.md" ]; then
-    (cat<<'EOF'  
-<img align=right height=200 
-src="http://www.blogking.biz/wp-content/uploads/Woothemes_Ninjas.jpg"><img align=right height=200
-src="http://www.chantetter.nl/it-fun3/go-away.jpg">
+    (cat <<-'EOF'  
+<img align=right height=200 src="http://www.blogking.biz/wp-content/uploads/Woothemes_Ninjas.jpg">
+<img align=right height=200 src="http://www.chantetter.nl/it-fun3/go-away.jpg">
 
 EOF
     
