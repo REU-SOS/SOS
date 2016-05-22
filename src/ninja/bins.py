@@ -68,8 +68,10 @@ class Num:
     return i.sd()*i.n/n
 
 class Range:
-  def __init__(i,attr=None,lo=None,hi=None,has=None):
-    i.attr,i.lo, i.hi, i.has = attr,lo,hi,has
+  def __init__(i,attr=None,lo=None,up=None,has=None,score=None):
+    i.attr,i.lo, i.up, i.has, i.score = attr,lo,up,has,score
+  def __repr__(i):
+    return str(dict(lo=i.lo,up=i.up,has=len(i.has)))
 
 def sdiv(lst,
          attr    = None,
@@ -81,25 +83,30 @@ def sdiv(lst,
          xx      = same,
          yy      = same):
   # --------------------------------
-  def div(lst, out)
-    cut       = None
-    xlhs,xrhs = Num(get=xx), Num(lst, get=xx)
-    ylhs,yrhs = Num(get=yy), Num(lst, get=yy)
-    score     = yrhs.sd()
-    n         = len(lst)
-    old       = lst[0] 
+  def div(lst, out):
+    cut        = None
+    xlhs, xrhs = Num(get=xx), Num(lst, get=xx)
+    ylhs, yrhs = Num(get=yy), Num(lst, get=yy)
+    score      = yrhs.sd()
+    n          = len(lst)
+    old        = lst[0]
     for i,new in enumerate(lst):
+      print(i,score,enough)
       xlhs + new
       xrhs - new
       ylhs + new
       yrhs - new
-      if xlhs.n >= enough:
-        if xrhs.n >= enough:  
+      print("N",xrhs.n,xlhs.n)
+      if xrhs.n < enough: break
+      else:
+        if xlhs.n >= enough:
+          print(xx(new),xx(old),small)
           if xx(new) - xx(old) > small:
             score1 = ylhs.wsd(n) + yrhs.wsd(n)
             if score1*trivial < score:
               cut,score = i,score1,
       old = new
+      
     # --------------------------------
     if cut:
       div(lst[:cut], out)
@@ -107,19 +114,19 @@ def sdiv(lst,
     else:
       out = out + [Range(attr=attr,     score=score,
                          lo=xx(lst[0]), up=xx(lst[-1]),
-                         items=lst)]
+                         has=lst)]
     return out
   # --------------------------------
   if lst:
     small   = small or Num(lst,get=xx).small(cohen)
-    maxBins = min(len(lst), min)
+    maxBins = min(len(lst), minBins)
     few     = max(minBins, len(lst)/maxBins)
     enough  = int(len(lst)/few)
-    return div( sorted(lst[:], key=xx), out ) # copied, sorted
+    return div( sorted(lst[:], key=xx), [] ) # copied, sorted
   else:
     return []
   
-print(bins([x for x in xrange(29)]))
+print(sdiv([x for x in xrange(29)],small=5))
 sys.exit()
          
 class row:

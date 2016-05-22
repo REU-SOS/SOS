@@ -113,7 +113,7 @@ There are two main "families" of tools you should be familiar with:
 
 The UNIX shell tools push data from sources through filters along pipes:
 
-```
+```bash
 command
 command < inputFile
 command > outputFile
@@ -123,7 +123,7 @@ command &           # run in background
 
 The shell is a general programming langauge:
 
-```
+```bash
 e=expansion
 $e
 $(command)
@@ -133,7 +133,7 @@ $(command)
 
 Command can run sequetially or conditionally:
 
-```
+```bash
 command1 ; command2
 (command1 ; command2) # in a sub-shell
 command1 || command2  # do command2 only if command1 fails
@@ -142,7 +142,7 @@ command1 && command2  # do command2 only if command1 succeeds
 
 Usual conditionals and loops:
 
-```
+```bash
 if command; then
    commands
 fi
@@ -173,12 +173,178 @@ esac
 
 ### Fetching with Shell
 
+
 `curl` and `wget`
 
 - `curl` handles more protocols
 - `wget` can recrusively fetch slides
 
+```bash
+while read ticker
+   curl -o $ticker.html \
+   "http://www.reuters.com/finance/stocks/ratios?symbol=$ticker&rpc=66#management"
+done <ticker_symbols
 ```
-while read ticker; do
-  .
+
+mysql, sqlplus, osql, sqlite3, psql, odbc
+
+
+```bash
+# fyi 'instr' finds starting location of a string
+mysql -s db \
+  -e "select distinct substr(name, 1,length(name) - instr(reverse(name), '/'))
+      from FILES" |
+xargs ls -di      |
+awk '{print $1}'  |
+sort -u |
+wc -l
 ```
+
+ssh
+
+```bash
+# compress there, uncompress her
+
+$ ssh host.example.com tar cf – dir | tar xf -
+```
+
+csv: the `cvs annotat`e command displays the most recent change for each line of a file in the repository.
+
+```
+$ cvs annotate f |
+awk '{print $2}' |
+sort    |
+uniq -c |
+sort -rn
+```
+
+By the way, the idiom `sort | uniq -c | sort -rn` is
+pretty common.  The output shows how often lines
+appear, sorted in order of that frequency.
+E.g. the above outputs
+
+```
+1652 spy
+1104 polina
+827 ajk
+372 dds
+279 panos
+124 mastorad
+75 mm
+16 nd
+2 nmil
+1 pappas
+```
+
+grep (not yet, first need regular expressions):
+
+
+```
+a
+.
+k*
+[a-z]
+[^a-z]
+^a
+b$
+\.
+\[
+\*
+(a.b)
+\1
+a|b c+ d?
+{9}
+{,9} 
+```
+
+back to grep
+
+```
+grep '^From: ' /usr/mail/$USER # your mail
+grep '[0-9]\{3\}-[0-9]\{4\}'  # {999-9999, like phone numbers}
+```
+
+awk = lists of `pattern {action}`. The default `pattern` is "1" (i.e. for all records do)
+and the default `action` is `print` (i.e. print record).
+
+```
+awk '/^x/     { print $2 }
+     $2 == $3 { a[$2]++ }
+     END      { print x }
+
+# print sum of number in field3
+
+$ tar tvf vmmemctl.tar | awk '{s += $3} END {print s}'
+```
+
+sort (workds for massive files) 
+
+```
+sort
+-numeric-sort
+-reverse
+--key=2nr
+--unique
+--field-separator=:
+
+$ tar tvf vmmemctl.tar | sort +2n
+```
+
+sed
+
+
+```
+s/if(/if (/;s/do{/do {/
+/^ \*/s/ *\*$//
+s/^struct \(.*\) {/\1/p
+'s/\(Beetles - One - \)\(.*\)
+mv "\1\2" "\2"/p' |
+sed 's/\(House of Cards US -3x\)\(..\)\( - Chapter \)\(..\)\(.*\)/mv "\1\2\3\4\5" "S03E\2 - Chapter \4.srt"/' | sh
+
+# make a directory of songs from a Beatles album
+$ ls |
+sed -n 's/\(Beatles - One - \)\(.*\) /\ mv "\1\2" "\2"/p' |
+sh
+ ```
+
+
+find
+
+```
+find . -name foo # or with regular expressions `find -name 'foo.*'
+find . -type f   # find files
+find . -type d   # find dirs
+```
+
+e.g.
+
+```
+$ find build  -name '*.class' -type f -mtime -7
+```
+
+(Exercise for the reader: what does the `-mtime` flag do?. Hint: `man find`.)
+
+So many more:
+
+- tr, fmt, cut, paste, head, tail, uniq,
+- date,rev,tac, comm,
+- exec, test, diff, tee, sendmail, openssl
+- gvpr (comes with graphviz). A graph walking langauge
+
+```bash
+BEG_G {
+  $tvtype = TV_fwd;
+  $tvroot = node($, ARGV[0]);
+}
+N [$tvroot = NULL; 1]
+END_G {
+  induce($T);
+  write($T);
+  exit(0);
+}
+```
+
+And, when the above fail you:
+
+- perl, python ruby, lua, scala
+- e.g. see [How to use Ruby instead of sed and awk](http://nithinbekal.com/posts/ruby-sed-awk/)
