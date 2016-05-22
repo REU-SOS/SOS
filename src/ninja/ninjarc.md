@@ -241,7 +241,13 @@ ________
 
 ```bash
 EOF
-    cat ninja.rc
+     cat ninja.rc
+cat <<'EOF'
+````
+
+<img align=center src="http://www.geekpeak.de/images/produkte/i22/22-go-away-or-i-will-replace-you-de.jpg">
+
+EOF
     echo '```' ) > ninjarc.md
     fi 
 }
@@ -482,4 +488,8 @@ ok
 #learn
 #report
 #visualize: gnuplot,gvpr
+````
+
+<img align=center src="http://www.geekpeak.de/images/produkte/i22/22-go-away-or-i-will-replace-you-de.jpg">
+
 ```
