@@ -25,7 +25,7 @@ The repetitive nature of data science implies:
 
 This, in turn, has implications on tool choice:
 
-+  TIP: _Thou shall not click:_ For serious studies, to ensure repeatability, the entire analysis should be automated using some high level scripting language; e.g. R-script, Python, Matlab, or Bash [33]
++  TIP: _Thou shall not click:_ For serious studies, to ensure repeatability, the entire analysis should be automated using some high level scripting language; e.g. [R-script, Python, Matlab, or Bash](bib.md#nelson11).
 
 
 
