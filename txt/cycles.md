@@ -46,14 +46,16 @@ The above diagram, written in 1996, is a little light on details. Twenty years l
 e.g. curl find 
 
 e.g. mysql
-
-![egsql](https://raw.githubusercontent.com/REU-SOS/SOS/master/img/sql.png)
-
 e.g. Selenium/REST apis
 
 ### Select
 
 e.g. grep sql awk etc
+
+e.g.
+
+![egsql](https://raw.githubusercontent.com/REU-SOS/SOS/master/img/sql.png)
+
 
 e.g. MongoDB/Redis
 
