@@ -213,7 +213,7 @@ zips() { # make a convenient download
 	 2> /dev/null
     )
 }
-ninjarc() {
+ninjarc() { # pretties
     if  [ "ninja.rc" -nt "ninjarc.md" ]; then
     (cat<<'EOF'  
 <img align=right height=200 
