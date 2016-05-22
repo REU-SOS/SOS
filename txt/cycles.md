@@ -31,10 +31,13 @@ This, in turn, has implications on tool choice:
 
 The above diagram, written in 1996, is a little light on details. Twenty years later, we can add numerous details on those cycles. Specifically, there are three kinds of cycles:
 
-- A _semantic cycle_ where analysts use their domain knowledge to look for any quirks or errors in the data processing. During data science, it is best to consider all    data as bad data until we can have found what processes are introducing systematic biases
-(a.k.a. errors) into that data. Once that is known, the data can be repaired (reversing the bias) and the reasoning can continue.
-- A _goal cycle_ where analysts show data science products to their clients, then use their feedback to refine the goals of the project.
-- A _tool chain cycle_ where analysts extend and automate their tool chain.
+- The _semantic cycle_: 
+     - Analysts use their domain knowledge to look for any quirks or errors in the data processing. 
+     - By the way, with data, best assume guilty till proven innocent; i.e. consider all data as bad data until we can have found what processes are introducing systematic biases (a.k.a. errors) into that data. Once that is known, the data can be repaired (reversing the bias) and the reasoning can continue.
+- The _goal cycle_ :
+     - Analysts show data science products to their clients, then use their feedback to refine the goals of the project.
+- The _tool chain cycle_:
+     - Analysts extend and automate their tool chain.
 
 ## The Tool-Chain Cycle
 
