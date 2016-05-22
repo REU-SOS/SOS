@@ -72,52 +72,28 @@ particular and specific concerens of your next data science tasks.
 The following tools divide into groups and those groups correspond to large
 chunks of work in any data science project.
 
-### Fetch
-
-e.g. curl find , mysql
-e.g. Selenium/REST apis
-
-
-### Select
-
-e.g. grep sql awk etc
-
-e.g. MongoDB/Redis
-
-### Transform
-
-e.g.  sort, head, tail, sed, gawk
-
-
-e.g. Azure functions, etc.
-
-### Learn
-
-e.g. weka (see [command-line ninja](https://github.com/REU-SOS/SOS/tree/master/src/ninja)
-
-e.g. R
-
-e.g. scikit, cloud apis: watson, microsoft, etc.
-
-### Visualize
-
-e.g. gnuplot,gvpr, graphviz (dot)
-
-e.g. d3
-
-### Report
-
-e.g. latex
-
-e.g. markdown, github pages
-
-e.g. Pandoc
-
-### Package
-
-e.g. Make, package management systems (e.g. pip, luarocks, etc/)
-
-e.g. Docker, ansible, maven, npm, grunt
++ Fetch
+     + e.g. curl find , mysql
+     + e.g. Selenium/REST apis
++ Select
+     + e.g. grep sql awk etc
+     + e.g. MongoDB/Redis
++ Transform
+     + e.g.  sort, head, tail, sed, gawk
+     + e.g. Azure functions, etc.
++ Learn
+     + e.g. weka (see [command-line ninja](https://github.com/REU-SOS/SOS/tree/master/src/ninja)    + e.g. R, Matlab
+     + e.g. scikit, cloud apis: watson, microsoft, etc.
++ Visualize
+     + e.g. gnuplot,gvpr, graphviz (dot)
+     + e.g. d3
++ Report
+     + e.g. latex
+     + e.g. markdown, github pages
+     + e.g. Pandoc
++  Package
+     + e.g. Make, package management systems (e.g. pip, luarocks, etc/)
+     + e.g. Docker, ansible, maven, npm, grunt
 
 ## Unix Tools
 
