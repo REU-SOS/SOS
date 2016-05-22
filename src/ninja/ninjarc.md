@@ -1,4 +1,5 @@
-
+<img align=right height=200 
+src="http://www.blogking.biz/wp-content/uploads/Woothemes_Ninjas.jpg">
 # Ninja.rc
 
 Download:
@@ -227,7 +228,8 @@ zips() { # make a convenient download
 ninjarc() {
     if  [ "ninja.rc" -nt "ninjarc.md" ]; then
     (cat<<'EOF'  
-
+<img align=right height=200 
+src="http://www.blogking.biz/wp-content/uploads/Woothemes_Ninjas.jpg">
 # Ninja.rc
 
 Download:
