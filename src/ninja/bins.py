@@ -1,8 +1,13 @@
+from __future__ import division,print_function
+import sys,os
+sys.dont_write_bytecode=True
+
+
 class o:
   def __init__(i, **entries):
     i.__dict__.update(entries)
   def __repr__(i):
-    return str({k=v for k,v
+    return str({k:v for k,v
                 in i.__dict__.items()})
 
     
@@ -22,10 +27,12 @@ def same(z): return z
 
 
 class Sym:
-  def __init__(i,inits=[]):
+  def __init__(i,inits=[],get=same):
     i.counts, i.most, i.mode, i.n = {},0,None,0
+    i.get = get
     map(i.__add__,inits)
   def __add__(i,x):
+    x = i.get(x)
     if not isMissing(x):
       i.n += 1
       new = i,counts[x] = i.counts.get(x,0) + 1
@@ -33,166 +40,87 @@ class Sym:
         i.most, i.mode = new,x
 
 class Num:
-  def __init__(i,inits=[]):
+  def __init__(i,inits=[],get=same):
     i.mu,i.n,i.m2,i.up,i.lo = 0,0,0,-10e32,10e32
+    i.get = get
     map(i.__add__,inits)
   def sd(i):
     return 0 if i.n <= 1 else (i.m2/(i.n - 1))**0.5
   def __add__(i,x):
+    x = i.get(x)
     if not isMissing(x):
       i.n += 1
       if x < i.lo: i.lo=x
-      if x > i.hi: i.hi=x
+      if x > i.up: i.up=x
       delta = x - i.mu
       i.mu += delta/i.n
       i.m2 += delta*(x - i.mu)
   def __sub__(i,x):
+    x = i.get(x)
     if not isMissing(x):
       i.n -= 1
       delta = x - i.mu
       i.mu -= delta/i.n
       i.m2 -= delta*(x - i.mu)
+  def small(i,cohen=0.3):
+    return i.sd()*cohen
+  def wsd(i,n=1):
+    return i.sd()*i.n/n
 
 class Range:
   def __init__(i,attr=None,lo=None,hi=None,has=None):
     i.attr,i.lo, i.hi, i.has = attr,lo,hi,has
 
-def sdiv(lst, attr=0,
-         tiny=4, cohen=0.3, smally=0.01,smallx=0.001
-         x      = lambda z: z.x[0],
-         y      = lambda z: z.y[0]):
-  "Divide lst of (x,y) using variance of y."
-  #----------------------------------------------
-  def divide(this): #Find best divide of 'this'
-    lhs,rhs = Num(), Num(y(z) for z in this)
-    n0, score, cut,mu = rhs.n, rhs.sd(), None,rhs.mu
-    old = this[0]
-    for j,one  in enumerate(this):
-      if one - old > smallx:
-        old = one
-        if lhs.n > tiny and rhs.n > tiny:
-          maybe= lhs.n/n0*lhs.sd()+ rhs.n/n0*rhs.sd()
-          if maybe < score:
-            if abs(lhs.mu - rhs.mu) >= smally:
-              cut,score = j,maybe
-      rhs - y(one)
-      lhs + y(one)
-    return cut,mu,score,this
-  #----------------------------------------------
-  def recurse(this, cuts):
-    cut,mu,sd,part0 = divide(this)
+def sdiv(lst,
+         attr    = None,
+         minBins = 2,
+         maxBins = 16,
+         cohen   = 0.3,
+         trivial = 1.05,
+         small   = None, 
+         xx      = same,
+         yy      = same):
+  # --------------------------------
+  def div(lst, out)
+    cut       = None
+    xlhs,xrhs = Num(get=xx), Num(lst, get=xx)
+    ylhs,yrhs = Num(get=yy), Num(lst, get=yy)
+    score     = yrhs.sd()
+    n         = len(lst)
+    old       = lst[0] 
+    for i,new in enumerate(lst):
+      xlhs + new
+      xrhs - new
+      ylhs + new
+      yrhs - new
+      if xlhs.n >= enough:
+        if xrhs.n >= enough:  
+          if xx(new) - xx(old) > small:
+            score1 = ylhs.wsd(n) + yrhs.wsd(n)
+            if score1*trivial < score:
+              cut,score = i,score1,
+      old = new
+    # --------------------------------
     if cut:
-      recurse(this[:cut], cuts)
-      recurse(this[cut:], cuts)
+      div(lst[:cut], out)
+      div(lst[cut:], out)
     else:
-      cuts += [Range(attr = attr,
-                     x    = o(lo=x(this[0]), hi=x(this[-1])),
-                     y    = o(mu=mu, sd=sd),
-                     has  = this)]
-    return cuts
-  #---| main |-----------------------------------
-  smally = smally or Num(y(z) for z in lst).sd()*cohen
-  smallx = smallx or Num(x(z) for z in lst).sd()*cohen
+      out = out + [Range(attr=attr,     score=score,
+                         lo=xx(lst[0]), up=xx(lst[-1]),
+                         items=lst)]
+    return out
+  # --------------------------------
   if lst:
-    return recurse(sorted(lst,key=x), [] )
-
-def ediv(lst, lvl=0,tiny=The.tree.min,
-         dull=The.math.brink.cohen,
-         num=lambda x:x[0], sym=lambda x:x[1]):
-  "Divide lst of (numbers,symbols) using entropy."""
-  #----------------------------------------------
-  #print watch
-  def divide(this,lvl): # Find best divide of 'this' lst.
-    def ke(z): return z.k()*z.ent()
-    lhs,rhs   = Sym(), Sym(sym(x) for x in this)
-    n0,k0,e0,ke0= 1.0*rhs.n,rhs.k(),rhs.ent(),ke(rhs)
-    cut, least  = None, e0
-    last = num(this[0])
-    for j,x  in enumerate(this): 
-      rhs - sym(x); #nRhs - num(x)
-      lhs + sym(x); #nLhs + num(x)
-      now = num(x)
-      if now != last:
-        if lhs.n > tiny and rhs.n > tiny: 
-          maybe= lhs.n/n0*lhs.ent()+ rhs.n/n0*rhs.ent()       
-          if maybe < least : 
-            gain = e0 - maybe
-            delta= log2(3**k0-2)-(ke0- ke(rhs)-ke(lhs))
-            if gain >= (log2(n0-1) + delta)/n0: 
-              cut,least = j,maybe
-      last= now
-    return cut,least
-  #--------------------------------------------
-  def recurse(this, cuts):
-    cut,e = divide(this)
-    if cut: 
-      recurse(this[:cut], cuts); 
-      recurse(this[cut:], cuts)
-    else:   
-      lo    = num(this[0])
-      hi    = num(this[-1])
-      cuts += [o(at=lo, 
-                 e=e,_has=this,
-                 range=(lo,hi))]
-  return recurse(this,cuts)
-
-def ediv(lst, lvl=0,tiny=The.tree.min,
-         dull=The.math.brink.cohen,
-         num=lambda x:x[0], sym=lambda x:x[1]):
-  "Divide lst of (numbers,symbols) using entropy."""
-  #----------------------------------------------
-  #print watch
-  def divide(this,lvl): # Find best divide of 'this' lst.
-    def ke(z): return z.k()*z.ent()
-    lhs,rhs   = Sym(), Sym(sym(x) for x in this)
-    n0,k0,e0,ke0= 1.0*rhs.n,rhs.k(),rhs.ent(),ke(rhs)
-    cut, least  = None, e0
-    last = num(this[0])
-    for j,x  in enumerate(this):
-      rhs - sym(x); #nRhs - num(x)
-      lhs + sym(x); #nLhs + num(x)
-      now = num(x)
-      if now != last:
-        if lhs.n > tiny and rhs.n > tiny:
-          maybe= lhs.n/n0*lhs.ent()+ rhs.n/n0*rhs.ent()
-          if maybe < least :
-            gain = e0 - maybe
-            delta= log2(3**k0-2)-(ke0- ke(rhs)-ke(lhs))
-            if gain >= (log2(n0-1) + delta)/n0:
-              cut,least = j,maybe
-      last= now
-    return cut,least
-  #--------------------------------------------
-  def recurse(this, cuts,lvl):
-    cut,e = divide(this,lvl)
-    if cut:
-      recurse(this[:cut], cuts, lvl+1);
-      recurse(this[cut:], cuts, lvl+1)
-    else:
-      lo    = num(this[0])
-      hi    = num(this[-1])
-      cuts += [Thing(at=lo,
-                     e=e,_has=this,
-                     range=(lo,hi))]
-
-def chunks(l, n):
-  n = max(1, n)
-  return [l[i:i + n] for i in range(0, len(l), n)]
-
-def bins(lst)
-  lst = sorted(lst,key=xx)
-  xlst = map(xx,lst)
-  ylst = map(yy,lst)
-  xcohen = Num(xlst) * cohen
-  ycohen = Num(ylst) * cohen
+    small   = small or Num(lst,get=xx).small(cohen)
+    maxBins = min(len(lst), min)
+    few     = max(minBins, len(lst)/maxBins)
+    enough  = int(len(lst)/few)
+    return div( sorted(lst[:], key=xx), out ) # copied, sorted
+  else:
+    return []
   
-  lst = chunks(lst,16)
-  doomed={}
-  old = lst[0]
-  for j,one in enumerate(lst):
-    if xx(one[-1]) - xx(one[0]) < xcohen or
-       yy(one[-1]) - yy(one[0]) < ycohen or
-       cliffsDelta(
+print(bins([x for x in xrange(29)]))
+sys.exit()
          
 class row:
   def __init__(i,x=None,y=None):
