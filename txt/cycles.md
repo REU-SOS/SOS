@@ -74,7 +74,7 @@ e.g. scikit, cloud apis: watson, microsoft, etc.
 
 ### Visualize
 
-e.g. gnuplot,gvpr
+e.g. gnuplot,gvpr, graphviz (dot)
 
 e.g. d3
 
@@ -91,7 +91,3 @@ e.g. Pandoc
 e.g. Make, package management systems (e.g. pip, luarocks, etc/)
 
 e.g. Docker, ansible, maven, npm, grunt
- 
-
-
-
