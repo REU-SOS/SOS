@@ -243,6 +243,7 @@ ________
 EOF
      cat ninja.rc
 cat <<'EOF'
+
 ````
 
 <img align=center
@@ -489,6 +490,7 @@ ok
 #learn
 #report
 #visualize: gnuplot,gvpr
+
 ````
 
 <img align=center

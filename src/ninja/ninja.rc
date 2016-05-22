@@ -231,6 +231,7 @@ ________
 EOF
      cat ninja.rc
 cat <<'EOF'
+
 ````
 
 <img align=center
