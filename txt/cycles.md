@@ -2,7 +2,12 @@
 
 _(Credits: some of the following come from [Diomidis Spinellis' most excellent slides](https://drive.google.com/file/d/0ByPAm2ABBQPHU1JLQlJ5eGZCTkE/view))_
 
-[Fayyad et al. (1996)](bib.md#fayyad96) offer the classic definition of data science, as applied to real-world activities:
+According to experts in software development, human learning is cyclc:
+
++ If we don't make mistakes we don't learn things and if we don't learn things, we don't grow. And since doing it right the first time is not an option, we have to have feedback loops.  -- Kent Beck.
+
+As with software, so to with
+data science. [Fayyad et al. (1996)](bib.md#fayyad96) offer the classic definition of data science, as applied to real-world activities:
 
 + KDD (knowledge discovery in databases) is the non- trivial process of identifying valid, novel, potentially useful, and ultimately understandable patterns in data.
 
