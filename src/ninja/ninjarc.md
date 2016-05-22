@@ -245,7 +245,8 @@ ________
 ```bash
 EOF
      cat ninja.rc
-     echo '```' ) > ninjarc.md
+     echo '```' 
+    ) > ninjarc.md
     fi 
 }
 
