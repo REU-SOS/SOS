@@ -1,8 +1,10 @@
 
 # Ninja.rc
 
-Download this file: [ninja.rc](ninja.rc)
-Download entire ninja system [ninja.zip](../ninja.zip)
+Download:
+
+- This file: [ninja.rc](ninja.rc)
+- Entire ninja system [ninja.zip](../ninja.zip)
 
 ________
 
@@ -225,8 +227,10 @@ ninjarc() {
 
 # Ninja.rc
 
-Download this file: [ninja.rc](ninja.rc)
-Download entire ninja system [ninja.zip](../ninja.zip)
+Download:
+
+- This file: [ninja.rc](ninja.rc)
+- Entire ninja system [ninja.zip](../ninja.zip)
 
 ________
 
