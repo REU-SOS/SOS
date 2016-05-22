@@ -27,5 +27,59 @@ This, in turn, has implications on tool choice:
 
 +  TIP: _Thou shall not click:_ For serious studies, to ensure repeatability, the entire analysis should be automated using some high level scripting language; e.g. [R-script, Python, Matlab, or Bash](bib.md#nelson11).
 
+## Kinds of Cycles
+
+The above diagram, written in 1996, is a little light on details. Twenty years later, we can add numerous details on those cycles. Specifically, there are three kinds of cycles:
+
+- A _semantic cycle_ where analysts use their domain knowledge to look for any quirks or errors in the data processing. During data science, it is best to consider all    data as bad data until we can have found what processes are introducing systematic biases
+(a.k.a. errors) into that data. Once that is known, the data can be repaired (reversing the bias) and the reasoning can continue.
+- A _goal cycle_ where analysts show data science products to their clients, then use their feedback to refine the goals of the project.
+- A _tool chain cycle_ where analysts extend and automate their tool chain.
+
+## The Tool-Chain Cycle
+
+### Fetch
+
+e.g. curl find mysql
+
+e.g. Selenium/REST apis
+
+### Select
+
+e.g. grep sql awk etc
+
+e.g. MongoDB/Redis
+
+### Transform
+
+e.g.  sort, head, tail, sed, gawk
+
+e.g. Azure functions, etc.
+
+### Learn
+
+e.g. weka, R
+
+e.g. scikit, cloud apis: watson, microsoft, etc.
+
+### Visualize
+
+e.g. gnuplot,gvpr
+
+e.g. d3
+
+### Report
+
+e.g. latex
+
+e.g. markdown, github pages
+
+### Package
+
+e.g. Make, package management systems (e.g. luarocks)
+
+e.g. Docker, ansible, maven, npm, grunt
+ 
+
 
 
