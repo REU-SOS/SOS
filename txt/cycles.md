@@ -180,6 +180,7 @@ done <ticker_symbols
 
 ### mysql, sqlplus, osql, sqlite3, psql, odbc
 
+![egsql](https://raw.githubusercontent.com/REU-SOS/SOS/master/img/sql.png)
 
 ```bash
 # fyi 'instr' finds starting location of a string
@@ -192,7 +193,7 @@ sort -u |
 wc -l
 ```
 
-![egsql](https://raw.githubusercontent.com/REU-SOS/SOS/master/img/sql.png)
+
 
 ### ssh
 
