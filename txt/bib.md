@@ -10,3 +10,7 @@
 
 + <a name="me11a"></a>Tim Menzies, Christian Bird, Thomas Zimmermann, Wolfram Schulte, and Ekrem Kocaganeli. 2011. The inductive software engineering manifesto: principles for industrial data mining. In Proceedings of the International Workshop on Machine Learning Technologies in Software Engineering (MALETS '11).
 
+## N
+
++ <a anme="nelson11"></a>A. Nelson, T. Menzies, and G. Gay. Sharing experiments using open-source software. Softw. Pract. Exper., 41:283–305, March 2011.
+
