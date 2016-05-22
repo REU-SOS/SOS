@@ -245,10 +245,11 @@ EOF
 cat <<'EOF'
 ````
 
-<img align=center src="http://www.geekpeak.de/images/produkte/i22/22-go-away-or-i-will-replace-you-de.jpg">
+<img align=center
+src="http://www.geekpeak.de/images/produkte/i22/22-go-away-or-i-will-replace-you-de.jpg">
 
 EOF
-    echo '```' ) > ninjarc.md
+    ) > ninjarc.md
     fi 
 }
 
@@ -490,6 +491,6 @@ ok
 #visualize: gnuplot,gvpr
 ````
 
-<img align=center src="http://www.geekpeak.de/images/produkte/i22/22-go-away-or-i-will-replace-you-de.jpg">
+<img align=center
+src="http://www.geekpeak.de/images/produkte/i22/22-go-away-or-i-will-replace-you-de.jpg">
 
-```
