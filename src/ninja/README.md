@@ -1,5 +1,5 @@
-
 <img align=right width=500 src="http://www.pentaho.com/sites/default/files/14-067-pentaho-ninja-campaign-v12.jpg">
+
 
 # Ninja tricks for Data Science
 
