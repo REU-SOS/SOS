@@ -12,7 +12,7 @@ Many aspects of this figure are insightful and worthy of careful study. For exam
 
 + TIP:  _Most of “data science” is actually “data pre- processing._ Before any learner can execute, much effort must be expended in selecting and accessing the data to process, pre-processing, and transforming it some learnable form.
 
-Figure 2 also clearly illustrates the cyclic nature of data science:
+The above figure also clearly illustrates the cyclic nature of data science:
 
 + Usually, finding one pattern prompts new questions such as “why does that effect hold?” or “are we sure there is no bug in step X of the method?”. Each such question refines the goals of the data science process, which leads to another round of the whole process.
 + In the initial stages of a project, engineers try different methods to generate the feedback that let users refine and mature the goals of the project.
@@ -43,7 +43,11 @@ The above diagram, written in 1996, is a little light on details. Twenty years l
 
 ### Fetch
 
-e.g. curl find mysql
+e.g. curl find 
+
+e.g. mysql
+
+![egsql](https://raw.githubusercontent.com/REU-SOS/SOS/master/img/sql.png)
 
 e.g. Selenium/REST apis
 
@@ -56,6 +60,7 @@ e.g. MongoDB/Redis
 ### Transform
 
 e.g.  sort, head, tail, sed, gawk
+
 
 e.g. Azure functions, etc.
 
