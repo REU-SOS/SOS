@@ -49,22 +49,38 @@ The above diagram, written in 1996, is a little light on details. Twenty years l
 
 ## The Tool-Chain Cycle
 
+One distinguishing feature of successful
+data scientists is how many tools they already master,
+and how fast they can master new tools.
+This is needed since industrial data
+scientists may try multiple algorithms each day, to
+generate some novel and insightful feedback to the
+users.
+
+Below are listed some of the tools used by data
+scientists. For a newbie, it is a long, long list
+and those newbs might protest "can't I do everything
+in (insert favorite language here)?".
+
+The short answer is ``yes``- there are many pretty GUI tools that
+let you do data manipluations with just a flick of a switch.
+
+But the longer answer is ``no``-- especially if you want to be prepared for the
+particular and specific concerens of your next data science tasks.
+
+
+The following tools divide into groups and those groups correspond to large
+chunks of work in any data science project.
+
 ### Fetch
 
-e.g. curl find 
-
-e.g. mysql
+e.g. curl find , mysql
 e.g. Selenium/REST apis
 
 
 ### Select
 
 e.g. grep sql awk etc
-
-e.g.
-
-![egsql](https://raw.githubusercontent.com/REU-SOS/SOS/master/img/sql.png)
-
 
 e.g. MongoDB/Redis
 
@@ -109,7 +125,7 @@ There are two main "families" of tools you should be familiar with:
 
 - Ye Olde Unix shell tools (cat, grep, sed, awk, make, etc) which, while not-so-young,
   are still oh-so-useful.
-- More recent web-aware tools (Selenium, JSON, maven, etc).
+- More recent web-aware tools (Selenium, JSON tools, maven, etc).
 
 The UNIX shell tools push data from sources through filters along pipes:
 
@@ -171,10 +187,10 @@ pattern2) commands2;;
 esac
 ```
 
-### Fetching with Shell
+Some shell examples follow.
 
 
-`curl` and `wget`
+### curl and wget
 
 - `curl` handles more protocols
 - `wget` can recrusively fetch slides
@@ -186,7 +202,7 @@ while read ticker
 done <ticker_symbols
 ```
 
-mysql, sqlplus, osql, sqlite3, psql, odbc
+### mysql, sqlplus, osql, sqlite3, psql, odbc
 
 
 ```bash
@@ -200,7 +216,9 @@ sort -u |
 wc -l
 ```
 
-ssh
+![egsql](https://raw.githubusercontent.com/REU-SOS/SOS/master/img/sql.png)
+
+### ssh
 
 ```bash
 # compress there, uncompress her
@@ -208,7 +226,9 @@ ssh
 $ ssh host.example.com tar cf – dir | tar xf -
 ```
 
-csv: the `cvs annotat`e command displays the most recent change for each line of a file in the repository.
+### Pulling from Repos
+
+The `cvs annotat`e command displays the most recent change for each line of a file in the repository.
 
 ```
 $ cvs annotate f |
@@ -236,7 +256,9 @@ E.g. the above outputs
 1 pappas
 ```
 
-grep (not yet, first need regular expressions):
+### grep
+
+First, we need regular expressions:
 
 
 ```
@@ -264,7 +286,10 @@ grep '^From: ' /usr/mail/$USER # your mail
 grep '[0-9]\{3\}-[0-9]\{4\}'  # {999-9999, like phone numbers}
 ```
 
-awk = lists of `pattern {action}`. The default `pattern` is "1" (i.e. for all records do)
+### awk
+
+An awk program is a lists of `pattern {action}` pairs.
+The default `pattern` is "1" (i.e. for all records do)
 and the default `action` is `print` (i.e. print record).
 
 ```
@@ -277,7 +302,7 @@ awk '/^x/     { print $2 }
 $ tar tvf vmmemctl.tar | awk '{s += $3} END {print s}'
 ```
 
-sort (workds for massive files) 
+### sort (works for massive files) 
 
 ```
 sort
@@ -290,7 +315,7 @@ sort
 $ tar tvf vmmemctl.tar | sort +2n
 ```
 
-sed
+### sed
 
 
 ```
@@ -308,7 +333,7 @@ sh
  ```
 
 
-find
+### find
 
 ```
 find . -name foo # or with regular expressions `find -name 'foo.*'
@@ -324,7 +349,7 @@ $ find build  -name '*.class' -type f -mtime -7
 
 (Exercise for the reader: what does the `-mtime` flag do?. Hint: `man find`.)
 
-So many more:
+### So many more:
 
 - tr, fmt, cut, paste, head, tail, uniq,
 - date,rev,tac, comm,
@@ -343,6 +368,8 @@ END_G {
   exit(0);
 }
 ```
+
+### And the rest
 
 And, when the above fail you:
 
