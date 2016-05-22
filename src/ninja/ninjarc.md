@@ -11,6 +11,9 @@ ________
 ```bash
 #!/usr/bin/env bash
 
+# For pretty version of this code, see
+# https://github.com/REU-SOS/SOS/blob/master/src/ninja/ninjarc.md
+
 ########################################################
 # ninja.rc : command line tricks for data mining
 # Copyright (c) 2016 Tim Menzies tim@menzies.us
