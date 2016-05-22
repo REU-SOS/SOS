@@ -1,6 +1,3 @@
-# Ninja.rc
-<img align=right width=300
-     src="https://s-media-cache-ak0.pinimg.com/236x/1a/f1/2a/1af12af6c65430d6be44d319c1bde5c5.jpg">
 
 # Ninja.rc
 
@@ -225,9 +222,6 @@ zips() { # make a convenient download
 ninjarc() {
     if  [ "ninja.rc" -nt "ninjarc.md" ]; then
     (cat<<'EOF'  
-# Ninja.rc
-<img align=right width=300
-     src="https://s-media-cache-ak0.pinimg.com/236x/1a/f1/2a/1af12af6c65430d6be44d319c1bde5c5.jpg">
 
 # Ninja.rc
 
