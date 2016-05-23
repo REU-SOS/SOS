@@ -11,6 +11,49 @@
 * [Food Allergy Guide](http://dining.ncsu.edu/campus-dining/healthwellness/food-allergies/)
 * [Ask Our Dietitian](http://dining.ncsu.edu/campus-dining/healthwellness/dietitian/)
 
+## Health
+
+* [Summer Camper's Insurance](https://github.com/REU-SOS/SOS/blob/master/Resources/Summer%20Camp%20Guidelines%202016.docx?raw=true)
+
+### Urgent Care
+
+##### Avance Urgent Care
+
+Address: 815 Oberlin Rd #200, Raleigh, NC 27605  
+Phone: 919-322-4722  
+7:30AM–7PM, Monday through Friday
+9:00AM–3PM, Saturday/Sunday
+
+##### Accent Urgent Care
+
+2406 Blue Ridge Rd #190 Raleigh, NC‬ 27607  
+Phone: 919-789-4322  
+8:00 AM to 9:30 PM, Monday through Thursday  
+8:00 AM to 5:30 PM, Friday through Sunday  
+
+### Hostipals
+
+##### Rex Hospital (Emergency Department)
+4420 Lake Boone Trail  
+Raleigh, NC‬‬‬ 27607
+Main: 919-784-3100  
+ED: 919-784-3038  
+
+##### WakeMed Raleigh Campus
+3000 New Bern Ave  
+Raleigh, NC 27610  
+919-350-8000  
+
+##### WakeMed Cary Campus
+1900 Kildaire Farm Rd  
+Cary, NC, 27518  
+919-350-8000  
+
+##### Duke Raleigh Hospital
+3400 Wake Forest Rd  
+Raleigh, NC 27609-7373  
+919-954-3000 or 888-ASK-DUKE (888-275-3853)  
+
 
 ## Recreation
 
