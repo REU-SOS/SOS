@@ -83,7 +83,8 @@ class Num(Col):
     delta = x - i.mu
     i.mu -= delta/i.n
     i.m2 -= delta*(x - i.mu)
-
+  
+    
 class Range:
   def __init__(i, attr=None, n=None, lo=None,
                id=None, up=None, has=None, score=None):
@@ -112,18 +113,17 @@ def sdiv(lst,
     score,score1 = yrhs.sd(),None
     n            = len(lst)
     for i,new in enumerate(lst):
-      xlhs + new
-      xrhs - new
-      ylhs + new
-      yrhs - new
+      xlhs + new; xrhs - new
+      ylhs + new; yrhs - new
       if xrhs.n < enough:
         break
-      if xlhs.n >= enough:
-        if xx(new) - xx(lst[0]) > small:
-          if xx(lst[-1]) - xx(new) > small:
-            score1 = ylhs.n/n*ylhs.sd() + yrhs.n/n*yrhs.sd()
-            if score1*trivial < score:
-              arg,score = i,score1
+      else:
+        if xlhs.n >= enough:
+          if xx(new) - xx(lst[0]) > small:
+            if xx(lst[-1]) - xx(new) > small:
+              score1 = ylhs.n/n*ylhs.sd() + yrhs.n/n*yrhs.sd()
+              if score1*trivial < score:
+                arg,score = i,score1
     # --- end for loop -------------------------------
     if verbose:
       print('.. '*lvl,len(lst),score1 or '.')
@@ -138,10 +138,9 @@ def sdiv(lst,
     return out
   # --- end function div -----------------------------
   if not lst: return []
-  small   = small  or Num(lst,get=xx).small(cohen)
-  enough  = enough or len(lst)**0.5
-  return divide( sorted(lst[:], key=xx),
-                 out=[] ,lvl=0) # copied, sorted
+  small  = small  or Num(lst,get=xx).small(cohen)
+  enough = enough or len(lst)**0.5
+  return divide( sorted(lst[:], key=xx), out=[] ,lvl=0) # copied, sorted
 
 def _bins():
   rseed(1)
