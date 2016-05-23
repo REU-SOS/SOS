@@ -26,52 +26,55 @@ def yy(z): return z.y
 def same(z): return z
 
 
-class Sym:
+class Col:
+  def __add__(i,x):
+    x=i.get(x)
+    if not isMissing(x): i.add(x)
+  def __repr__(i):
+    return str(kv(i))
+  
+class Sym(Col):
   def __init__(i,inits=[],get=same):
     i.counts, i.most, i.mode, i.n = {},0,None,0
     i.get = get
     map(i.__add__,inits)
-  def __add__(i,x):
-    x = i.get(x)
-    if not isMissing(x):
-      i.n += 1
-      new = i,counts[x] = i.counts.get(x,0) + 1
-      if new > t.most:
-        i.most, i.mode = new,x
+  def add(i,x):
+    i.n += 1
+    new = i,counts[x] = i.counts.get(x,0) + 1
+    if new > t.most:
+      i.most, i.mode = new,x
 
-class Num:
+class Num(Col):
   def __init__(i,inits=[],get=same):
     i.mu,i.n,i.m2,i.up,i.lo = 0,0,0,-10e32,10e32
     i.get = get
     map(i.__add__,inits)
-  def sd(i):
-    return 0 if i.n <= 1 else (i.m2/(i.n - 1))**0.5
-  def __add__(i,x):
-    x = i.get(x)
-    if not isMissing(x):
-      i.n += 1
-      if x < i.lo: i.lo=x
-      if x > i.up: i.up=x
-      delta = x - i.mu
-      i.mu += delta/i.n
-      i.m2 += delta*(x - i.mu)
+  def small(i,cohen=0.3): return i.sd()*cohen
+  def wsd(i,n=1): return i.sd()*i.n/n
+  def sd(i): return 0 if i.n <= 1 else (i.m2/(i.n - 1))**0.5
+  def add(i,x):
+    i.n += 1
+    if x < i.lo: i.lo=x
+    if x > i.up: i.up=x
+    delta = x - i.mu
+    i.mu += delta/i.n
+    i.m2 += delta*(x - i.mu)
   def __sub__(i,x):
     x = i.get(x)
     if not isMissing(x):
-      i.n -= 1
+      i.n  -= 1
       delta = x - i.mu
       i.mu -= delta/i.n
       i.m2 -= delta*(x - i.mu)
-  def small(i,cohen=0.3):
-    return i.sd()*cohen
-  def wsd(i,n=1):
-    return i.sd()*i.n/n
 
 class Range:
   def __init__(i,attr=None,lo=None,up=None,has=None,score=None):
-    i.attr,i.lo, i.up, i.has, i.score = attr,lo,up,has,score
+    i.attr,i.lo, i.up, i._has, i.score = attr,lo,up,has,score
   def __repr__(i):
-    return str(dict(lo=i.lo,up=i.up,has=len(i.has)))
+    return str(kv(i))
+
+def kv(i):
+  return {k:v for k,v in i.__dict__.items() if k[0] != "_"}
 
 def sdiv(lst,
          attr    = None,
@@ -83,7 +86,7 @@ def sdiv(lst,
          xx      = same,
          yy      = same):
   # --------------------------------
-  def div(lst, out):
+  def div(lst, out,lvl):
     cut        = None
     xlhs, xrhs = Num(get=xx), Num(lst, get=xx)
     ylhs, yrhs = Num(get=yy), Num(lst, get=yy)
@@ -96,21 +99,24 @@ def sdiv(lst,
       xrhs - new
       ylhs + new
       yrhs - new
-      print("N",xrhs.n,xlhs.n)
-      if xrhs.n < enough: break
-      else:
-        if xlhs.n >= enough:
-          print(xx(new),xx(old),small)
-          if xx(new) - xx(old) > small:
-            score1 = ylhs.wsd(n) + yrhs.wsd(n)
-            if score1*trivial < score:
-              cut,score = i,score1,
+      print('.. '*lvl,"N",xrhs.n,xlhs.n)
+      if xrhs.n < enough:
+        break
+      print(1)
+      if xlhs.n >= enough:
+        print('.. '*lvl,2,o(new=xx(new),old=xx(lst[0]),small=small,start=xx(lst[0])))
+        if xx(new) - xx(lst[0]) > small:
+          print('.. '*lvl,3)
+          score1 = ylhs.wsd(n) + yrhs.wsd(n)
+          if score1*trivial < score:
+            print('!! '*lvl,4)
+            cut,score = i,score1,
       old = new
       
     # --------------------------------
     if cut:
-      div(lst[:cut], out)
-      div(lst[cut:], out)
+      div(lst[:cut], out,lvl+1)
+      div(lst[cut:], out,lvl+1)
     else:
       out = out + [Range(attr=attr,     score=score,
                          lo=xx(lst[0]), up=xx(lst[-1]),
@@ -122,11 +128,11 @@ def sdiv(lst,
     maxBins = min(len(lst), minBins)
     few     = max(minBins, len(lst)/maxBins)
     enough  = int(len(lst)/few)
-    return div( sorted(lst[:], key=xx), [] ) # copied, sorted
+    return div( sorted(lst[:], key=xx), [] ,1) # copied, sorted
   else:
     return []
   
-print(sdiv([x for x in xrange(29)],small=5))
+print sdiv([x for x in xrange(10)],small=3))
 sys.exit()
          
 class row:

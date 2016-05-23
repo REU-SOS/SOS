@@ -1,4 +1,4 @@
-# Cycles Within Data Science Procceses
+# Cycles and Tools for Data Science Procceses
 
 _(Credits: some of the following come from [Diomidis Spinellis' most excellent slides](https://drive.google.com/file/d/0ByPAm2ABBQPHU1JLQlJ5eGZCTkE/view))_
 
