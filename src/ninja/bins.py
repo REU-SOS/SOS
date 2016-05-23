@@ -105,8 +105,8 @@ def sdiv(lst,
          xx      = same,   # access independent variable
          yy      = same):  # access dependent   variable
   # ---------------------------------------------------
-  def div(lst, out, lvl):
-    cut          = None
+  def divide(lst, out=[], lvl=0):
+    arg          = None
     xlhs, xrhs   = Num(get=xx), Num(lst, get=xx)
     ylhs, yrhs   = Num(get=yy), Num(lst, get=yy)
     score,score1 = yrhs.sd(),None
@@ -123,13 +123,13 @@ def sdiv(lst,
           if xx(lst[-1]) - xx(new) > small:
             score1 = ylhs.n/n*ylhs.sd() + yrhs.n/n*yrhs.sd()
             if score1*trivial < score:
-              cut,score = i,score1
+              arg,score = i,score1
     # --- end for loop -------------------------------
     if verbose:
       print('.. '*lvl,len(lst),score1 or '.')
-    if cut:
-      div(lst[:cut], out, lvl+1)
-      div(lst[cut:], out, lvl+1)
+    if arg:
+      divide(lst[:arg], out= out, lvl= lvl+1)
+      divide(lst[arg:], out= out, lvl= lvl+1)
     else:
       out.append(Range(attr=attr, score=score,
                        n=len(lst), id=len(out),
@@ -140,11 +140,12 @@ def sdiv(lst,
   if not lst: return []
   small   = small  or Num(lst,get=xx).small(cohen)
   enough  = enough or len(lst)**0.5
-  return div( sorted(lst[:], key=xx), [] ,0) # copied, sorted
+  return divide( sorted(lst[:], key=xx),
+                 out=[] ,lvl=0) # copied, sorted
 
 def _bins():
   rseed(1)
-  n = 1000
+  n   = 1000
   lst = [r()**2 for x in xrange(n)]
   lst = lst + [r()**0.5 for x in xrange(n)]
   for y in sdiv(lst):
