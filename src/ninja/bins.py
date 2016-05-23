@@ -12,14 +12,14 @@ class o:
   def __repr__(i):
     return str({k:v for k,v
                 in i.__dict__.items()})
-
-    
-The=o(bins=o(cohen   = 0.3,
-             enough  = None,
-             minBins = 2,
-             maxBins = 7,
-             trivial = 1.05))
-
+ 
+The=o(bins=o(attr    = 1,      # a label for the ranges
+             cohen   = 0.2,    # 'small' means sd()*cohen
+             trivial = 1.05,   # need at least a 5% improvement
+             enough  = None,   # enough items for a bin. default=n**0.5
+             small   = None,   # when are numbers too small?
+             verbose = False))
+             
 def isMissing(x): return x == "?"
 def isSym(x): return isinstance(x,str)
   
@@ -32,12 +32,8 @@ class Col:
     i.reset()
     i.get = get
     map(i.__add__,inits)
-  def __add__(i,x):
-    x = i.get(x)
-    if not isMissing(x): i.add(x)
-  def __sub__(i,x):
-    x = i.get(x)
-    if not isMissing(x): i.sub(x)
+  def __add__(i,x): x = i.get(x); if not isMissing(x): i.add(x)
+  def __sub__(i,x): x = i.get(x); if not isMissing(x): i.sub(x)
   def __repr__(i):
     return str(kv(i))
   
@@ -83,8 +79,7 @@ class Num(Col):
     delta = x - i.mu
     i.mu -= delta/i.n
     i.m2 -= delta*(x - i.mu)
-  
-    
+      
 class Range:
   def __init__(i, attr=None, n=None, lo=None,
                id=None, up=None, has=None, score=None):
@@ -97,12 +92,12 @@ def kv(i):
   return {k:v for k,v in i.__dict__.items() if k[0] != "_"}
 
 def sdiv(lst,
-         attr    = 1,      # a label for the ranges
-         cohen   = 0.2,    # 'small' means sd()*cohen
-         trivial = 1.05,   # need at least a 5% improvement
-         enough  = None,   # enough items for a bin. default=n**0.5
-         small   = None,   # when are numbers too small?
-         verbose = True,   # prints some trace info
+         attr    = The.bins.attr,     # a label for the ranges
+         cohen   = The.bins.cohen,    # 'small' means sd()*cohen
+         trivial = The.bins.trivial,  # need at least a 5% improvement
+         enough  = The.bins.enough,   # enough items for a bin. default=n**0.5
+         small   = The.bins.small,    # when are numbers too small?
+         verbose = The.bins.verbose,  # prints some trace info
          xx      = same,   # access independent variable
          yy      = same):  # access dependent   variable
   # ---------------------------------------------------
@@ -119,8 +114,9 @@ def sdiv(lst,
         break
       else:
         if xlhs.n >= enough:
-          if xx(new) - xx(lst[0]) > small:
-            if xx(lst[-1]) - xx(new) > small:
+          start, here, stop = xx(lst[0]), xx(new), xx(lst[-1])
+          if here - start > small:
+            if stop - here > small:
               score1 = ylhs.n/n*ylhs.sd() + yrhs.n/n*yrhs.sd()
               if score1*trivial < score:
                 arg,score = i,score1
@@ -142,6 +138,34 @@ def sdiv(lst,
   enough = enough or len(lst)**0.5
   return divide( sorted(lst[:], key=xx), out=[] ,lvl=0) # copied, sorted
 
+def ediv(lst, tiny=2,
+         xx=lambda x:x[0], uu=lambda x:x[1]):
+ #XXX
+  #----------------------------------------------
+  def divide(lst, out=[], lvl=0):
+    def ke(z): return z.k()*z.ent()
+    lhs,rhs   = Counts(),Counts(sym(x) for x in this)
+    n0,k0,e0,ke0= 1.0*rhs.n,rhs.k(),rhs.ent(),ke(rhs)
+    cut, least  = None, e0
+    for j,x  in enumerate(this):
+      #print lhs.n,rhs.n,tiny,"as"
+      if lhs.n > tiny and rhs.n > tiny:
+        maybe= lhs.n/n0*lhs.ent()+ rhs.n/n0*rhs.ent()
+        if maybe < least :
+          cut,least = j,maybe
+      rhs - sym(x)
+      lhs + sym(x)
+    #print cut,e,"asd",len(cuts)
+    if cut:
+      divide(lst[:arg], out=out, lvl=lvl+1)
+      dviide(lst[arg:], out=out, lvl=lvl+1)
+    else:
+      out += [(e,this)]
+    return out
+  #---| main |-----------------------------------
+  if not lst: return []
+  return divide(sorted(lst,key=xx),out=[],lvl=0)
+  
 def _bins():
   rseed(1)
   n   = 1000
