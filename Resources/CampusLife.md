@@ -71,8 +71,9 @@ Raleigh, NC 27609-7373
 [Welcome Video](https://www.youtube.com/watch?feature=player_embedded&v=8W0TXWnhbas#!)
 
 Address: 2730 Wolf Village Way Raleigh, NC 27607
+Building A "Arctic Hall"
 
-On your check in date go to Wolf Village, Building A "Arctic Hall", which is located in the inner courtyard of the complex. This is where the 24-hour service desk is located. You can reach the desk at 919-513-9653. You will need a photo ID to sign out your room key and fob.
+On your check in date, go to Wolf Village, Building G "Gray Hall", which is located in the inner courtyard of the complex. This is where the 24-hour service desk is located. You can reach the desk at 919-513-9653. You will need a photo ID to sign out your room key and fob.
 
 ### What to bring and more
 
