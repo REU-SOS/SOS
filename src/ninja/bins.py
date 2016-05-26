@@ -249,21 +249,21 @@ class twintub:
     i._rows += [row]
 
 class arff:
-  def __init__(i, data):
+  def __init__(i, f):
     i.tubs    = twintub(xx=lambda z: z[:-1],
                        yy=lambda z: z[-1])
     i.bad    = r'(["\'\r\n]|#.*)'
     i._header = []
-    i.read(data)
+    i.read(f)
   def atData(i,x):
     return re.match(r'^[ \t]*@DATA',
                     x,re.IGNORECASE)
   def header(i):
     return "\n".join(i._header)
-  def read(i,data):
+  def read(i,f):
     pre    = True
-    with open(data)  as f:
-      for line in f:
+    with open(f)  as fs:
+      for line in fs:
         line = re.sub(i.bad, "", line)
         if pre:
           i._header += [line]
