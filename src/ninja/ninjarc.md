@@ -283,16 +283,19 @@ alias .5='cd ../../../../..'
 
 # git tricks
 gitpush() {
-    gitting
+    ready
     git status
     git commit -am "saving"
     git push origin master
 }
 gitpull() {
-    gitting
+    ready
     git pull origin master
 }
-
+ready() {
+    ok
+    gitting
+}
 gitting() {
     git config --global core.editor "`which nano`"
     git config --global credential.helper cache
