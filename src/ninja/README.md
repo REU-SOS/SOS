@@ -3,6 +3,8 @@
 
 # Ninja tricks for Data Science
 
+<br clear=all>
+
 ## Install and Test
 
 1. wget https://github.com/REU-SOS/SOS/raw/master/src/ninja.zip
