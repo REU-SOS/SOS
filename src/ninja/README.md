@@ -41,7 +41,7 @@ which is a lesson in of itself... don't trust results from anywhere else).
         2 ,         bnet ,      13  ,     8 (        ---   *|   --         ), 7, 10, 13, 17, 19
       __________________________________________________________
  
-By the way, for an explanation of "pd" and "pf" go to [top right, page1](http://menzies.us/07precision.pdf).
+By the way, for an explanation of "pd" and "pf" go to [top right, page1](http://menzies.us/pdf/07precision.pdf).
 
 ## USAGE
 
