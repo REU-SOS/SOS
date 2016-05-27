@@ -3,7 +3,14 @@
 
 # Ninja tricks for Data Science
 
-<br clear=all>
+Code in any language your like. Divide your work into lots of little bits.
+For big bits, write seperate files. For little fiddlely bits, write some
+short shell scripts. And to glue it all together, write some ninja code.
+
+The result is a live log of your actual processing, something that it is
+useful to you for your day to day work _AND_ lets you package things and
+pass them on to someone else.
+
 
 ## Install and Test
 
