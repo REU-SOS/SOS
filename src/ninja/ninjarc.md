@@ -252,7 +252,7 @@ dirs() { # 3c) create all the required dirs
     mkdir -p $Safe $Tmp $Raw $Cooked
 }
 zips() { # make a convenient download 
-    (cd ..
+    (cd $Here/..
      zip -r ninja.zip -u ninja \
 	 -x '*.zip' -x '*.DS_Store' -x '.gitignore' \
 	 2> /dev/null
