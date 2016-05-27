@@ -90,7 +90,7 @@ chunks of work in any data science project.
 6. Report
      + e.g. latex
      + e.g. markdown, github pages
-     + e.g. Pandoc : translates between these formats: <a href="http://pandoc.org/diagram.jpg"><img width=300 src="http://pandoc.org/diagram.jpg"></a>
+     + e.g. Pandoc : translates between these formats: <a href="http://pandoc.org/diagram.jpg"><img width=200 align=middle src="http://pandoc.org/diagram.jpg"></a>
 7.  Package
      + e.g. Make, package management systems (e.g. pip, luarocks, etc/)
      + e.g. Docker, ansible, maven, npm, grunt
