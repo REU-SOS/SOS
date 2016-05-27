@@ -17,8 +17,9 @@ pass them on to someone else.
 1. wget https://github.com/REU-SOS/SOS/raw/master/src/ninja.zip
 2. unzip ninja.zip
 3. cd ninja
-4. sh ninja
-5. eg2
+4. sh ninja    # to start this tool
+5. eg2         # wait a few minutes while some text dribbles by....
+6. <control-d> # to quit this tool
 
 If that works, you should see (in a few minutes), a report looking like this
 (note, your numbers may differ due to your local random number generator,
