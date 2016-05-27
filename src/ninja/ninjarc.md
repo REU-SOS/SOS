@@ -38,26 +38,73 @@ ________
 # SOFTWARE.
 ########################################################
 
-# INSTALL:
 
-# 1. Download https://goo.gl/rNmPcV (is a zip file)
-# 2. unzip that zip file
+#<
+# # Ninja.rc
+#
+# Code in any language your like. Divide your work into lots of little bits.
+# For big bits, write seperate files. For little fiddlely bits, write some
+# short shell scripts. And to glue it all together, write some ninja code.
+#
+# The result is a live log of your actual processing, something that it is
+# useful to you for your day to day work _AND_ lets you package things and
+# pass them on to someone else.
+#
+# _____________________________________________________
+#
+# ## INSTALL:
+
+# Go to a clean new directory and type...
+#
+# 1. wget https://github.com/REU-SOS/SOS/raw/master/src/ninja.zip
+# 2. unzip ninja.zip
 # 3. cd ninja
 # 4. sh ninja
+# 5. eg2
 
-# USAGE:
+# If that works, you should see (in a few minutes), a report looking like this
+# (note, your numbers may differ due to your local random number generator,
+# which is a lesson in of itself... don't trust results from anywhere else).
+#
+#     pd
+#     rank ,         name ,    med   ,  iqr
+#     ----------------------------------------------------
+#        1 ,           nb ,      45  ,    18 (   ------  *  -|---           ),27, 41, 45, 52, 64
+#        1 ,          j48 ,      47  ,    25 ( -------    *  |---           ),22, 38, 47, 56, 64
+#        2 ,       rbfnet ,      56  ,    10 (         ----  * -----        ),42, 50, 56, 59, 73
+#        2 ,         bnet ,      58  ,    17 (       ------  |*   ------    ),37, 50, 58, 67, 81
+#
+#     pf
+#     rank ,         name ,    med   ,  iqr
+#     ----------------------------------------------------
+#        1 ,           nb ,       8  ,     6 (    --   * ----|-             ), 4,  6,  8, 10, 15
+#        2 ,       rbfnet ,       9  ,     7 (    ----- *    |-----         ), 4,  8,  9, 14, 19
+#        2 ,          j48 ,      10  ,    10 (   -----   *   |  ------      ), 3,  7, 10, 16, 21
+#        2 ,         bnet ,      13  ,     8 (        ---   *|   --         ), 7, 10, 13, 17, 19
+#     __________________________________________________________
+#
+# By the way, for an explanation of "pd" and "pf" go to http://menzies.us/07precision.pdf.
+#
+# ## USAGE:
 
-# Here=$(pwd) bash --init-file ninja.rc -i
+#      Here=$(pwd) bash --init-file ninja.rc -i
 
 # TIP: place the above line into a file "ninja" and call with
 #
-#    sh ninja
+#     sh ninja
+#
+#
 
-## 0 ###################################################
+# __________________________________________________________
+#
+# ## Inside Ninja.rc
 
-# TIP: start with examples of how to call this code
+# ### TIP0: At Top
 
-# TIP: know your seed (so you can reproduce 'random' runs)
+# - know your seed (so you can reproduce 'random' runs)
+# - start with examples of how to call this code
+
+#>
 
 Seed=1
 
@@ -78,30 +125,16 @@ statsX() {
     echo "pf"; python stats.py < $Tmp/egX.pf	
 }
 
-# example output from "eg2" (rbfnet looks best for this data)
 
-# pd
-# rank ,         name ,    med   ,  iqr
-# ----------------------------------------------------
-#    1 ,           nb ,      45  ,    18 (   ------  *  -|---           ),27, 41, 45, 52, 64
-#    1 ,          j48 ,      47  ,    25 ( -------    *  |---           ),22, 38, 47, 56, 64
-#    2 ,       rbfnet ,      56  ,    10 (         ----  * -----        ),42, 50, 56, 59, 73
-#    2 ,         bnet ,      58  ,    17 (       ------  |*   ------    ),37, 50, 58, 67, 81
-
-# pf
-# rank ,         name ,    med   ,  iqr
-# ----------------------------------------------------
-#    1 ,           nb ,       8  ,     6 (    --   * ----|-             ), 4,  6,  8, 10, 15
-#    2 ,       rbfnet ,       9  ,     7 (    ----- *    |-----         ), 4,  8,  9, 14, 19
-#    2 ,          j48 ,      10  ,    10 (   -----   *   |  ------      ), 3,  7, 10, 16, 21
-#    2 ,         bnet ,      13  ,     8 (        ---   *|   --         ), 7, 10, 13, 17, 19
-
-## 1 ###################################################
-# TIP: uncomment the next line to get debug information
+#<
+#
+# - uncomment the next line to get debug information
+#>
 
 #set -x
 
-## 2 ####################################################
+# ### TOP1 : Config Stuff 
+
 # CONFIG Stuff
 
 # 2a) magic strings
@@ -425,7 +458,7 @@ trainTest() {
 }
 
 # 7c) Know your a,b,c,d s 
-abcd() { python3 $Here/abcd.py; }
+abcd() { python $Here/abcd.py; }
 
 # 7d) Generate data sets for an m*n cross-val. Call learners on each.
 crossval() {
