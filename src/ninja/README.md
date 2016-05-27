@@ -1,4 +1,4 @@
-<img align=right width=500 src="http://www.pentaho.com/sites/default/files/14-067-pentaho-ninja-campaign-v12.jpg">
+<img align=right height=200 src="http://www.chantetter.nl/it-fun3/go-away.jpg"><img align=right height=200 src="http://www.blogking.biz/wp-content/uploads/Woothemes_Ninjas.jpg">
 
 
 # Ninja tricks for Data Science
