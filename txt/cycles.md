@@ -1,8 +1,8 @@
-# Cycles and Tools for Data Science Procceses
+# Cycles and Tools for Data Science Processes
 
 _(Credits: some of the following come from [Diomidis Spinellis' most excellent slides](https://drive.google.com/file/d/0ByPAm2ABBQPHU1JLQlJ5eGZCTkE/view))_
 
-According to experts in software development, human learning is cyclc:
+According to experts in software development, human learning is cyclic:
 
 + If we don't make mistakes we don't learn things and if we don't learn things, we don't grow. And since doing it right the first time is not an option, we have to have feedback loops.  -- Kent Beck.
 
