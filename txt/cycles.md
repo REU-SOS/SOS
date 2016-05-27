@@ -73,27 +73,27 @@ The following tools divide into groups and those groups correspond to large
 chunks of work in any data science project.
 
 1. Fetch
-     + e.g. curl find , mysql
+     + e.g. curl find , <a href="https://www.mysql.com/" target="_blank">mysql</a> <img width=500 align=middle src="https://dev.mysql.com/doc/refman/5.7/en/images/cluster-replication-ipv6.png">
      + e.g. Selenium/REST apis
 2. Select
      + e.g. grep sql awk etc
-     + e.g. MongoDB/Redis
+     + e.g. MongoDB/<a href="http://redis.io" target="_blank">Redis</a> <img width=500 align=middle src="http://s.radar.oreilly.com/files/2013/03/redis-data-structures.png">
 3. Transform
      + e.g.  sort, head, tail, sed, gawk
-     + e.g. Azure functions, etc.
+     + e.g. <a href="https://azure.microsoft.com/en-us/services/functions/" target="_blank">Azure functions</a>, etc. <img width=400 align=middle src="http://www.conceptdraw.com/How-To-Guide/picture/Computer-and-Networks-Azure-Windows-Azure-Network-and-Computes-Architecture.png">
 4. Learn
-     + e.g. weka (see [command-line ninja](https://github.com/REU-SOS/SOS/tree/master/src/ninja)    + e.g. R, Matlab
-     + e.g. scikit, cloud apis: watson, microsoft, etc.
+     + e.g. <a href="http://www.cs.waikato.ac.nz/ml/weka/index.html" target="_blank">weka</a> (see [command-line ninja](https://github.com/REU-SOS/SOS/tree/master/src/ninja)    + e.g. R, Matlab <img width=400 align=middle src="http://weka.sourceforge.net/explorer_screenshots/ClassifyPanel.png">
+     + e.g. <a href="http://scikit-learn.org/stable/" target="_blank">scikit</a>, cloud apis: watson, microsoft, etc. <img width=400 align=middle src="http://scikit-learn.org/stable/_static/ml_map.png">
 5. Visualize
      + e.g. gnuplot,gvpr, graphviz (dot)
-     + e.g. d3
+     + e.g. <a href="https://github.com/d3/d3/wiki/Gallery" target="_blank" >d3</a><img width=400 align=middle src="https://cloud.githubusercontent.com/assets/29195/15612794/371f3c54-23fe-11e6-90f5-06d22133e70d.png">
 6. Report
-     + e.g. latex
+     + e.g. <a href="https://www.latex-project.org/" target="_blank">latex</a> <img width=400 align=middle src="https://upload.wikimedia.org/wikipedia/commons/thumb/7/78/LaTeX_diagram.svg/650px-LaTeX_diagram.svg.png">
      + e.g. markdown, github pages
-     + e.g. Pandoc : translates between these formats: <a href="http://pandoc.org/diagram.jpg"><img width=200 align=middle src="http://pandoc.org/diagram.jpg"></a>
+     + e.g. <a href="http:://pandoc.org" target-"_blank">Pandoc</a> : translates between these formats: <a href="http://pandoc.org/diagram.jpg"><img width=200 align=middle src="http://pandoc.org/diagram.jpg"></a>
 7.  Package
      + e.g. Make, package management systems (e.g. pip, luarocks, etc/)
-     + e.g. Docker, ansible, maven, npm, grunt
+     + e.g. <a href="https://www.docker.com/" target="_blank">Docker</a>, ansible, maven, npm, grunt <img width=500 align=middle src="https://docs.docker.com/engine/article-img/architecture.svg">
 
 ## Unix Tools
 
