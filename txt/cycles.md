@@ -134,7 +134,7 @@ ______
     + Github (*)
     + Slack  (*)
     + [sharelatex (*)](http://sharelatex.com), <a href="https://www.sharelatex.com/blog/images/redesign-editor-preview.png"><img
-        src="https://www.sharelatex.com/blog/images/redesign-editor-preview.png" align=middle width=300></a>
+        src="https://www.sharelatex.com/blog/images/redesign-editor-preview.png" align=middle width=400></a>
     + Lastpass (or some other multi-platform password manager)
 + A good terminal emulator (if you are a command line ninja)
     + iTERM2 (if Mac)
