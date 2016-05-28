@@ -37,8 +37,8 @@ def mudiv(lst,
     report    = copy(rhs)
     n = len(lst)
     for i,new  in enumerate(lst):
-      lhs + new; rhs - new
-      lhs + new; rhs - new
+      lhs += new; rhs -= new
+      lhs += new; rhs -= new
       if rhs.n < enough:
         break
       else:
@@ -103,8 +103,8 @@ def sdiv(lst,
     n            = len(lst)
     report       = copy(yrhs)
     for i,new in enumerate(lst):
-      xlhs + new; xrhs - new
-      ylhs + new; yrhs - new
+      xlhs += new; xrhs -= new
+      ylhs += new; yrhs -= new
       if xrhs.n < enough:
         break
       else:
@@ -157,8 +157,8 @@ def ediv(lst,
     report         = copy(yrhs)
     n = len(lst)
     for i,new  in enumerate(lst):
-      xlhs + new; xrhs - new
-      ylhs + new; yrhs - new
+      xlhs += new; xrhs -= new
+      ylhs += new; yrhs -= new
       if xrhs.n < enough:
         break
       else:

@@ -1,4 +1,6 @@
-"""# tubs.py : tricks for holding columns of data.
+"""
+
+# tubs.py : tricks for storing columns of data.
 
 (C) 2016 tim@menzies.us, MIT license
 

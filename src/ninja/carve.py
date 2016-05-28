@@ -20,7 +20,7 @@ def muPrune(a,cohen=0.3):
             yield r
 
 def _muPrune(f,cohen=0.3):
-  a=arff(f,filter=tf)
+  a=Arff(f,filter=tf)
   print("-" * 10)
   for r in muPrune(a,cohen=cohen):
     print(r.attr,r.pretty(), r.report,r.score)
@@ -36,7 +36,7 @@ def xPrune(a,cohen=0.3,f=sddiv):
             yield r
 
 def _sdPrune(f,cohen=0.3):
-  a=arff(f,filter=tf)
+  a=Arff(f,filter=tf)
   print("-" * 10)
   old = None
   for r in xPrune(a,cohen=cohen):
@@ -46,7 +46,7 @@ def _sdPrune(f,cohen=0.3):
     print(r.attr,r.pretty(), r.report,r.score)
 
 def _cohenPrune(f,cohen=0.3):
-  a=arff(f,filter=tf)
+  a=Arff(f,filter=tf)
   print("-" * 10)
   old = None
   for r in xPrune(a,cohen=cohen,f=cohenPrune):
@@ -72,7 +72,7 @@ def ePrune(a,goal):
                            
 def _ePrune(f,goal):
   """For each range whose mode is goal"""
-  a=arff(f,filter=tf)
+  a=Arff(f,filter=tf)
   print("-" * 10)
   for r in sorted(ePrune(a,goal),
                   key=lambda z:z.score):
