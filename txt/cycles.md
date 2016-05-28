@@ -112,7 +112,19 @@ let you do data manipluations with just a flick of a switch.
 But the longer answer is ``no``-- especially if you want to be prepared for the
 particular and specific concerens of your next data science tasks.
 
+More specifically, when faced with a totally new domain, data science projects usually "walk" from right to left along the following curve:
 
+![image](https://cloud.githubusercontent.com/assets/29195/15624371/55036118-2454-11e6-9e2c-3c2e968e5838.png)
+
+In this process:
+
+- Initially, at the right-hand-side, analysts try many one-off-queries as they talk more to business users and learn more about the domain as they
+  poke around for some way into the data.
+- Subsequently, towards the middle, a small number of queries are found to return the most insightful answers and the analysis focuses on the implications
+  of just those critical queries;
+- Finally, on the left-hand-side, the analysis stabilizes around a very small number of most insightful queries and actions. When these particular focused queries and actions get used most often, then it is time to build them into your tool chain as standard click-and-shoot queries for the general audience.
+
+So you'll always be dealing with a lot, and we mean a lot, of tools (at least, at the start of an analysis).
 The following tools divide into groups and those groups correspond to large
 chunks of work in any data science project:
 
