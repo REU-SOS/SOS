@@ -186,7 +186,10 @@ ______
 ### 4. Tune
 
 Warning, experimental, but tuning may soon be a very big topic in
-SE data science [1](https://github.com/timm/timm.github.io/blob/master/pdf/16tunelearners.pdf), [2](http://chakkrit.com/assets/papers/tantithamthavorn2016icse.pdf).
+SE data science:
+
+- [IST'16 journal](https://github.com/timm/timm.github.io/blob/master/pdf/16tunelearners.pdf)
+- [Icse'16 conference](http://chakkrit.com/assets/papers/tantithamthavorn2016icse.pdf).
 
 + [jmetal](http://jmetal.sourceforge.net/): meta-heuristic search: <a href="http://dynamobim.org/wp-content/uploads/forum-assets/mra1242neo-tamu-edu/10/19/Optimo.gif"><img src="http://dynamobim.org/wp-content/uploads/forum-assets/mra1242neo-tamu-edu/10/19/Optimo.gif" width=400 align=middle></a>
 
