@@ -1,42 +1,86 @@
 # Cycles and Tools for Data Science Processes
 
-_(Credits: some of the following come from [Diomidis Spinellis' most excellent slides](https://drive.google.com/file/d/0ByPAm2ABBQPHU1JLQlJ5eGZCTkE/view))_
+_(Credits: some of the following come from [Diomidis
+Spinellis' most excellent
+slides](https://drive.google.com/file/d/0ByPAm2ABBQPHU1JLQlJ5eGZCTkE/view))_
 
 According to experts in software development, human learning is cyclic:
 
-+ If we don't make mistakes we don't learn things and if we don't learn things, we don't grow. And since doing it right the first time is not an option, we have to have feedback loops.  -- Kent Beck.
++ If we don't make mistakes we don't learn things
+  and if we don't learn things, we don't grow. And
+  since doing it right the first time is not an
+  option, we have to have feedback loops.  -- Kent
+  Beck.
 
 As with software, so to with
 data science. [Fayyad et al. (1996)](bib.md#fayyad96) offer the classic definition of data science, as applied to real-world activities:
 
-+ KDD (knowledge discovery in databases) is the non- trivial process of identifying valid, novel, potentially useful, and ultimately understandable patterns in data.
++ KDD (knowledge discovery in databases) is the non-
+  trivial process of identifying valid, novel,
+  potentially useful, and ultimately understandable
+  patterns in data.
 
 The following figure summarizes their approach. 
 
-![kdd cycle](https://www.researchgate.net/profile/Martin_Shepperd/publication/220277672/figure/fig1/AS:277448081068032@1443160185199/Fig-3-The-KDD-cycle-From-11.png)
+![kdd
+ cycle](https://www.researchgate.net/profile/Martin_Shepperd/publication/220277672/figure/fig1/AS:277448081068032@1443160185199/Fig-3-The-KDD-cycle-From-11.png)
 
-Many aspects of this figure are insightful and worthy of careful study. For example, as shown in this figure,   data science is just a small part of the total process. Even just gaining permission to access data can be a long process requiring extensive interaction with business user groups. Copying large amounts of data from one source to another can also consume a large amount of time. Once data is accessed, then raw data typically requires extensive manipulation before it is suitable for mining. This is:
+Many aspects of this figure are insightful and
+worthy of careful study. For example, as shown in
+this figure, data science is just a small part of
+the total process. Even just gaining permission to
+access data can be a long process requiring
+extensive interaction with business user
+groups. Copying large amounts of data from one
+source to another can also consume a large amount of
+time. Once data is accessed, then raw data typically
+requires extensive manipulation before it is
+suitable for mining. This is:
 
-+ TIP:  _Most of “data science” is actually “data pre- processing._ Before any learner can execute, much effort must be expended in selecting and accessing the data to process, pre-processing, and transforming it some learnable form.
++ TIP: _Most of “data science” is actually “data
+  pre- processing._ Before any learner can execute,
+  much effort must be expended in selecting and
+  accessing the data to process, pre-processing, and
+  transforming it some learnable form.
 
 The above figure also clearly illustrates the cyclic nature of data science:
 
-+ Usually, finding one pattern prompts new questions such as “why does that effect hold?” or “are we sure there is no bug in step X of the method?”. Each such question refines the goals of the data science process, which leads to another round of the whole process.
-+ In the initial stages of a project, engineers try different methods to generate the feedback that let users refine and mature the goals of the project.
-+ Real world data is highly “quirky” and inductive engineers often try different methods before they discover how to find patterns in the data.
++ Usually, finding one pattern prompts new questions
+  such as “why does that effect hold?” or “are we
+  sure there is no bug in step X of the
+  method?”. Each such question refines the goals of
+  the data science process, which leads to another
+  round of the whole process.  + In the initial
+  stages of a project, engineers try different
+  methods to generate the feedback that let users
+  refine and mature the goals of the project.  +
+  Real world data is highly “quirky” and inductive
+  engineers often try different methods before they
+  discover how to find patterns in the data.
 
 
 The repetitive nature of data science implies:
 
-+ TIP: _In any industrial application, the data science method is repeated multiples times_ to either answer an extra user question, make some enhancement and/or bug fix to the method, or to deploy it to a different set of user.
++ TIP: _In any industrial application, the data
+  science method is repeated multiples times_ to
+  either answer an extra user question, make some
+  enhancement and/or bug fix to the method, or to
+  deploy it to a different set of user.
 
 This, in turn, has implications on tool choice:
 
-+  TIP: _Thou shall not click:_ For serious studies, to ensure repeatability, the entire analysis should be automated using some high level scripting language; e.g. [R-script, Python, Matlab, or Bash](bib.md#nelson11).
++ TIP: _Thou shall not click:_ For serious studies,
+  to ensure repeatability, the entire analysis
+  should be automated using some high level
+  scripting language; e.g. [R-script, Python,
+  Matlab, or Bash](bib.md#nelson11).
 
 ## Kinds of Cycles
 
-The above diagram, written in 1996, is a little light on details. Twenty years later, we can add numerous details on those cycles. Specifically, there are three kinds of cycles:
+The above diagram, written in 1996, is a little
+light on details. Twenty years later, we can add
+numerous details on those cycles. Specifically,
+there are three kinds of cycles:
 
 - The _semantic cycle_: 
      - Analysts use their domain knowledge to look for any quirks or errors in the data processing. 
@@ -70,30 +114,55 @@ particular and specific concerens of your next data science tasks.
 
 
 The following tools divide into groups and those groups correspond to large
-chunks of work in any data science project.
+chunks of work in any data science project:
 
+0. Platform
 1. Fetch
-     + e.g. curl find , <a href="https://www.mysql.com/" target="_blank">mysql</a> <img width=500 align=middle src="https://dev.mysql.com/doc/refman/5.7/en/images/cluster-replication-ipv6.png">
-     + e.g. Selenium/REST apis
 2. Select
-     + e.g. grep sql awk etc
-     + e.g. MongoDB/<a href="http://redis.io" target="_blank">Redis</a> <img width=500 align=middle src="http://s.radar.oreilly.com/files/2013/03/redis-data-structures.png">
 3. Transform
-     + e.g.  sort, head, tail, sed, gawk
-     + e.g. <a href="https://azure.microsoft.com/en-us/services/functions/" target="_blank">Azure functions</a>, etc. <img width=400 align=middle src="http://www.conceptdraw.com/How-To-Guide/picture/Computer-and-Networks-Azure-Windows-Azure-Network-and-Computes-Architecture.png">
-4. Learn
-     + e.g. <a href="http://www.cs.waikato.ac.nz/ml/weka/index.html" target="_blank">weka</a> (see [command-line ninja](https://github.com/REU-SOS/SOS/tree/master/src/ninja)    + e.g. R, Matlab <img width=400 align=middle src="http://weka.sourceforge.net/explorer_screenshots/ClassifyPanel.png">
-     + e.g. <a href="http://scikit-learn.org/stable/" target="_blank">scikit</a>, cloud apis: watson, microsoft, etc. <img width=400 align=middle src="http://scikit-learn.org/stable/_static/ml_map.png">
-5. Visualize
-     + e.g. gnuplot,gvpr, graphviz (dot)
-     + e.g. <a href="https://github.com/d3/d3/wiki/Gallery" target="_blank" >d3</a><img width=400 align=middle src="https://cloud.githubusercontent.com/assets/29195/15612794/371f3c54-23fe-11e6-90f5-06d22133e70d.png">
-6. Report
-     + e.g. <a href="https://www.latex-project.org/" target="_blank">latex</a> <img width=400 align=middle src="https://upload.wikimedia.org/wikipedia/commons/thumb/7/78/LaTeX_diagram.svg/650px-LaTeX_diagram.svg.png">
-     + e.g. markdown, github pages
-     + e.g. <a href="http:://pandoc.org" target-"_blank">Pandoc</a> : translates between these formats: <a href="http://pandoc.org/diagram.jpg"><img width=200 align=middle src="http://pandoc.org/diagram.jpg"></a>
-7.  Package
-     + e.g. Make, package management systems (e.g. pip, luarocks, etc/)
-     + e.g. <a href="https://www.docker.com/" target="_blank">Docker</a>, ansible, maven, npm, grunt <img width=500 align=middle src="https://docs.docker.com/engine/article-img/architecture.svg">
+4. Tune
+5. Learn
+6. Visualize
+7. Report
+8. Package
+
+### 1. Fetch
+
++ e.g. curl find , <a href="https://www.mysql.com/" target="_blank">mysql</a> <img width=500 align=middle src="https://dev.mysql.com/doc/refman/5.7/en/images/cluster-replication-ipv6.png">
++ e.g. Selenium/REST apis
+
+### 2. Select
+
++ e.g. grep sql awk etc
++ e.g. MongoDB/<a href="http://redis.io" target="_blank">Redis</a> <img width=500 align=middle src="http://s.radar.oreilly.com/files/2013/03/redis-data-structures.png">
+
+### 3. Transform
+
++ e.g.  sort, head, tail, sed, gawk
++ e.g. <a href="https://azure.microsoft.com/en-us/services/functions/" target="_blank">Azure functions</a>, etc. <img width=400 align=middle src="http://www.conceptdraw.com/How-To-Guide/picture/Computer-and-Networks-Azure-Windows-Azure-Network-and-Computes-Architecture.png">
+
+### 4. Tune
+
+### 5. Learn
+
++ e.g. <a href="http://www.cs.waikato.ac.nz/ml/weka/index.html" target="_blank">weka</a> (see [command-line ninja](https://github.com/REU-SOS/SOS/tree/master/src/ninja)    + e.g. R, Matlab <img width=400 align=middle src="http://weka.sourceforge.net/explorer_screenshots/ClassifyPanel.png">
++ e.g. <a href="http://scikit-learn.org/stable/" target="_blank">scikit</a>, cloud apis: watson, microsoft, etc. <img width=400 align=middle src="http://scikit-learn.org/stable/_static/ml_map.png">
+
+### 6. Visualize
+
++ e.g. gnuplot,gvpr, graphviz (dot)
++ e.g. <a href="https://github.com/d3/d3/wiki/Gallery" target="_blank" >d3</a><img width=400 align=middle src="https://cloud.githubusercontent.com/assets/29195/15612794/371f3c54-23fe-11e6-90f5-06d22133e70d.png">
+
+### 7. Report
+
++ e.g. <a href="https://www.latex-project.org/" target="_blank">latex</a> <img width=400 align=middle src="https://upload.wikimedia.org/wikipedia/commons/thumb/7/78/LaTeX_diagram.svg/650px-LaTeX_diagram.svg.png">
++ e.g. markdown, github pages
++ e.g. <a href="http:://pandoc.org" target-"_blank">Pandoc</a> : translates between these formats: <a href="http://pandoc.org/diagram.jpg"><img width=200 align=middle src="http://pandoc.org/diagram.jpg"></a>
+
+### 8.  Package
+
++ e.g. Make, package management systems (e.g. pip, luarocks, etc/)
++ e.g. <a href="https://www.docker.com/" target="_blank">Docker</a>, ansible, maven, npm, grunt <img width=500 align=middle src="https://docs.docker.com/engine/article-img/architecture.svg">
 
 ## Unix Tools
 
