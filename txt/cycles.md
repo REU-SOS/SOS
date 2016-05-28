@@ -134,14 +134,14 @@ ______
     + Github (*)
     + Slack  (*)
     + [sharelatex (*)](http://sharelatex.com), <a href="https://www.sharelatex.com/blog/images/redesign-editor-preview.png"><img
-        src="https://www.sharelatex.com/blog/images/redesign-editor-preview.png" align=middle width=200></a>
+        src="https://www.sharelatex.com/blog/images/redesign-editor-preview.png" align=middle width=300></a>
     + Lastpass (or some other multi-platform password manager)
 + A good terminal emulator (if you are a command line ninja)
     + iTERM2 (if Mac)
 + CPU farms
     + Spark (Elastic Search, log stash)
-    + HPC, batch submit of large jobs (local to NC State: [instructions](https://github.com/ai-se/HPC-Clusters) <a href="https://ncsu.edu/hpc/Images/Xeon2.jpg"><img align=middle
-    src="https://ncsu.edu/hpc/Images/Xeon2.jpg" width=200></a>
+    + HPC, batch submit of large jobs (local to NC State: [instructions](https://github.com/ai-se/HPC-Clusters):  <a href="https://ncsu.edu/hpc/Images/Xeon2.jpg"><img align=middle
+    src="https://ncsu.edu/hpc/Images/Xeon2.jpg" width=300></a>
     + HPCC (lexis nexis)
 + Misc
     + tiny.cc (URL management) 
