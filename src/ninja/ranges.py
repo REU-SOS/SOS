@@ -11,6 +11,17 @@ The.divs = o(attr    = 0,      # a label for the ranges
              small   = None,   # when are numbers too small?
              verbose = False)
 
+class Range:
+  def __init__(i, attr=None, n=None, lo=None,report=None,
+               id=None, up=None, has=None, score=None):
+    i.attr, i.lo, i.up, i._has = attr, lo, up, has
+    i.score, i.n, i.id         = score, n, id
+    i.report=report
+  def __repr__(i):
+    return str(kv(i.__dict__))
+  def pretty(i):
+    return '[%s..%s]' % (i.lo,i.up)
+  
 def mudiv(lst,
          attr    = The.divs.attr,
          cohen   = The.divs.cohen,

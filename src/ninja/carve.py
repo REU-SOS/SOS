@@ -2,7 +2,7 @@ from __future__ import division,print_function
 import sys
 sys.dont_write_bytecode=True
 
-from divs import *
+from ranges import *
 
 def tf(line):
   klass=line[-1]

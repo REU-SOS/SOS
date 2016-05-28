@@ -1,36 +1,51 @@
-# tricks.py (C) 2016 tim@menzies.us, MIT license
-# Standard Python tricks
+"""
+# tricks.py  : Standard Python tricks
 
-# ___________________________________________________
-# Header tricks
+(C) 2016 tim@menzies.us, MIT license
 
+___________________________________________________
+
+## Header tricks
+
+"""
 from __future__ import division,print_function
 import sys,random,re,copy
 sys.dont_write_bytecode=True # don't write irritating .pyc files
 
-# ___________________________________________________
-# Generic container trick (fields, but no methods).
+"""___________________________________________________
+
+## Generic container trick (fields, but no methods).
+"""
 
 class o:
-  def __init__(i, **entries): i.__dict__.update(entries)
-  def __repr__(i):  return str(kv(i.__dict__))
+  def __init__(i, **adds): i.__dict__.update(adds)
+  def __repr__(i)        : return str(kv(i.__dict__))
 
-# ___________________________________________________
+"""___________________________________________________
+
+## Options trick
+"""
+
 # 'The' is the place to hold global options
 
-The=o()
+The=o(tricks=o(round=2))
 
-# ___________________________________________________
-# Standard alias tricks
+"""___________________________________________________
+
+## Standard alias tricks
+"""
 
 rseed=random.seed
 r=random.random
 copy=copy.deepcopy
 
-# ___________________________________________________
-# Dictionary tricks
+"""___________________________________________________
 
-def kv(d, private="_", places=4):
+##  Dictionary tricks
+"""
+
+def kv(d, private="_",
+       places=The.tricks.round):
   "Print dicts, keys sorted (ignoring 'private' keys"
   def _private(key):
     return key[0] == private
@@ -40,16 +55,20 @@ def kv(d, private="_", places=4):
           for k in sorted(d.keys())
           if not _private(k)]
 
-# ___________________________________________________
-# Printing tricks
+"""___________________________________________________
+
+## Printing tricks
+"""
 
 def dot(x='.'):
   "Write without new line"
   sys.stdout.write(x)
   sys.stdout.flush()
 
-# ___________________________________________________
-# Type tricks
+"""___________________________________________________
+
+## Type tricks
+"""
 
 def isa(x,y): return isinstance(x,y)
 def isSym(x): return isa(x,str)
@@ -62,7 +81,9 @@ def thing(x):
     except ValueError:
       return x
 
-# ___________________________________________________
-# Meta tricks (one day, this will make sense)
+"""___________________________________________________
+
+## Meta tricks (one day, this will make sense)
+"""
 
 def same(z): return z
