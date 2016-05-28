@@ -126,32 +126,57 @@ chunks of work in any data science project:
 7. Report
 8. Package
 
+______
+
+### 0. Platform
+
+
+______
+
 ### 1. Fetch
 
 + e.g. curl find , <a href="https://www.mysql.com/" target="_blank">mysql</a> <img width=500 align=middle src="https://dev.mysql.com/doc/refman/5.7/en/images/cluster-replication-ipv6.png">
 + e.g. Selenium/REST apis
+
+
+______
 
 ### 2. Select
 
 + e.g. grep sql awk etc
 + e.g. MongoDB/<a href="http://redis.io" target="_blank">Redis</a> <img width=500 align=middle src="http://s.radar.oreilly.com/files/2013/03/redis-data-structures.png">
 
+
+______
+
 ### 3. Transform
 
 + e.g.  sort, head, tail, sed, gawk
 + e.g. <a href="https://azure.microsoft.com/en-us/services/functions/" target="_blank">Azure functions</a>, etc. <img width=400 align=middle src="http://www.conceptdraw.com/How-To-Guide/picture/Computer-and-Networks-Azure-Windows-Azure-Network-and-Computes-Architecture.png">
 
+
+______
+
 ### 4. Tune
+
+
+______
 
 ### 5. Learn
 
 + e.g. <a href="http://www.cs.waikato.ac.nz/ml/weka/index.html" target="_blank">weka</a> (see [command-line ninja](https://github.com/REU-SOS/SOS/tree/master/src/ninja)    + e.g. R, Matlab <img width=400 align=middle src="http://weka.sourceforge.net/explorer_screenshots/ClassifyPanel.png">
 + e.g. <a href="http://scikit-learn.org/stable/" target="_blank">scikit</a>, cloud apis: watson, microsoft, etc. <img width=400 align=middle src="http://scikit-learn.org/stable/_static/ml_map.png">
 
+
+______
+
 ### 6. Visualize
 
 + e.g. gnuplot,gvpr, graphviz (dot)
 + e.g. <a href="https://github.com/d3/d3/wiki/Gallery" target="_blank" >d3</a><img width=400 align=middle src="https://cloud.githubusercontent.com/assets/29195/15612794/371f3c54-23fe-11e6-90f5-06d22133e70d.png">
+
+
+______
 
 ### 7. Report
 
@@ -159,10 +184,16 @@ chunks of work in any data science project:
 + e.g. markdown, github pages
 + e.g. <a href="http:://pandoc.org" target-"_blank">Pandoc</a> : translates between these formats: <a href="http://pandoc.org/diagram.jpg"><img width=200 align=middle src="http://pandoc.org/diagram.jpg"></a>
 
+
+______
+
 ### 8.  Package
 
 + e.g. Make, package management systems (e.g. pip, luarocks, etc/)
 + e.g. <a href="https://www.docker.com/" target="_blank">Docker</a>, ansible, maven, npm, grunt <img width=500 align=middle src="https://docs.docker.com/engine/article-img/architecture.svg">
+
+
+______
 
 ## Unix Tools
 
