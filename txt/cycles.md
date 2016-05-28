@@ -130,13 +130,37 @@ ______
 
 ### 0. Platform
 
++ Co-ordination
+    + Github (*)
+    + Slack  (*)
+    + [sharelatex (*)](http://sharelatex.com), <a href="https://www.sharelatex.com/blog/images/redesign-editor-preview.png"><img
+        src="https://www.sharelatex.com/blog/images/redesign-editor-preview.png" align=middle width=200></a>
+    + Lastpass (or some other multi-platform password manager)
++ A good terminal emulator (if you are a command line ninja)
+    + iTERM2 (if Mac)
++ CPU farms
+    + Spark (Elastic Search, log stash)
+    + HPC, batch submit of large jobs (local to NC State: [instructions](https://github.com/ai-se/HPC-Clusters) <a href="https://ncsu.edu/hpc/Images/Xeon2.jpg"><img align=middle
+    src="https://ncsu.edu/hpc/Images/Xeon2.jpg" width=200></a>
+    + HPCC (lexis nexis)
++ Misc
+    + tiny.cc (URL management) 
+
+(*) Worth paying for the "free+1" level service.
 
 ______
 
 ### 1. Fetch
 
+
 + e.g. curl find , <a href="https://www.mysql.com/" target="_blank">mysql</a> <img width=500 align=middle src="https://dev.mysql.com/doc/refman/5.7/en/images/cluster-replication-ipv6.png">
 + e.g. Selenium/REST apis
++ Data sources
+       + Mechanical Turk (recall the IRB)
+       + [Promise REPO](http://openscience.us/repo)
+       + Other:
+       
+![image](https://cloud.githubusercontent.com/assets/29195/15624025/881bf622-244b-11e6-884c-ed0af0364894.png)
 
 
 ______
@@ -159,6 +183,9 @@ ______
 
 ### 4. Tune
 
+Warning, experimental.
+
++ [jmetal](http://jmetal.sourceforge.net/): meta-heuristic search<a href="http://dynamobim.org/wp-content/uploads/forum-assets/mra1242neo-tamu-edu/10/19/Optimo.gif"><img src="http://dynamobim.org/wp-content/uploads/forum-assets/mra1242neo-tamu-edu/10/19/Optimo.gif" width=200 align=middle></a>
 
 ______
 
@@ -174,16 +201,29 @@ ______
 
 + e.g. gnuplot,gvpr, graphviz (dot)
 + e.g. <a href="https://github.com/d3/d3/wiki/Gallery" target="_blank" >d3</a><img width=400 align=middle src="https://cloud.githubusercontent.com/assets/29195/15612794/371f3c54-23fe-11e6-90f5-06d22133e70d.png">
++ e.g. Kibana <a href="https://www.elastic.co/guide/en/kibana/current/tutorial-visualizing.html"><img src="https://www.elastic.co/guide/en/kibana/current/images/tutorial-visualize-pie-3.png" width=200 align=middle></a>
 
 
 ______
 
 ### 7. Report
 
++ e.g. Google docs
+        + Sheets 
+        + Slides
+        + Docs
 + e.g. <a href="https://www.latex-project.org/" target="_blank">latex</a> <img width=400 align=middle src="https://upload.wikimedia.org/wikipedia/commons/thumb/7/78/LaTeX_diagram.svg/650px-LaTeX_diagram.svg.png">
+
 + e.g. markdown, github pages
 + e.g. <a href="http:://pandoc.org" target-"_blank">Pandoc</a> : translates between these formats: <a href="http://pandoc.org/diagram.jpg"><img width=200 align=middle src="http://pandoc.org/diagram.jpg"></a>
-
++ References:
+       + Fee-based services (free via NC State)
+              + [IEEE Xplore](http://ieeexplore.ieee.org/Xplore/home.jsp)
+              + [ACM digital library](http://dl.acm.org/)
+       + Free
+              + [Google Scholar](https://scholar.google.com/)
+              + [DbLp](http://dblp.uni-trier.de/db/conf/icse/icse2016c.html)
+       
 
 ______
 
