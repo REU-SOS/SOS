@@ -1,8 +1,101 @@
+"""
+
+# ranges.py : tricks for dividing numeric columns into a few ranges
+
+(C) 2016 tim@menzies.us, MIT license
+
+"""
+
 from __future__ import division,print_function
 import sys
 sys.dont_write_bytecode=True
 
 from tubs import *
+
+"""
+## Top-Down Bi-Clustering
+
+All the following tricks take the following form:
+
+- Sort the rows by some column
+- Run down the sorted column looking for the _best_ place to break the column in two.
+      - Where _best_ might mean many things, discussed below.
+- Recurse into both breaks.
+
+These tricks divides a column into a list of useful `Range`s
+"""
+
+class Range:
+  def __init__(i, attr=None, n=None,  lo=None,  report=None,
+                  id=None,   up=None, has=None, score=None):
+    i.attr, i.lo, i.up, i._has = attr, lo, up, has
+    i.score, i.n, i.id         = score, n, id
+    i.report=report
+  def __repr__(i):
+    return str(kv(i.__dict__))
+  def pretty(i)  :
+    return '[%s..%s]' % (i.lo,i.up)
+  
+"""In the following,two  important events are 
+
+- When these tricks divide a column into one, and only one, `Range`. We call such
+  a column `bland` since it means 
+  means that we were unable to find useful structure within a column.
+- When a `Range` does is _dull_; i.e. it does
+  not contain a majority of whatever effect is desired. 
+
+As shown below, by ignoring bland columns and dull ranges, seemingly
+complex data sets can be summarised in just a few ranges.
+
+Note that all these tricks use four sanity tricks:
+
+- Don't waste time resorting the columns for every level of the recursion:
+       - Sort the whole column once, at the start, then pass the sorted sub-ranges into
+         the recursive calls.
+- Don't break things into sub-ranges with two few samples
+       - E.g. with less than the square root of the number of items in the column;
+- Don't break things into sub-ranges just cause of some small effect
+       - E.g. if the standard deviation of the entire column is `sd` and
+         some range streches from `lo` to `up`, then not break into sub-ranges 
+         where `(up - lo)` is less than `0.2*sd`.
+- Each sub-range must be more that `trivial`ly better than the current range
+       - E.g. at least 5% better
+- When checking where to break up a range, use two counters:
+       - One `lhs` counter for the information up to some position `i`;
+       - One `rhs` counter for the information from `i` to the end 
+
+As to that last point, initially `lhs` is empty and `rhs` contains information
+about the entire range. Then we walk over the sorted range adding in each item
+to `lhs` and removing it from `rhs`. This means that a skeleton template for
+all the following code looks like this:
+
+
+   def div(lst):
+     divide(sorted(lst),      # only sort once
+            trivial = 1.05,
+            small   = rhs.sd()*0.2,
+            enough  = sqrt(len(lst)))
+
+   def divide(lst, trivial, small, enough, cut=None) :
+     lhs, rhs = nothing, everything(lst)
+     score    = some initial value
+     for i,new  in enumerate(lst):
+       lhs += new                # lhs is a `Col` and supports `__iadd__`
+       rhs -= new                # rhs is a `Col` and supports `__isub__`
+       if rhs.n < enough:        # break when too few rhs samples
+         break
+       else:
+        if lhs.n >= enough:      # wait till enough lhs samples
+          start, here, stop = lst[0], new, lst[-1]
+          if here - start > small:     # ignore small effects
+            if stop - here > small:    # ignore small effects
+               score1 = something
+               if score1 * trivial < score:
+                  score, cut = score1, i
+     return cut, score # cut is None if no breaks found
+
+"""
+
 
 The.divs = o(attr    = 0,      # a label for the ranges
              cohen   = 0.2,    # 'small' means sd()*cohen
@@ -11,16 +104,7 @@ The.divs = o(attr    = 0,      # a label for the ranges
              small   = None,   # when are numbers too small?
              verbose = False)
 
-class Range:
-  def __init__(i, attr=None, n=None, lo=None,report=None,
-               id=None, up=None, has=None, score=None):
-    i.attr, i.lo, i.up, i._has = attr, lo, up, has
-    i.score, i.n, i.id         = score, n, id
-    i.report=report
-  def __repr__(i):
-    return str(kv(i.__dict__))
-  def pretty(i):
-    return '[%s..%s]' % (i.lo,i.up)
+
   
 def mudiv(lst,
          attr    = The.divs.attr,

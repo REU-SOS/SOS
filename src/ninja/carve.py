@@ -11,8 +11,8 @@ def tf(line):
   return line
   
 def muPrune(a,cohen=0.3):
-  for n,about in enumerate(a.tubs.x.abouts.values()):
-    if isinstance(about,Num):
+  for n,col in enumerate(a.tubs.x.cols.values()):
+    if isinstance(col,Num):
       rs = mudiv(a.tubs._rows,attr=a.attributes[n],cohen=cohen,
                 xx=lambda z:z[n])
       if len(rs) > 1: # ignore columns that never divide
@@ -27,8 +27,8 @@ def _muPrune(f,cohen=0.3):
 
 
 def xPrune(a,cohen=0.3,f=sddiv):
-  for n,about in enumerate(a.tubs.x.abouts.values()):
-    if isinstance(about,Num):
+  for n,col in enumerate(a.tubs.x.cols.values()):
+    if isinstance(col,Num):
       rs = f(a.tubs._rows,attr=a.attributes[n],cohen=cohen,
                 xx=lambda z:z[n])
       if len(rs) > 1: # ignore columns that never divide
@@ -60,11 +60,9 @@ def ePrune(a,goal):
   """return ranges within a's numeric columns 
      that support at least one split and
      whose mode is goal"""
-  for n,about in enumerate(a.tubs.x.abouts.values()):
-    if isinstance(about,Num):
-      rs = ediv(a.tubs._rows,attr=a.attributes[n],
-                    xx=lambda z:z[n],
-                    yy= lambda z:z[-1])
+  for n,col in enumerate(a.tubs.x.cols.values()):
+    if isinstance(col,Num):
+      rs = ediv(a.tubs._rows,attr=a.attributes[n])
       if len(rs) > 1: # ignore columns that never divide
         for r in rs:
           if r.report.mode == goal:
