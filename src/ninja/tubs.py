@@ -6,15 +6,20 @@
 
 ## Data model:
 
-A _Tub_ is a place to store columns of data:
+A `Tub` is a place to store columns of data:
 
-- _Columns_ contain either symbols or numbers.  
+- Columns contain either symbols or numbers.  
 
-_ _Columns_ have headers called _Sym_ and _Num_ and store summaires _about_
+_ Columns have headers called `Sym` and `Num` and store summaires about
   symbolic or numeric columns, respectively.
 
-- When a _Row_ is dumped into a _Tub_, the column headers are automatically
-  updated with information from that ro
+- When a `Row` is dumped into a `Tub`, the column headers are automatically
+  updated with information from that row
+
+Important note:
+
+- While `Row`s contain all the raw data, columns only contain a _summary_
+  of the data seen in each column.
 ___________________________________________________________________________
 
 """
@@ -33,7 +38,7 @@ def isMissing(x):
 
 ## Col
 
-_Col_s have two sub-classes: _Num_ and _Sym_.
+`Col`s have two sub-classes: `Num` and `Sym`.
 
 """
 
@@ -111,40 +116,37 @@ class Num(Col):
 
 ## Tub 
 
-- Keeps all rows;
-- When a new row is added, update column summaries.
-- When processing a row,  if a cell is empty (defined by `isMissing`) then we skip over it.
+- When a new `Row` is added, updates column summaries.
+- When processing a `Row`,  if a cell is empty (defined by `isMissing`) then we skip over it.
+- The type of a column is defermined by the first non-empty entry seen in any row
+  (see how `about` is set, below).
+- Before summarizing a row in a column header, the row is filted via some `get`
+  function (which defaults to `same`; i.e.  use the whole row, as is).
 
-The type of a column is defermined by the first non-empty entry seen in any row
-(see how `about` is set, below).
-
-Before processing a row, the row is filted via some _get_ function (which
-defaults to `same`; i.e.  use the whole row, as is).
-
+Note that `Tub`s do not store the `rows` (that is done elsewhere, see `TwinTub`, below).
 """
 
 class Tub:
   def __init__(i,get = same):
-    i.rows=[]
+    i.cols = {}  # i.cols[i] is a summary of column i.
     i._get = get
-    i.abouts = {}
   def __iadd__(i,lst):
     lst = i._get(lst)
     for j,val in enumerate(lst):
       if not isMissing(val):
-        about = i.abouts.get(j,None)
-        if not about:
-          about = i.abouts[j] = Sym() if isSym(val) else Num()
-        about += val
+        col = i.cols.get(j,None)
+        if not col:
+          col = i.cols[j] = Sym() if isSym(val) else Num()
+        col += val
     return i
 
 """________________________________________________________________________
 # Row       
 
-A _Row_ is something that can be divided into into _x,y_ columns and each of
- which can be stored in different tubs.  The knowledge of how to access _x_, or
- _y_ out of the row is given to a _Tub_ when it is created (see the above
- _Tub.get_ attribute).
+A `Row` is something that can be divided into into `x,y` columns and each of
+ which can be stored in different tubs.  The knowledge of how to access `x`, or
+ `y` out of the row is given to a `Tub` when it is created (see the above
+ `Tub.get` attribute).
 
 """
 
@@ -156,10 +158,11 @@ class Row:
 """________________________________________________________________________
 ## TwinTub
  
-A _TwinTub_ is a place to store two tubs:
+A `TwinTub` is a place to store `Row`s and summaries about those rows.
+Those summaries are stored in two `Tub`s (hence the name "twin tub").
 
-- The _x_ field holds a _Tub_ of independent data;
-- The _y_ field holds a _Tub_ of dependent data (e.g. one of more class
+- The _x_ field holds a _Tub_ of any independent data;
+- The _y_ field holds a _Tub_ of any dependent data (e.g. one of more class
   variables).
 - When a row is added to a _TwinTub_, its_x,y_ components are sent to two
   seperate _Tubs_
@@ -185,7 +188,7 @@ class TwinTub:
 """_______________________________________________________________________
 ## Arff
 
-_Arff_ is a class that reads a data file of the following form:
+`Arff` is a class that reads a data file of the following form:
 
     @RELATION iris
     
@@ -199,7 +202,7 @@ _Arff_ is a class that reads a data file of the following form:
     4.7,3.2,Iris-setosa
     ...
 
-The _rows_ after `@data` are stored in _TwinTubs_ (where it is assumed the last
+The `rows` after `@data` are stored in `TwinTubs` (where it is assumed the last
 cell in each row is the class).  Other information is stored in a list of
 `attributes` and the name of the `relation`.
 
@@ -207,13 +210,13 @@ The input rows from a file are all strings so first they are coerced to floats,
 ints, or strings using `thing`.  Next, the coerced row is sent through a
 customisable `filter` (which defaults to `same`).
 
-Note that when reading the @XXX tags, _Arff_ uses a case-insensitive match.
+Note that when reading the @XXX tags, `Arff` uses a case-insensitive match
+(see the use of `re.IGNORECASE`, below).
 
 """
 class Arff:
   def __init__(i, f, filter=same):
-    i.tubs = TwinTub(xx=lambda z: z[:-1],
-                     yy=lambda z: z[-1:])
+    i.tubs = TwinTub()
     i.attributes = []
     i.relation   = 'relation'
     i.filter     = filter
@@ -229,19 +232,22 @@ class Arff:
     with open(f)  as fs:
       for line in fs:
         line = re.sub(r'(["\'\r\n]|#.*)', "", line)
-        if line and not i.empty(line):
-          if data:
-            line = line.split(",")
-            line = i.filter(map(thing,line))
-            i.tubs += line
-          else:
-            line = line.split()
-            if i.at(line[0],'RELATION'):
-              i.relation = line[1]
-            elif i.at(line[0],'ATTRIBUTE'):
-              i.attributes += [line[1]]
-            elif i.at(line[0],'DATA'):
-              data=True
+        if line:
+          if not i.empty(line): # skip blank lines
+            if data:
+              line = line.split(",")
+              line = i.filter(map(thing,line))
+              indep= line[:-1]
+              dep  = [line[-1]]
+              i.tubs += Row(x=indep, y=dep)
+            else:
+              line = line.split()
+              if i.at(line[0],'RELATION'):
+                i.relation = line[1]
+              elif i.at(line[0],'ATTRIBUTE'):
+                i.attributes += [line[1]]
+              elif i.at(line[0],'DATA'):
+                data=True
 
 """_______________________________________________________________________
 ## demo
@@ -283,6 +289,6 @@ distributions of symbols and numbers in the independent (non-class) columns.
 """
 if __name__ == '__main__':
   a=Arff('data/weather.arff')
-  print(a.tubs.x.abouts)
+  print(a.tubs.x.cols)
 
 
