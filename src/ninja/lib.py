@@ -7,12 +7,6 @@ from __future__ import division,print_function
 import sys,random,re,copy
 sys.dont_write_bytecode=True # don't write irritating .pyc files
 # ___________________________________________________
-# Standard short cuts
-
-rseed=random.seed
-r=random.random
-copy=copy.deepcopy
-# ___________________________________________________
 # Generic container (fields, but no methods).
 
 class o:
@@ -22,6 +16,12 @@ class o:
 # 'The' is the place to hold global options
 
 The=o()
+# ___________________________________________________
+# Standard alias tricks
+
+rseed=random.seed
+r=random.random
+copy=copy.deepcopy
 # ___________________________________________________
 # Dictionary tricks
 
