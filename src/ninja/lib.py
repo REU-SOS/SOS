@@ -19,6 +19,10 @@ class o:
   def __init__(i, **entries): i.__dict__.update(entries)
   def __repr__(i):  return str(kv(i.__dict__))
 # ___________________________________________________
+# 'The' is the place to hold global options
+
+The=o()
+# ___________________________________________________
 # Dictionary tricks
 
 def kv(d, private="_", places=4):
@@ -51,10 +55,7 @@ def thing(x):
     except ValueError:
       return x
 # ___________________________________________________
-# Meta tricks
+# Meta tricks (one day, this will make sense)
 
 def same(z): return z
-# ___________________________________________________
-# 'The' is the place to hold global options
 
-The=o()
