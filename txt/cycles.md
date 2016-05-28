@@ -160,7 +160,7 @@ ______
 + Data sources
        + Mechanical Turk (recall the IRB)
        + [Promise REPO](http://openscience.us/repo)
-       + Some others (and many, many more besides):
+       + Some others (and many, many more besides):  
        
 ![image](https://cloud.githubusercontent.com/assets/29195/15624025/881bf622-244b-11e6-884c-ed0af0364894.png)
 
