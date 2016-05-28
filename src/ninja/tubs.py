@@ -269,9 +269,8 @@ For example, consider the file `weather.arff`:
     rainy,       71,         91,       TRUE,   no
 
 
-If we read this file and print the 
- headers on the _x_ tub, we see the distributions of symbols and 
-numbers in the independent (non-class) columns.
+If we read this file and print the headers on the _x_ tub, we see the
+distributions of symbols and numbers in the independent (non-class) columns.
 
 {0: ["counts: {'rainy': 5, 'overcast': 4, 'sunny': 5}", 'mode: sunny', 'most: 5', 'n: 14'], 
  1: ['lo: 64', 'm2: 561.43', 'mu: 73.57', 'n: 14', 'up: 85'], 
