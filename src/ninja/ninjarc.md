@@ -170,7 +170,7 @@ cat << 'EOF' > $Edot
   (setq require-final-newline    t) 
   (setq next-line-add-newlines nil) 
   (setq inhibit-startup-message  t)
-  (setq-default fill-column     52)
+  (setq-default fill-column     80)
   (setq column-number-mode       t)
   (setq make-backup-files      nil) 
   (transient-mark-mode           t)
