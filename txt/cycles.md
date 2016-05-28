@@ -204,7 +204,7 @@ ______
 
 + e.g. gnuplot,gvpr, graphviz (dot)
 + e.g. <a href="https://github.com/d3/d3/wiki/Gallery" target="_blank" >d3</a><img width=400 align=middle src="https://cloud.githubusercontent.com/assets/29195/15612794/371f3c54-23fe-11e6-90f5-06d22133e70d.png">
-+ e.g. Kibana <a href="https://www.elastic.co/guide/en/kibana/current/tutorial-visualizing.html"><img src="https://www.elastic.co/guide/en/kibana/current/images/tutorial-visualize-pie-3.png" width=200 align=middle></a>
++ e.g. Kibana <a href="https://www.elastic.co/guide/en/kibana/current/tutorial-visualizing.html"><img src="https://www.elastic.co/guide/en/kibana/current/images/tutorial-visualize-pie-3.png" width=400 align=middle></a>
 
 
 ______
@@ -220,12 +220,12 @@ ______
 + e.g. markdown, github pages
 + e.g. <a href="http:://pandoc.org" target-"_blank">Pandoc</a> : translates between these formats: <a href="http://pandoc.org/diagram.jpg"><img width=200 align=middle src="http://pandoc.org/diagram.jpg"></a>
 + References:
-       + Fee-based services (free via NC State)
-              + [IEEE Xplore](http://ieeexplore.ieee.org/Xplore/home.jsp)
-              + [ACM digital library](http://dl.acm.org/)
-       + Free
-              + [Google Scholar](https://scholar.google.com/)
-              + [DbLp](http://dblp.uni-trier.de/db/conf/icse/icse2016c.html)
+       + Fee-based services (free via NC State):
+               [IEEE Xplore](http://ieeexplore.ieee.org/Xplore/home.jsp),
+               [ACM digital library](http://dl.acm.org/);
+       + Free:
+               [Google Scholar](https://scholar.google.com/),
+               [DbLp](http://dblp.uni-trier.de/db/conf/icse/icse2016c.html).
        
 
 ______
