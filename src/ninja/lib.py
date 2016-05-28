@@ -6,21 +6,18 @@
 from __future__ import division,print_function
 import sys,random,re,copy
 sys.dont_write_bytecode=True # don't write irritating .pyc files
-
 # ___________________________________________________
 # Standard short cuts
 
 rseed=random.seed
 r=random.random
 copy=copy.deepcopy
-
 # ___________________________________________________
 # Generic container (fields, but no methods).
 
 class o:
   def __init__(i, **entries): i.__dict__.update(entries)
   def __repr__(i):  return str(kv(i.__dict__))
-
 # ___________________________________________________
 # Dictionary tricks
 
@@ -33,7 +30,6 @@ def kv(d, private="_", places=4):
   return ['%s: %s' % (k,pretty(d[k]))
           for k in sorted(d.keys())
           if not _private(k)]
-
 # ___________________________________________________
 # Printing tricks
 
@@ -41,7 +37,6 @@ def dot(x='.'):
   "Write without new line"
   sys.stdout.write(x)
   sys.stdout.flush()
-
 # ___________________________________________________
 # Type tricks
 
@@ -55,12 +50,10 @@ def thing(x):
     try: return float(x)
     except ValueError:
       return x
-
 # ___________________________________________________
 # Meta tricks
 
 def same(z): return z
-
 # ___________________________________________________
 # 'The' is the place to hold global options
 
