@@ -143,9 +143,10 @@ ______
 ### 0. Platform
 
 
++ Dev Environments    
+    + A good terminal emulator (if you are a command line ninja); e.g. iTERM2 (if Mac)
+    + Cloud clouding environemnts; e.g [Cloud9](http://c9.io)-- hey presto, instant LINUX, no install: <a href="https://cdn.c9.io/nc-3.1.2564-59d36da3/static/homepage/images/c9-web/top-carrousel-1.png"><img src="https://cdn.c9.io/nc-3.1.2564-59d36da3/static/homepage/images/c9-web/top-carrousel-1.png" width=400 align=middle></a>
     
-+ A good terminal emulator (if you are a command line ninja)
-    + iTERM2 (if Mac)
 + CPU farms
     + Spark (Elastic Search, log stash)
     + HPC, batch submit of large jobs (local to NC State: [instructions](https://github.com/ai-se/HPC-Clusters):  <a href="https://ncsu.edu/hpc/Images/Xeon2.jpg"><img align=middle
