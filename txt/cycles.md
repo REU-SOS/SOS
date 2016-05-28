@@ -185,7 +185,7 @@ ______
 
 Warning, experimental.
 
-+ [jmetal](http://jmetal.sourceforge.net/): meta-heuristic search<a href="http://dynamobim.org/wp-content/uploads/forum-assets/mra1242neo-tamu-edu/10/19/Optimo.gif"><img src="http://dynamobim.org/wp-content/uploads/forum-assets/mra1242neo-tamu-edu/10/19/Optimo.gif" width=200 align=middle></a>
++ [jmetal](http://jmetal.sourceforge.net/): meta-heuristic search: <a href="http://dynamobim.org/wp-content/uploads/forum-assets/mra1242neo-tamu-edu/10/19/Optimo.gif"><img src="http://dynamobim.org/wp-content/uploads/forum-assets/mra1242neo-tamu-edu/10/19/Optimo.gif" width=300 align=middle></a>
 
 ______
 
