@@ -130,12 +130,8 @@ ______
 
 ### 0. Platform
 
-+ Co-ordination
-    + Github (*)
-    + Slack  (*)
-    + [sharelatex (*)](http://sharelatex.com), <a href="https://www.sharelatex.com/blog/images/redesign-editor-preview.png"><img
-        src="https://www.sharelatex.com/blog/images/redesign-editor-preview.png" align=middle width=400></a>
-    + Lastpass (or some other multi-platform password manager)
+
+    
 + A good terminal emulator (if you are a command line ninja)
     + iTERM2 (if Mac)
 + CPU farms
@@ -145,6 +141,12 @@ ______
     + HPCC (lexis nexis)
 + Misc
     + tiny.cc (URL management) 
+    + Lastpass (or some other multi-platform password manager)
++ Co-ordination
+    + Github (*)
+    + Slack  (*)
+    + [sharelatex (*)](http://sharelatex.com), <a href="https://www.sharelatex.com/blog/images/redesign-editor-preview.png"><img
+        src="https://www.sharelatex.com/blog/images/redesign-editor-preview.png" align=middle width=400></a>
 
 (*) Worth paying for the "free+1" level service.
 
