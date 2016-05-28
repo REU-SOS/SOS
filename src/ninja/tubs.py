@@ -17,7 +17,6 @@ _ _Columns_ have headers  called _Sym_ and _Num_
 ________________________________________________
 """
 
-
 from __future__ import division,print_function
 import sys,math
 sys.dont_write_bytecode=True
@@ -113,19 +112,18 @@ class Num(Col):
 
 ## Tub 
 
-Keeps all rows, updates column summaries when new
-rows are added.
-
-When running down the rows, if a cell is empty
-(defined by `isMissing` then we skip over it.
+- Keeps all rows;
+- When a new row is added, update column summaries.
+- When processing a row,  if a cell is empty
+  (defined by `isMissing`) then we skip over it.
 
 The type of a column is defermined by the first
-non-empty entry in that row (see how `about` is
+non-empty entry seen in any row (see how `about` is
 set, below).
 
-Before reading a row, it is filted via some
+Before reading a row, the row is filted via some
 _get_ function (which defaults to `same`; i.e.
-use the whole row, as is.
+use the whole row, as is).
 
 """
 
