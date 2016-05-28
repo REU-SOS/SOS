@@ -1,21 +1,21 @@
-# Lib.py
-# Holds standard tools.
+# tricks.py (C) 2016 tim@menzies.us, MIT license
+# Standard Python tricks
 
 # ___________________________________________________
-# Standard headers
+# Header tricks
 
 from __future__ import division,print_function
 import sys,random,re,copy
 sys.dont_write_bytecode=True # don't write irritating .pyc files
 
 # ___________________________________________________
-# Generic container (fields, but no methods).
+# Generic container trick (fields, but no methods).
 
 class o:
   def __init__(i, **entries): i.__dict__.update(entries)
   def __repr__(i):  return str(kv(i.__dict__))
 
-  # ___________________________________________________
+# ___________________________________________________
 # 'The' is the place to hold global options
 
 The=o()
@@ -66,4 +66,3 @@ def thing(x):
 # Meta tricks (one day, this will make sense)
 
 def same(z): return z
-

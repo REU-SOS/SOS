@@ -2,7 +2,7 @@ from __future__ import division,print_function
 import sys,math
 sys.dont_write_bytecode=True
 
-from lib import *
+from tricks import *
 
 def isMissing(x): return x == "?"
 def xx(z): return z.x
