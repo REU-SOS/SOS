@@ -9,7 +9,7 @@ ___________________________________________________
 
 """
 from __future__ import division,print_function
-import sys,random,re,copy
+import sys,random,re,copy,os,inspect
 sys.dont_write_bytecode=True # don't write irritating .pyc files
 
 """___________________________________________________
@@ -21,6 +21,23 @@ class o:
   def __init__(i, **adds): i.__dict__.update(adds)
   def __repr__(i)        : return str(kv(i.__dict__))
 
+"""___________________________________________________
+
+## Meta tricks (one day, this will make sense)
+"""
+
+def same(z): return z
+
+Demos = []
+def demo(f):
+  Demos.append(f); return f
+def demos():
+  for f in Demos:
+    print("\n-----| %s |-----------------------" % f.__name__)
+    if f.__doc__:
+      print("# "+ re.sub(r'\n[ \t]*',"\n# ",f.__doc__)+"\n")
+    f()
+  
 """___________________________________________________
 
 ## Options trick
@@ -39,6 +56,13 @@ rseed=random.seed
 r=random.random
 copy=copy.deepcopy
 
+@demo
+def _rand():
+  rseed(1)
+  print([r() for _ in range(5)])
+  rseed(1)
+  print([r() for _ in range(5)])
+  
 """___________________________________________________
 
 ##  Dictionary tricks
@@ -81,9 +105,4 @@ def thing(x):
     except ValueError:
       return x
 
-"""___________________________________________________
-
-## Meta tricks (one day, this will make sense)
-"""
-
-def same(z): return z
+if __name__ == '__main__': demos()

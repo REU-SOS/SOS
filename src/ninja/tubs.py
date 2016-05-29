@@ -29,6 +29,7 @@ import sys,math
 sys.dont_write_bytecode=True
 
 from tricks import *
+Demos=[]
 
 def isMissing(x):
   "Null cells in columns contain '?'"
@@ -123,7 +124,7 @@ class Num(Col):
 - Before summarizing a row in a column header, the row is filted via some `get`
   function (which defaults to `same`; i.e.  use the whole row, as is).
 
-Note that `Tub`s do not store the `rows` (that is done elsewhere, see `TwinTub`, below).
+Note that `Tub`s do not store the `rows` (that is done elsewhere, see `Tubs`, below).
 """
 
 class Tub:
@@ -137,6 +138,7 @@ class Tub:
         col = i.cols.get(j,None)
         if not col:
           col = i.cols[j] = Sym() if isSym(val) else Num()
+          col.pos = j
         col += val
     return i
 
@@ -156,15 +158,15 @@ class Row:
     i.y = y or []
     
 """________________________________________________________________________
-## TwinTub
+## Tubs
  
-A `TwinTub` is a place to store `Row`s and summaries about those rows.
-Those summaries are stored in two `Tub`s (hence the name "twin tub").
+A `Tubs` is a place to store `Row`s and summaries about those rows.
+Those summaries are stored in two `Tub`s.
 
-- The _x_ field holds a _Tub_ of any independent data;
-- The _y_ field holds a _Tub_ of any dependent data (e.g. one of more class
+- The `x` field holds a `Tub` of any independent data;
+- The `y` field holds a `Tub` of any dependent data (e.g. one of more class
   variables).
-- When a row is added to a _TwinTub_, its_x,y_ components are sent to two
+- When a row is added to a `Tubs`, its `x,y` components are sent to two
   seperate _Tubs_
 
 First, need accessors to _x,y_ fields:
@@ -174,121 +176,24 @@ First, need accessors to _x,y_ fields:
 def xx(z): return z.x
 def yy(z): return z.y
 
-class TwinTub:
+class Tubs:
   def __init__(i,xx=xx,yy=yy):
     i.x=Tub(xx)
     i.y=Tub(yy)
     i._rows = []
-  def __iadd__(i,row): 
+  def __iadd__(i,row):
     i.x += row
     i.y += row
     i._rows += [row]
     return i
-
-"""_______________________________________________________________________
-## Arff
-
-`Arff` is a class that reads a data file of the following form:
-
-    @RELATION iris
-    
-    @ATTRIBUTE sepallength  NUMERIC
-    @ATTRIBUTE sepalwidth   NUMERIC
-    @ATTRIBUTE class        {Iris-setosa,Iris-versicolor,Iris-virginica}
-  
-    @DATA
-    5.1,3.5,Iris-setosa
-    4.9,3.0,Iris-setosa
-    4.7,3.2,Iris-setosa
-    ...
-
-The `rows` after `@data` are stored in `TwinTubs` (where it is assumed the last
-cell in each row is the class).  Other information is stored in a list of
-`attributes` and the name of the `relation`.
-
-The input rows from a file are all strings so first they are coerced to floats,
-ints, or strings using `thing`.  Next, the coerced row is sent through a
-customisable `filter` (which defaults to `same`).
-
-Note that when reading the @XXX tags, `Arff` uses a case-insensitive match
-(see the use of `re.IGNORECASE`, below).
-
-"""
-class Arff:
-  def __init__(i, f, filter=same):
-    i.tubs = TwinTub()
-    i.attributes = []
-    i.relation   = 'relation'
-    i.filter     = filter
-    i.reads(f)
-  def empty(i,x):
-    return re.match('^[ \t]*$',x)
-  def at(i,x,txt):
-    return re.match('^[ \t]*@'+txt,x,re.IGNORECASE)
-  def header(i):
-    return ", ".join(i.attributes)
-  def reads(i,f):
-    data = False
-    with open(f)  as fs:
-      for line in fs:
-        line = re.sub(r'(["\'\r\n]|#.*)', "", line)
-        if line:
-          if not i.empty(line): # skip blank lines
-            if data:
-              line = line.split(",")
-              line = i.filter(map(thing,line))
-              indep= line[:-1]
-              dep  = [line[-1]]
-              i.tubs += Row(x=indep, y=dep)
-            else:
-              line = line.split()
-              if i.at(line[0],'RELATION'):
-                i.relation = line[1]
-              elif i.at(line[0],'ATTRIBUTE'):
-                i.attributes += [line[1]]
-              elif i.at(line[0],'DATA'):
-                data=True
-
-"""_______________________________________________________________________
-## demo
-
-For example, consider the file `weather.arff`:
-
-    @relation weather
-    @attribute outlook     {sunny,  overcast, rainy}
-    @attribute temperature real
-    @attribute humidity    real
-    @attribute windy       {TRUE , FALSE}
-    @attribute play        {yes  , no}
-    @data
-    sunny,       85,         85,       FALSE,  no
-    sunny,       80,         90,       TRUE,   no
-    overcast,    83,         86,       FALSE,  yes
-    rainy,       70,         96,       FALSE,  yes
-    rainy,       68,         80,       FALSE,  yes
-    rainy,       65,         70,       TRUE,   no
-    overcast,    64,         65,       TRUE,   yes
-    sunny,       72,         95,       FALSE,  no
-    sunny,       69,         70,       FALSE,  yes
-    rainy,       75,         80,       FALSE,  yes
-    sunny,       75,         70,       TRUE,   yes
-    overcast,    72,         90,       TRUE,   yes
-    overcast,    81,         75,       FALSE,  yes
-    rainy,       71,         91,       TRUE,   no
-
-
-If we read this file and print the headers on the _x_ tub, we see the
-distributions of symbols and numbers in the independent (non-class) columns.
-
-{0: ["counts: {'rainy': 5, 'overcast': 4, 'sunny': 5}", 'mode: sunny', 'most: 5', 'n: 14'], 
- 1: ['lo: 64', 'm2: 561.43', 'mu: 73.57', 'n: 14', 'up: 85'], 
- 2: ['lo: 65', 'm2: 1375.21', 'mu: 81.64', 'n: 14', 'up: 96'], 
- 3: ["counts: {'TRUE': 6, 'FALSE': 8}", 'mode: FALSE', 'most: 8', 'n: 14']}
-}
-
-"""
-if __name__ == '__main__':
-  a=Arff('data/weather.arff')
-  print(a.tubs.x.cols)
-
+  def col(i,pos):
+    if  pos < len(i.x.cols):
+      return i.x.cols[pos]
+    else:
+      return i.y.cols[len(i.x.cols) - pos ]
+  def cell(i,row,pos):
+     if  pos < len(i.x.cols):
+      return row.x[pos]
+     else:
+      return row.y[len(i.x.cols) - pos]
 

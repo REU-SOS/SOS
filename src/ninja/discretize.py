@@ -10,7 +10,8 @@ from __future__ import division,print_function
 import sys
 sys.dont_write_bytecode=True
 
-from tubs import *
+from arff import *
+Demos=[]
 
 """## What is Discretization?
 
@@ -30,6 +31,13 @@ age=3. Many researchers report that discretization improves the performance of a
 learner since it gives a learner a smaller space to reason about, with more
 examples in each part of the space [Do95](refs.md#Do95),[Fa93](refs.md#Fa93).
 
+There are some very simple discretization methods (e.g. divide the column at
+breaks equal to _(max - min)/10_ but that suffers from so many odd cases
+that I jsut do not use it. Instead, I use the top-down clustering methods
+described below, plus some sanity tricks that have proved useful over the years.
+
+But before all that...
+
 ## Dull Columns and Irrelevant Ranges
 
 Suppose we are using discretization to find better ways to achieve some goal
@@ -37,7 +45,7 @@ Suppose we are using discretization to find better ways to achieve some goal
 
 In this case, two important events are when:
 
-- Discretization fails to split a column into ranges; e.g. because the column is
+- Discretization fails to split a column  into ranges; e.g. because the column is
   pure noise or it is not associated with any target goal.  We will call such a
   column _dull_ since it means means that we were unable to find useful
   structure within a column.
@@ -52,6 +60,31 @@ complex data sets can be summarised in just a few ranges. There are some deep
 mathematically reasons for believing that this is actually the expected
 case... see the [math of data](maths.md).
 
+"""
+
+def sharp(data,  **options):
+  "Only returns something is discretization can split the column."
+  for col in data.x.cols.values():
+    if isa(col,Num):
+      ranges = supervisedDiscretization(data, col.pos, **options)
+      if len(ranges) > 1:
+        yield col.pos, ranges
+
+def relevant(data, goal, **options):
+  "Only returns a range if it contains the goal."
+  for pos,ranges in sharp(data, **options):
+    for range1 in ranges:
+      if range1.report.mode == goal:
+        yield pos,range1
+
+def supervisedDiscretization(data, pos, **options):
+  """Supervised discretization divides a numeric column using the data distributions
+     in the klass column."""
+  return  ediv(data._rows, # ediv is a discretizer explained below
+               xx= lambda z: z.x[pos],
+               yy= lambda z: z.y[0],
+               **options) 
+"""
 ## Top-Down Bi-Clustering
 
 All the following tricks us the same top-down bi-clustering approach:
@@ -143,8 +176,6 @@ body looks like the following:
 
 Note the last line: `cut` is only updated if all the `if` statements are passed.
 
-XXX explain this is a greedy search but, heh, its fayyad iranni so chill
-
 One more trick, then we can look at the code:
 
 - Sometimes, in the following, we work with _pairs_ of columns looking for
@@ -158,6 +189,7 @@ One more trick, then we can look at the code:
 - For the simple case, where we are just dividing a column without reflecting
   on any other column, we just set ``yy=xx`` (e.g. see `sddiv`, below).
 
+XXX explain this is a greedy search but, heh, its fayyad iranni so chill
 __________________________________________________________________________
 ## Configuration Options
 
@@ -206,21 +238,22 @@ def sdiv(lst,
     n            = len(lst)
     report       = copy(yrhs)
     for i,new in enumerate(lst):
-      xlhs += new; xrhs -= new
-      ylhs += new; yrhs -= new
-      if xrhs.n < enough:
-        break
-      else:
-        if xlhs.n >= enough:
-          start, here, stop = xx(lst[0]), xx(new), xx(lst[-1])
-          if here - start > small:
-            if stop - here > small:
-              if minSd:
-                score1 = ylhs.n/n*ylhs.sd() + yrhs.n/n*yrhs.sd()
-                if score1*trivial < score:
+      if not isMissing(xx(new)):
+        xlhs += new; xrhs -= new
+        ylhs += new; yrhs -= new
+        if xrhs.n < enough:
+          break
+        else:
+          if xlhs.n >= enough:
+            start, here, stop = xx(lst[0]), xx(new), xx(lst[-1])
+            if here - start > small:
+              if stop - here > small:
+                if minSd:
+                  score1 = ylhs.n/n*ylhs.sd() + yrhs.n/n*yrhs.sd()
+                  if score1*trivial < score:
+                    cut,score = i,score1
+                else:
                   cut,score = i,score1
-              else:
-                cut,score = i,score1
     # --- end for loop -------------------------------
     if verbose:
       print('.. '*lvl,len(lst),score1 or '.')
@@ -278,22 +311,23 @@ def ediv(lst,
     report         = copy(yrhs)
     n = len(lst)
     for i,new  in enumerate(lst):
-      xlhs += new; xrhs -= new
-      ylhs += new; yrhs -= new
-      if xrhs.n < enough:
-        break
-      else:
-        if xlhs.n >= enough:
-          start, here, stop = xx(lst[0]), xx(new), xx(lst[-1])
-          if here - start > small:
-            if stop - here > small:
-              score1= ylhs.n/n*ylhs.ent()+ yrhs.n/n*yrhs.ent()
-              if score1*trivial < score:
-                gain   = e0 - score1
-                delta  = math.log(3**k0-2,2)-(ke0- ke(yrhs)-ke(ylhs))
-                border = (math.log(n-1,2) + delta)/n
-                if gain >= border:
-                  cut,score = i,score1
+      if not isMissing(xx(new)):
+        xlhs += new; xrhs -= new
+        ylhs += new; yrhs -= new
+        if xrhs.n < enough:
+          break
+        else:
+          if xlhs.n >= enough:
+            start, here, stop = xx(lst[0]), xx(new), xx(lst[-1])
+            if here - start > small:
+              if stop - here > small:
+                score1= ylhs.n/n*ylhs.ent()+ yrhs.n/n*yrhs.ent()
+                if score1*trivial < score:
+                  gain   = e0 - score1
+                  delta  = math.log(3**k0-2,2)-(ke0- ke(yrhs)-ke(ylhs))
+                  border = (math.log(n-1,2) + delta)/n
+                  if gain >= border:
+                    cut,score = i,score1
   #----------------------------------------------
     if verbose:
       print('.. '*lvl,len(lst),score1 or '.')
@@ -314,6 +348,13 @@ def ediv(lst,
 
 """________________________________________________________________
 
+
+
+"""
+
+
+"""________________________________________________________________
+
 ## Demo code
 
 """
@@ -326,20 +367,40 @@ def _sdiv():
   for y in sdiv(lst):
     print(y)
  
-def _ediv():
+@demo
+def _ediv2():
+  """Divide a numeric column accroding to how well it seperates the symbols in a
+     second  column of symbols. """
   rseed(1)
-  lst1 = list("abcd")
-  lst2 = []
+  lst0=list('abcd')
+  lst = []
   for _ in xrange(1000):
-    for i,x in enumerate(lst1):
-      lst2 += [[i+0.5*r(), x]] # 'a' is around 0.5, 'd' is around 3.5
-  lst2 = sorted(lst2)
-  for y in ediv(lst2,
+    for i,x in enumerate(lst0):
+      lst += [[i+0.5*r(), x]] # 'a' is around 0.5, 'd' is around 3.5
+  for y in ediv( lst,
                 xx=lambda z: z[0],
                 yy=lambda z: z[1]):
     print(y)
 
+@demo
+def _ediv3():
+  arff=Arff("data/jedit-4.1.arff", prep=tf)
+  print( [pos for pos,_ in sharp(arff.tubs) ] )
+  
+@demo
+def _ediv4():
+  "Like _ediv1, put only print ranges relevant for 'c'."
+  arff=Arff("data/jedit-4.1.arff", prep=tf)
+  relevants= [(range1.score,arff.attributes[pos],range1)
+              for pos,range1 in relevant( arff.tubs ,"true") ]
+  for one in sorted(relevants):
+    print(one)
+
+@demo
+def _ediv5():
+  arff=Arff("data/jedit-4.1.arff", prep=tf)
+  
+
+  
 if __name__ == "__main__":
-  _sdiv()
-  print("")
-  _ediv()
+  demos()

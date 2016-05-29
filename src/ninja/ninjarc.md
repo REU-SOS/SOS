@@ -153,7 +153,7 @@ Cooked="$Safe"
 # 2d) java libraries
 
 Jar="$Here/weka.jar"
-Weka="java -Xmx1024M -cp $Jar "
+Weka="java -Xmx2048M -cp $Jar " # give weka as much memory as possible
 
 # 2e) Write edtior config files somewhere then tweak call
 #     to editor to use thos files
