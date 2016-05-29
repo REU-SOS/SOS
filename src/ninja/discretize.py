@@ -14,21 +14,43 @@ from tubs import *
 
 """## What is Discretization?
 
+<img 
+src="https://lh3.ggpht.com/7QvF4vsk9kWBelRvKJpD6LfnKgSzwH9OLykZDs1GQFsgQ1-nbaMPPZ4MIkp3PM5b3g=w300" 
+align=right>
+
 Think of learning like an accordion- some target concept is spread out across
 all the data and our task is to squeeze it together till it is dense enough to
 be visible. That is, learning is like a compression algorithm.
 
 One trick that helps compressions is discretization: i.e. clumping together
 observations taken over a continuous range :-) into a small number of
-regions. Humans often discretize real world data. For example, parents often
+ranges. Humans often discretize real world data. For example, parents often
 share tips for "toddlers"; i.e. humans found between the breaks of age=1 and
-age=3.
- 
-Many researchers report that discretization improves the performance of a
+age=3. Many researchers report that discretization improves the performance of a
 learner since it gives a learner a smaller space to reason about, with more
 examples in each part of the space [Do95](refs.md#Do95),[Fa93](refs.md#Fa93).
 
+## Dull Columns and Irrelevant Ranges
 
+Suppose we are using discretization to find better ways to achieve some goal
+(e.g. some class called "happiness")
+
+In this case, two important events are when:
+
+- Discretization fails to split a column into ranges; e.g. because the column is
+  pure noise or it is not associated with any target goal.  We will call such a
+  column _dull_ since it means means that we were unable to find useful
+  structure within a column.
+       + Note that the opposite of dull is `sharp`.
+
+- When a `Range` is _irrelevant_; i.e. it does not contain a majority of the
+  goal we seek,
+       + Note that the opposite of irrelevant is `relevant`. 
+
+As shown below, by ignoring dull columnns and irrelevant ranges, seemingly
+complex data sets can be summarised in just a few ranges. There are some deep
+mathematically reasons for believing that this is actually the expected
+case... see the [math of data](maths.md).
 
 ## Top-Down Bi-Clustering
 
@@ -39,9 +61,9 @@ All the following tricks us the same top-down bi-clustering approach:
       - Where _best_ might mean many things, discussed below.
 - Recurse into both breaks.
 
-These tricks divides a column into a list of useful `Range`s. The most important
-part of the following class is the `pretty` method that lets us show a range as 
-some region between some values.
+These tricks discretize numeric columns into a list of useful `Range`s. The most
+important part of the following class is the `pretty` method that lets us show a
+range as some region between some values.
 
 """
 
@@ -61,27 +83,12 @@ class Range:
   
 """
 
-## Dull Columns and Irrelevant Ranges
 
-In the following,two  important events are 
-
-- When these tricks divide a column into one, and only one, `Range`. We call such
-  a column _dull_ since it means 
-  means that we were unable to find useful structure within a column.
-       + Note that the opposite of dull is `sharp`.
-- When a `Range` is _irrelevant_; i.e. it does
-  not contain a majority of whatever effect is desired.
-       + Note that the opposite of irrelevant is `relevant`. 
-
-As shown below, by ignoring dull columnns and irrelevant ranges,
-seemingly
-complex data sets can be summarised in just a few ranges.
-
-## Sanity Steps:
+## Descrizing Sanely
 
 Note that all these tricks use four sanity tricks:
 
-- Don't waste time resorting the columns for every level of the recursion:
+- Don't waste time resorting the numeric columns for every level of the recursion:
        - Sort the whole column once, at the start, then pass the sorted sub-ranges into
          the recursive calls.
 - Don't break things into sub-ranges with two few samples
@@ -102,21 +109,30 @@ Note that all these tricks use four sanity tricks:
 As to that last point, initially `lhs` is empty and `rhs` contains information
 about the entire lst. Then we walk over the sorted list, adding in each item
 to `lhs` while removing it from `rhs`. This means that a skeleton template for
-all the following code looks like this:
+all the following code looks something like this:
 
+  
 
-   def div(lst):
-     divide(sorted(lst),      # only sort once
-            trivial = 1.05,
-            small   = rhs.sd()*0.2,
-            enough  = sqrt(len(lst)))
-
-   def divide(lst, trivial, small, enough, cut=None) :
+   def divide(lst) :
+     cut = None
      lhs, rhs = nothing, everything(lst)
      score    = some initial value
      for i,new  in enumerate(lst):
        lhs += new                      # lhs is a `Col` and supports `__iadd__`
        rhs -= new                      # rhs is a `Col` and supports `__isub__`
+       # body of discretizer goes here
+     return cut
+
+Note the last line: if the body of the discretizer cannot find any interesting `cuts`,
+then this function returns `None`.
+
+As to what goes into the body of the discretizer, based on the above sanity tricks, that
+body looks like the following:
+
+       trivial = 1.05,
+       small   = rhs.sd()*0.2,
+       enough  = sqrt(len(lst)))
+
        if rhs.n < enough:              # break when too few rhs samples
          break
        else:
@@ -127,7 +143,8 @@ all the following code looks like this:
                score1 = something
                if score1 * trivial < score: # ignore trivial differences.
                   score, cut = score1, i
-     return cut, score # cut is None if no breaks found
+
+Note the last line: `cut` is only updated if all the `if` statements are passed.
 
 XXX explain this is a greedy search but, heh, its fayyad iranni so chill
 
@@ -237,7 +254,7 @@ and `border` below) to determine a stopping criteria
 for the recursion.  For details on those tricks, see
 http://robotics.stanford.edu/users/sahami/papers-dir/disc.pdf
 
-XXX Fayyad irrani
+XXX [Fayyad irrani](refs.bib#Fa93)
 
 """  
 
