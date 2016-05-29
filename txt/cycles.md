@@ -150,7 +150,7 @@ ______
 + CPU farms
     + AWS, Azure, etc
     + Spark (Elastic Search, log stash)
-    + HPC, batch submit of large jobs (local to NC State: [instructions](https://github.com/ai-se/HPC-Clusters):  <a href="https://ncsu.edu/hpc/Images/Xeon2.jpg"><img align=middle
+    + HPC, batch submit of large jobs (local to NC State: [instructions](https://github.com/ai-se/HPC-Clusters)):  <a href="https://ncsu.edu/hpc/Images/Xeon2.jpg"><img align=middle
     src="https://ncsu.edu/hpc/Images/Xeon2.jpg" width=300></a>
     + HPCC (lexis nexis)
 + Misc
@@ -451,5 +451,5 @@ END_G {
 
 And, when the above fail you:
 
-- perl, python ruby, lua, scala
+- perl, python, ruby, lua, scala
 - e.g. see [How to use Ruby instead of sed and awk](http://nithinbekal.com/posts/ruby-sed-awk/)
