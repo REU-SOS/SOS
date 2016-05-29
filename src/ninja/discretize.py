@@ -149,6 +149,9 @@ One more trick, then we can look at the code:
 
 - Sometimes, in the following, we work with _pairs_ of columns looking for
   breaks in column1 such that it most divides up the associated values in column2.
+        - e.g. imagine two columns of data, one called "age" and another called "dead?"
+        - Somewhere around age>120, all the associated "dead?" entries will be "True"
+        - So me might propose one break of "age" at around 120.
 - Hence, in the following, all the `divide` codes have accessors `xx` and `yy`
   telling it what column to break on (the `xx` ones) in order to have most
   effct on the  other column `yy`. 
@@ -165,7 +168,8 @@ The.divs = o(attr    = 0,      # a label for the ranges
              trivial = 1.05,   # need at least a 5% improvement
              enough  = None,   # enough items for a bin. default=n**0.5
              small   = None,   # when are numbers too small?
-             verbose = False)
+             verbose = False,
+             minSd   = True)   # for numeric columns
 
 """_____________________________________________________________________
 ## sdiv: Dividing Numeric Columns
@@ -193,7 +197,7 @@ def sdiv(lst,
          verbose = The.divs.verbose,  # prints some trace info
          xx      = same,   # access independent variable
          yy      = same,   # access dependent   variable
-         minSd   = True):  
+         minSd   = The.divs.minSd):  
   # ---------------------------------------------------
   def divide(lst, out=[], lvl=0, cut=None):
     xlhs, xrhs   = Num(get=xx), Num(lst, get=xx)
