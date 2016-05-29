@@ -215,7 +215,7 @@ of how many different symbols fall into some set (and a set with only
 one symbol has entropy of zero).
 
 This code contains some funky information theory tricks (see `delta`
-and `border` below) to determine a stoppiung criteria
+and `border` below) to determine a stopping criteria
 for the recursion.  For details on those tricks, see
 http://robotics.stanford.edu/users/sahami/papers-dir/disc.pdf
 
