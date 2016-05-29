@@ -83,8 +83,7 @@ class Range:
   
 """
 
-
-## Descrizing Sanely
+## Discretizing,  Sanely
 
 Note that all these tricks use four sanity tricks:
 
@@ -110,8 +109,6 @@ As to that last point, initially `lhs` is empty and `rhs` contains information
 about the entire lst. Then we walk over the sorted list, adding in each item
 to `lhs` while removing it from `rhs`. This means that a skeleton template for
 all the following code looks something like this:
-
-  
 
    def divide(lst) :
      cut = None
