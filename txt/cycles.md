@@ -150,7 +150,7 @@ ______
 + CPU farms
     + AWS, Azure, etc
     + Spark (Elastic Search, log stash)
-    + HPC, batch submit of large jobs (local to NC State: [instructions](https://github.com/ai-se/HPC-Clusters):  <a href="https://ncsu.edu/hpc/Images/Xeon2.jpg"><img align=middle
+    + HPC, batch submit of large jobs (local to NC State: [instructions](https://github.com/ai-se/HPC-Clusters)):  <a href="https://ncsu.edu/hpc/Images/Xeon2.jpg"><img align=middle
     src="https://ncsu.edu/hpc/Images/Xeon2.jpg" width=300></a>
     + HPCC (lexis nexis)
 + Misc
@@ -263,68 +263,9 @@ There are two main "families" of tools you should be familiar with:
   are still oh-so-useful.
 - More recent web-aware tools (Selenium, JSON tools, maven, etc).
 
-The UNIX shell tools push data from sources through filters along pipes:
-
-```bash
-command
-command < inputFile
-command > outputFile
-command1 | command2 # pipes
-command &           # run in background
-```
-
-The shell is a general programming langauge:
-
-```bash
-e=expansion
-$e
-$(command)
-'literal string'
-"string with \$ $e"
-```
-
-Command can run sequetially or conditionally:
-
-```bash
-command1 ; command2
-(command1 ; command2) # in a sub-shell
-command1 || command2  # do command2 only if command1 fails
-command1 && command2  # do command2 only if command1 succeeds
-```
-
-Usual conditionals and loops:
-
-```bash
-if command; then
-   commands
-fi
-
-while command; do
-  commands
-done
-
-while read var; do
-   commands
-done
-
-# looping over lists
-for var in a b c; do
-   commands # that can access $var
-done
-
-# looping over numerics
-for((x=1;x<=10;x++); do
-   commands # that can access $x
-done
-
-case word in
-pattern1) commands1;;
-pattern2) commands2;;
-esac
-```
+To review of unix shells, see [shells lesson](https://github.com/REU-SOS/EngineeringBasics/blob/master/Shells.md#shells).
 
 Some shell examples follow.
-
 
 ### curl and wget
 
@@ -484,7 +425,7 @@ e.g.
 $ find build  -name '*.class' -type f -mtime -7
 ```
 
-(Exercise for the reader: what does the `-mtime` flag do?. Hint: `man find`.)
+(Exercise for the reader: what does the `-mtime` flag do?. Hint: `man find` or see [explain shell](http://explainshell.com/explain?cmd=find+build++-name+%27*.class%27+-type+f+-mtime+-7))
 
 ### So many more:
 
@@ -510,5 +451,5 @@ END_G {
 
 And, when the above fail you:
 
-- perl, python ruby, lua, scala
+- perl, python, ruby, lua, scala
 - e.g. see [How to use Ruby instead of sed and awk](http://nithinbekal.com/posts/ruby-sed-awk/)
