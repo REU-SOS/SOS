@@ -484,7 +484,7 @@ e.g.
 $ find build  -name '*.class' -type f -mtime -7
 ```
 
-(Exercise for the reader: what does the `-mtime` flag do?. Hint: `man find`.)
+(Exercise for the reader: what does the `-mtime` flag do?. Hint: `man find` (or see [explain shell](http://explainshell.com/explain?cmd=find+build++-name+%27*.class%27+-type+f+-mtime+-7)))
 
 ### So many more:
 
