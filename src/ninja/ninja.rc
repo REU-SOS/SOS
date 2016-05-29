@@ -245,6 +245,17 @@ zips() { # make a convenient download
 	 2> /dev/null
     )
 }
+docs() {
+    grep -l "____" *.py |
+        while read p; do
+            if [ "${p}" -nt "${p}.md" ]; then
+                awk -f $Here/etc/py2md.awj $p > $Tmp/$$.md
+                $Here/etc/render "$Here" "$Here" tiny.cc/dotninja $Tmp/$$.md > ${p}.md
+                git add ${p}.md
+            fi
+            
+        done                
+}
 ninjarc() { # pretties
     if  [ "ninja.rc" -nt "ninjarc.md" ]; then
     (cat <<-'EOF'  
