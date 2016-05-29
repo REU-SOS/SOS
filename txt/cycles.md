@@ -263,68 +263,9 @@ There are two main "families" of tools you should be familiar with:
   are still oh-so-useful.
 - More recent web-aware tools (Selenium, JSON tools, maven, etc).
 
-The UNIX shell tools push data from sources through filters along pipes:
-
-```bash
-command
-command < inputFile
-command > outputFile
-command1 | command2 # pipes
-command &           # run in background
-```
-
-The shell is a general programming langauge:
-
-```bash
-e=expansion
-$e
-$(command)
-'literal string'
-"string with \$ $e"
-```
-
-Command can run sequetially or conditionally:
-
-```bash
-command1 ; command2
-(command1 ; command2) # in a sub-shell
-command1 || command2  # do command2 only if command1 fails
-command1 && command2  # do command2 only if command1 succeeds
-```
-
-Usual conditionals and loops:
-
-```bash
-if command; then
-   commands
-fi
-
-while command; do
-  commands
-done
-
-while read var; do
-   commands
-done
-
-# looping over lists
-for var in a b c; do
-   commands # that can access $var
-done
-
-# looping over numerics
-for((x=1;x<=10;x++); do
-   commands # that can access $x
-done
-
-case word in
-pattern1) commands1;;
-pattern2) commands2;;
-esac
-```
+To review of unix shells, see [shells lesson](https://github.com/REU-SOS/EngineeringBasics/blob/master/Shells.md#shells).
 
 Some shell examples follow.
-
 
 ### curl and wget
 
