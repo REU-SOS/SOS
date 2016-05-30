@@ -382,20 +382,57 @@ def _ediv2():
                 yy=lambda z: z[1]):
     print(y)
 
+"""
+
+-----| _ediv2 |-----------------------
+# Divide a numeric column accroding to how well it seperates the symbols in a
+# second  column of symbols.
+
+['attr: 0', 'id: 0', 'lo: 0.0', 'n: 999', 'report: ["counts: {\'a\': 999}", \'mode: a\', \'most: 999\', \'n: 999\']', 'score: 0.0', 'up: 0.5']
+['attr: 0', 'id: 1', 'lo: 0.5', 'n: 998', 'report: ["counts: {\'a\': 1, \'b\': 997}", \'mode: b\', \'most: 997\', \'n: 998\']', 'score: 0.01', 'up: 1.5']
+['attr: 0', 'id: 2', 'lo: 1.5', 'n: 1002', 'report: ["counts: {\'c\': 999, \'b\': 3}", \'mode: c\', \'most: 999\', \'n: 1002\']', 'score: 0.03', 'up: 2.5']
+['attr: 0', 'id: 3', 'lo: 2.5', 'n: 1001', 'report: ["counts: {\'c\': 1, \'d\': 1000}", \'mode: d\', \'most: 1000\', \'n: 1001\']', 'score: 0.01', 'up: 3.5']
+
+
+"""
+
 @demo
 def _ediv3():
   arff=Arff("data/jedit-4.1.arff", prep=tf)
   print( [pos for pos,_ in sharp(arff.tubs) ] )
-  
+
+"""
+
+-----| _ediv3 |-----------------------
+[0, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 14, 15, 16, 17, 18, 19]
+
+
+"""  
+
 @demo
 def _ediv4():
-  "Like _ediv1, put only print ranges relevant for 'c'."
+  "Like _ediv1, put only print ranges relevant for 'true'."
   arff=Arff("data/jedit-4.1.arff", prep=tf)
   relevants= [(range1.score,arff.attributes[pos],range1)
               for pos,range1 in relevant( arff.tubs ,"true") ]
   for one in sorted(relevants):
     print(one)
 
+"""
+-----| _ediv4 |-----------------------
+# Like _ediv1, put only print ranges relevant for 'true'.
+
+0.7553754125614288, 'lcom', ['attr: 0', 'id: 1', 'lo: 217', 'n: 23', 'report: ["counts: {\'true\': 18, \'false\': 5}", \'mode: true\', \'most: 18\', \'n: 23\']', 'score: 0.76', 'up: 13445'])
+(0.8904916402194913, 'ce', ['attr: 0', 'id: 2', 'lo: 13', 'n: 39', 'report: ["counts: {\'false\': 12, \'true\': 27}", \'mode: true\', \'most: 27\', \'n: 39\']', 'score: 0.89', 'up: 60'])
+(0.9121156307204276, 'wmc', ['attr: 0', 'id: 2', 'lo: 15', 'n: 55', 'report: ["counts: {\'false\': 18, \'true\': 37}", \'mode: true\', \'most: 37\', \'n: 55\']', 'score: 0.91', 'up: 413'])
+(0.9559312637896479, 'cam', ['attr: 0', 'id: 0', 'lo: 0', 'n: 61', 'report: ["counts: {\'false\': 23, \'true\': 38}", \'mode: true\', \'most: 38\', \'n: 61\']', 'score: 0.96', 'up: 0.25'])
+(0.9709505944546686, 'rfc', ['attr: 0', 'id: 1', 'lo: 40', 'n: 85', 'report: ["counts: {\'false\': 34, \'true\': 51}", \'mode: true\', \'most: 51\', \'n: 85\']', 'score: 0.97', 'up: 505'])
+(0.9852281360342516, 'moa', ['attr: 0', 'id: 1', 'lo: 2', 'n: 63', 'report: ["counts: {\'false\': 27, \'true\': 36}", \'mode: true\', \'most: 36\', \'n: 63\']', 'score: 0.99', 'up: 17'])
+(0.9988455359952018, 'loc', ['attr: 0', 'id: 1', 'lo: 316', 'n: 100', 'report: ["counts: {\'false\': 48, \'true\': 52}", \'mode: true\', \'most: 52\', \'n: 100\']', 'score: 1.0', 'up: 23590'])
+(0.9996734260048917, 'ic', ['attr: 0', 'id: 1', 'lo: 2', 'n: 47', 'report: ["counts: {\'false\': 23, \'true\': 24}", \'mode: true\', \'most: 24\', \'n: 47\']', 'score: 1.0', 'up: 4'])
+(1.0, 'max_cc', ['attr: 0', 'id: 2', 'lo: 6', 'n: 106', 'report: ["counts: {\'false\': 53, \'true\': 53}", \'mode: true\', \'most: 53\', \'n: 106\']', 'score: 1.0', 'up: 167'])
+
+"""
 @demo
 def _ediv5():
   arff=Arff("data/jedit-4.1.arff", prep=tf)
