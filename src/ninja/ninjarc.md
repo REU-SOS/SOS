@@ -54,7 +54,7 @@ ________
 #
 # ## INSTALL:
 
-# Go to a clean new directory and type...
+# Go to a clean new directory, on a pathname with no spaces,  type...
 #
 # 1. wget https://github.com/REU-SOS/SOS/raw/master/src/ninja.zip
 # 2. unzip ninja.zip
@@ -113,15 +113,15 @@ eg2() { egX data/jedit-4.1.arff $Seed
       }
 
 egX() { ok
-	local what=`basename $1 | sed 's/.arff//' `
-	crossval 5 5 $1 $2 rbfnet bnet j48 nb > $Tmp/egX
-	gawk  '/true/ {print $2,$10}' $Tmp/egX > $Tmp/egX.pd
-	gawk  '/true/ {print $2,$11}' $Tmp/egX > $Tmp/egX.pf	
+	local what="`basename $1 | sed 's/.arff//' `"
+	crossval 5 5 $1 $2 rbfnet bnet j48 nb > "$Tmp/egX"
+	gawk  '/true/ {print $2,$10}' "$Tmp/egX" > "$Tmp/egX.pd"
+	gawk  '/true/ {print $2,$11}' "$Tmp/egX" > "$Tmp/egX.pf"	
       }
 
 statsX() {
-    echo "pd"; python stats.py < $Tmp/egX.pd
-    echo "pf"; python stats.py < $Tmp/egX.pf	
+    echo "pd"; python "$Here"/stats.py < "$Tmp/egX.pd"
+    echo "pf"; python "$Here"/stats.py < "$Tmp/egX.pf"	
 }
 
 
@@ -147,13 +147,13 @@ Safe="$HOME/tmp/safe/$Me"
 
 # 2c) $Raw = source of raw data; $Cooked= pre-processed stuff
 
-Raw=$Here
+Raw="$Here"
 Cooked="$Safe"
 
 # 2d) java libraries
 
-Jar="$Here/weka.jar"
-Weka="java -Xmx2048M -cp $Jar " # give weka as much memory as possible
+#Jar="$Here"/weka.jar
+Weka="$(which java) -Xmx1024M -cp $Here/weka.jar" # give weka as much memory as possible
 
 # 2e) Write edtior config files somewhere then tweak call
 #     to editor to use thos files
@@ -161,10 +161,10 @@ Weka="java -Xmx2048M -cp $Jar " # give weka as much memory as possible
 Ed="/Applications/Emacs.app/Contents/MacOS/Emacs"
 Edot="/tmp/edot$$"
 
-e() { $Ed -q -l "$Edot" $* &  # $Edot defined below 
+e() { "$Ed" -q -l "$Edot" $* &  # $Edot defined below 
 }
 
-cat << 'EOF' > $Edot
+cat << 'EOF' > "$Edot"
 (progn
 
   (setq require-final-newline    t) 
@@ -206,6 +206,7 @@ EOF
 ## 3 ##################################################
 # SILLY: print a ninja, just once (on first load)
 
+
 if [ "$Splashed" != 1 ] ; then
     Splashed=1
     tput setaf 3 # changes color 
@@ -230,7 +231,9 @@ if [ "$Splashed" != 1 ] ; then
 _______________________________________________________
 EOF
     tput sgr0 # color back to black
-    
+    for want in java gawk python zip unzip git perl nothing; do
+        which "$want" || echo "ATTENTION: missing $want; can you install ${want}?"
+    done  
 fi
 
 ## 3 ##################################################
@@ -238,6 +241,7 @@ fi
 
 # 3a) print name and license
 
+echo
 echo "ninja.rc v1.0 (c) 2016 Tim Menzies, MIT (v2) license"
 echo
 
@@ -248,10 +252,10 @@ ok() { # 3b) need a place for all the stuff that makes system usable
 }
 
 dirs() { # 3c) create all the required dirs
-    mkdir -p $Safe $Tmp $Raw $Cooked
+    mkdir -p $"Safe" "$Tmp" "$Raw" "$Cooked"
 }
 zips() { # make a convenient download 
-    (cd $Here/..
+    (cd "$Here"/..
      zip -r ninja.zip -u ninja \
 	 -x '*.zip' -x '*.DS_Store' -x '.gitignore' \
 	 2> /dev/null
@@ -261,8 +265,8 @@ docs() {
     grep -l "____" *.py |
         while read p; do
             if [ "${p}" -nt "${p}.md" ]; then
-                awk -f $Here/etc/py2md.awj $p > $Tmp/$$.md
-                $Here/etc/render "$Here" "$Here" tiny.cc/dotninja $Tmp/$$.md > ${p}.md
+                awk -f "$Here"/etc/py2md.awj $p > "$Tmp"/$$.md
+                "$Here"/etc/render "$Here" "$Here" tiny.cc/dotninja "$Tmp"/$$.md > ${p}.md
                 git add ${p}.md
             fi
             
@@ -293,17 +297,17 @@ EOF
 # TIP: 3d) no matter now this program ends, clean on exit
 
 trap zap 0 1 2 3 4 15 # catches normal end, Control-C, Control-D etc
-zap() { echo "Zapping..." ; rm -rf $Tmp; }
+zap() { echo "Zapping..." ; rm -rf "$Tmp"; }
 
 # TIP: 3e) Define a convenience function to reload environment
 
-reload() { . $Here/ninja.rc ; }
+reload() { . "$Here"/ninja.rc ; }
 	
 ## 4 ######################################################
 # TIP: useful shell one-liners
 
 # change the prompt to include "NINJA" and the local dirs
-here() { cd $1; basename $PWD; }
+here() { cd $1; basename "$PWD"; }
 
 PROMPT_COMMAND='echo  -ne "NINJA:\033]0; $(here ..)/$(here .)\007"
 PS1=" $(here ..)/$(here .) \!> "'
@@ -350,7 +354,7 @@ gitting() {
 
 killControlM() { tr -d '\015'; } 
 downCase()     { tr A-Z a-z; }
-stemming()     { perl $Here/stemming.pl  ; }
+stemming()     { perl "$Here"/stemming.pl  ; }
 stops()        {  gawk ' 
        NR==1 {while (getline < Stops)  Stop[$0] = 1;
                                 while (getline < Keeps)  Keep[$0] = 1; 
@@ -358,8 +362,8 @@ stops()        {  gawk '
                             { for(I=1;I<=NF;I++) 
                                   if (Stop[$I] && ! Keep[$I]) $I=" "
                       print $0
-                          }' Stops="$Here/stop_words.txt" \
-                               Keeps="$Here/keep_words.txt" 
+                          }' Stops=""$Here"/stop_words.txt" \
+                               Keeps=""$Here"/keep_words.txt" 
                             }
 prep()  { killControlM | downCase | 
                   stemming | stops; }
@@ -460,25 +464,25 @@ wantgot() { gawk '/:/ {
 # 7b) print the learer and data set before generating the
 #     actual and predicted values
 trainTest() {
-    local learner=$1
-    local train=$2
-    local test=$3
+    local learner="$1"
+    local train="$2"
+    local test="$3"
     echo "$learner $data"
-    $learner $train $test | wantgot
+    "$learner" "$train" "$test" | wantgot
 }
 
 # 7c) Know your a,b,c,d s 
-abcd() { python $Here/abcd.py; }
+abcd() { python "$Here"/abcd.py; }
 
 # 7d) Generate data sets for an m*n cross-val. Call learners on each.
 crossval() {
-    local m=$1
-    local n=$2
-    local data=$3
-    local r=$4
+    local m="$1"
+    local n="$2"
+    local data="$3"
+    local r="$4"
     shift 4
-    local learners=$*
-    killControlM < $data |
+    local learners="$*"
+    killControlM < "$data" |
     gawk 'BEGIN                 { srand('$r') }
           /^.RELATION/,/^.DATA/ { header= header "\n" $0; next } 
           $0                    { Row[NR] = $0 }
@@ -495,9 +499,9 @@ crossval() {
                    print(Row[r]) >> test
                  else
                    print(Row[r]) >> train }}}
-         ' n=$n m=$m dir=$Tmp 
-    echo $Tmp
-    cd $Tmp
+         ' n=$n m=$m dir="$Tmp" 
+    echo "$Tmp"
+    cd "$Tmp"
     for learner in $learners; do
 	for((i=1; i<=$m; i++)); do
 	    fyi "$learner $i"
@@ -507,7 +511,7 @@ crossval() {
 	   done
 	done
     done
-    cd $Here
+    cd "$Here"
 }
 
 

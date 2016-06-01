@@ -14,6 +14,8 @@ pass them on to someone else.
 
 ## Install and Test
 
+In a clean directory on a pathname with no spaces, type:
+
 ```
 wget https://github.com/REU-SOS/SOS/raw/master/src/ninja.zip
 unzip ninja.zip
