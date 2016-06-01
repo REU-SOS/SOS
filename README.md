@@ -10,7 +10,7 @@ Activities and Information for Science of Software REU @ NCSU.
 
 | Time    | Monday, 5/30        | Tuesday, 5/31              | Wednesday, 6/1       | Thursday, 6/2      | Friday, 6/3                  |
 |-------  | ------------------  | -------------------------- | -------------------- | ------------------ | ---------------------------- |
-|Morning  | Kickoff; Intros     | [Data Collection](https://github.com/REU-SOS/DataCollection) | MySql: Data Wrangling     |               |  Anatomy of a research report - Kraft                          |
+|Morning  | Kickoff; Intros     | [Data Collection](https://github.com/REU-SOS/DataCollection) | [MySql: Data Wrangling](https://github.com/REU-SOS/DataWrangling)     |               |  Anatomy of a research report - Kraft                          |
 |Mid      | [Engineering Basics](https://github.com/REU-SOS/EngineeringBasics) (1-3pm)|  Open  SE research questions  (TM) [video](http://www.youtube.com/watch?v=kO9OYnkeRTM&t=35m0s),[theDiagram](https://github.com/ds4se/chapters/blob/master/turhanb/theGraph.md)                 | Safety Orientation (1:30-3pm)|   R: Statistics 101       | [Data Challenge Presentations](https://docs.google.com/spreadsheets/d/1_suW-svq7TmrGlrJ-2za8YodtkWa2-EZqUK5ZDFiJQ8/edit?usp=sharing) |
 |Afternoon| [Data Challenge](https://github.com/REU-SOS/DataChallenge)      |   Data mining in JAVA, reproduction packages [primer](http://www.cs.waikato.ac.nz/~remco/weka_bn/node13.html), [eg](https://github.com/REU-SOS/SOS/blob/master/src/log.sh) (TM)                    | Reception, 3-4:30pm  |                    |                              |                     |                      |                    |                              |
 
